@@ -1,0 +1,28 @@
+<section>
+    <div class="header">HEADER</div>
+
+    <form (ngSubmit)="login()" #userauth="ngForm" >
+        <div class="headline">
+            <span>Anmeldung</span>
+        </div>
+        <div class="inputContainer">
+            <div class="inputfield">
+                <div>
+                    <img src="./img/mail.svg" alt="">
+                    <input #email="ngModel" [(ngModel)]="user.email" name="email" id="email" type="text" placeholder="E-Mail eingeben" required>
+                </div>
+                
+            </div>
+            <div class="inputfield">
+                <div>
+                    <img src="./img/lock.svg" alt="">
+                    <input #password [(ngModel)]="user.password" name="password" id="password" type="password" placeholder="Passwort eingeben" required>
+                </div>
+                
+            </div>
+           
+            <div></div>
+        </div>
+        <button [disabled]="userauth.invalid" class="loginBtn">Anmelden</button>
+    </form>
+</section>

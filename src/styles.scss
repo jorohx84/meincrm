@@ -5,12 +5,12 @@
     src: url('/fonts/Nunito-VariableFont_wght.ttf');
 }
 
-body{
+body {
     margin: 0;
     font-family: 'Nunito';
 }
 
-button{
+button {
     background-color: transparent;
     border: none;
     padding: 0;
@@ -18,32 +18,48 @@ button{
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    &:active{
+        transform: scale(0.95);
+    }
 }
 
 input {
     background-color: transparent;
     border: none;
 
-    
-    }
-    
-    input:focus {
-        outline: none;
-        box-shadow: none;
-    }
-    
-    input:focus::placeholder{
-        opacity: 0;
-    }
-    
-    
-    input:-webkit-autofill:focus {
-        background-color: transparent !important;
-        color: white !important;
-    }
-    
-    input:-webkit-autofill {
-        background-color: transparent !important;
-        color: white !important;
-        transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
-    }
+
+}
+
+input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+input:focus::placeholder {
+    opacity: 0;
+}
+
+
+input:-webkit-autofill:focus {
+    background-color: transparent !important;
+    color: white !important;
+}
+
+input:-webkit-autofill {
+    background-color: transparent !important;
+    color: white !important;
+    transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
+}
+
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+:root {
+
+    --border-color: rgba(21, 141, 226, 0.492);
+    --blue1: rgb(6, 125, 244);
+}
