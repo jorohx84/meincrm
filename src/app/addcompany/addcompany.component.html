@@ -1,19 +1,51 @@
 <section>
     <div class="header">Header</div>
-    <form action="">
-<div class="headline">
-    <button><img src="./img/goback.svg" alt=""></button>
-    <span>Firma anlegen</span>
-</div>
 
-<div class="inputfields">
-    <input type="text" name="name" id="name" placeholder="Firmenname">
-    <input type="text" name="street" id="street" placeholder="Straße">
-    <input type="text" name="place" id="place" placeholder="Ort">
-    <input type="text" name="areacode" id="areacode" placeholder="Postleitzahl">
-    <input type="email" name="email" id="email" placeholder="E-Mail-Adresse">
-</div>
+    <form (ngSubmit)="onSubmit(companyaccount)" #companyaccount="ngForm">
+        <div class="headline">
+            <button><img src="./img/goback.svg" alt=""></button>
+            <span>Firma anlegen</span>
+        </div>
 
-<button class="createBtn">Firma erstellen</button>
+        <div class="inputfields">
+            <div class="inputContainer">
+                <input #name="ngModel" [(ngModel)]="company.name" type="text" name="name" id="name"
+                    placeholder="Firmenname" required>
+                @if(name.touched && !name.valid){
+                <span class="error"> Bitte Firmenname eingeben</span>
+                }
+            </div>
+            <div class="inputContainer">
+                <input #street="ngModel" [(ngModel)]="company.street" type="text" name="street" id="street"
+                    placeholder="Straße" required>
+                @if(street.touched && !street.valid){
+                <span class="error"> Bitte Straße eingeben</span>
+                }
+
+            </div>
+            <div class="inputContainer">
+                <input #place="ngModel" [(ngModel)]="company.place" type="text" name="place" id="place"
+                    placeholder="Ort" required>
+                @if(place.touched && !place.valid){
+                <span class="error"> Bitte Ort eingeben</span>
+                }
+            </div>
+            <div class="inputContainer">
+                <input #areacode="ngModel" [(ngModel)]="company.areacode" type="text" name="areacode" id="areacode"
+                    placeholder="Postleitzahl" required>
+                @if(areacode.touched && !areacode.valid){
+                <span class="error"> Bitte Postleitzahl eingeben</span>
+                }
+            </div>
+            <div class="inputContainer">
+                <input #email="ngModel" [(ngModel)]="company.email" type="email" name="email" id="email"
+                    placeholder="E-Mail-Adresse" required>
+                @if(email.touched && !email.valid){
+                <span class="error"> Bitte E-Mail-Adresse eingeben</span>
+                }
+            </div>
+        </div>
+
+        <button [disabled]="companyaccount.invalid" class="createBtn">Firma erstellen</button>
     </form>
 </section>
