@@ -12,7 +12,7 @@ export class UserService {
     user: any = new User;
     users: any[] = [];
     firestore = inject(Firestore);
-  
+    companyIdent: string | null = null;
 
 
 
@@ -26,6 +26,7 @@ export class UserService {
         onAuthStateChanged(this.auth, (user) => {
             if (user) {
                 this.user = user;
+                this.companyIdent = user.displayName;
                 console.log('User ist eingeloggt', this.user);
             } else {
                 this.user = new User(null);
@@ -38,22 +39,23 @@ export class UserService {
 
 
     async findCurrentUser(id: string) {
+console.log(this.companyIdent);
 
-        this.users = await this.getUsers(id);
+        this.users = await this.getUsers(this.companyIdent);
 
         console.log(this.users);
 
         const user = this.users.find(user => user.id === id);
         if (user) {
             this.user = user;
-          
+
 
             localStorage.setItem('user', JSON.stringify(user));
             return user
         }
     }
 
-    async getUsers(companyID: string) {
+    async getUsers(companyID: string | null) {
         try {
             const usersCollection = collection(this.firestore, `companies/${companyID}/users`);
             const userSnapshot = await getDocs(usersCollection);

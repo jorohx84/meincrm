@@ -1,1 +1,9 @@
-<p>dashboard works!</p>
+<section>
+    <div class="header">
+        <span>{{currentUser.companyName}}</span>
+    </div>
+</section>
+
+
+<button *ngIf="isAdmin" (click)="sharedservice.navigateToPath('/admin')" class="btn">Adminbereich</button>
+<button *ngIf="isSuperAdmin" (click)="sharedservice.navigateToPath('/company')" class="btn">Superadmin</button>

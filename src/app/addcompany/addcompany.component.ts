@@ -7,7 +7,7 @@ import { Auth, signInWithEmailAndPassword, sendPasswordResetEmail } from '@angul
 
 import { CompanyService } from '../company.service';
 import { createUserWithEmailAndPassword, getAuth, updateProfile } from 'firebase/auth';
-
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-addcompany',
@@ -20,7 +20,7 @@ export class AddcompanyComponent {
   firestore = inject(Firestore);
   auth = inject(Auth);
   companyservice = inject(CompanyService);
-
+  sharedservice = inject(SharedService)
 
   async onSubmit(companyaccount: NgForm) {
 
@@ -28,7 +28,8 @@ export class AddcompanyComponent {
       .then((userCredential) => {
         const user = userCredential.user;
         return updateProfile(user, {
-          displayName: this.company.name,
+          displayName: user.uid,
+
         }).then(() => {
           const companyDocRef = doc(this.firestore, `companies/${user.uid}`);
           return setDoc(companyDocRef, {
@@ -42,10 +43,14 @@ export class AddcompanyComponent {
             return setDoc(userDocRef, {
               name: 'Admin',
               email: this.company.email,
-              role:'admin',
-              companyID:user.uid
-            }).then(()=>{
-              sendPasswordResetEmail(this.auth,this.company.email);
+              role: 'admin',
+              companyID: user.uid,
+              companyName:this.company.name,
+              street: this.company.street,
+              place: this.company.place,
+              areacode: this.company.areacode,
+            }).then(() => {
+              sendPasswordResetEmail(this.auth, this.company.email);
             })
           })
         })

@@ -1,0 +1,36 @@
+<section>
+    <div class="header">
+<span>HEADER</span>
+<div>
+    <span>{{currentUser.companyName}}</span>
+    <span>{{currentUser.street}}</span>
+    <span>{{currentUser.areacode}}</span>
+    <span>{{currentUser.place}}</span>
+</div>
+    </div>
+    <form (ngSubmit)="addUser()" #useraccount="ngForm">
+        <div class="headline">
+            <span>Benutzer anlegen</span>
+        </div>
+        <div class="inputContainer">
+
+            <div class="inputfield">
+                <div>
+                    <img src="" alt="">
+                    <input #name="ngModel" [(ngModel)]="user.name" type="text" name="name" id="name" placeholder="Namen eingeben" required>
+                </div>
+            </div>
+            <div class="inputfield" required>
+                <div>
+                    <img src="" alt="">
+                    <input #email="ngModel" [(ngModel)]="user.email" type="email" name="email" placeholder="E-Mail-Adresse eingeben" required>
+                </div>
+            </div>
+
+
+
+        </div>
+        <button [disabled]="useraccount.invalid" class="btn">Speichern</button>
+
+    </form>
+</section>

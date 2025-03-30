@@ -3,7 +3,7 @@
 
     <form (ngSubmit)="onSubmit(companyaccount)" #companyaccount="ngForm">
         <div class="headline">
-            <button><img src="./img/goback.svg" alt=""></button>
+            <button (click)="sharedservice.navigateToPath('/dashboard')"><img src="./img/goback.svg" alt=""></button>
             <span>Firma anlegen</span>
         </div>
 
@@ -46,6 +46,6 @@
             </div>
         </div>
 
-        <button [disabled]="companyaccount.invalid" class="createBtn">Firma erstellen</button>
+        <button [disabled]="companyaccount.invalid" class="btn">Firma erstellen</button>
     </form>
 </section>
