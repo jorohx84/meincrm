@@ -1,0 +1,13 @@
+<section>
+    <div class="logo">
+        <img src="./img/maple_leaf.png" alt="">
+        <span>maple CRM</span>
+    </div>
+    <div class="currentUser">
+        <span>{{currentUser?.name}}</span>
+        <div class="initials" [ngStyle]="{'background-color': currentUser.color}">
+            <span>{{currentUser.initials}}</span>
+        </div>
+    </div>
+
+</section>

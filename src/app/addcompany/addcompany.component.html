@@ -39,9 +39,9 @@
             </div>
             <div class="inputContainer">
                 <input #email="ngModel" [(ngModel)]="company.email" type="email" name="email" id="email"
-                    placeholder="E-Mail-Adresse" required>
+                    placeholder="E-Mail-Adresse" required  pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">
                 @if(email.touched && !email.valid){
-                <span class="error"> Bitte E-Mail-Adresse eingeben</span>
+                <span class="error">Bitte E-Mail-Adresse eingeben</span>
                 }
             </div>
         </div>

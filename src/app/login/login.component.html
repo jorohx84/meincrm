@@ -1,5 +1,8 @@
 <section>
-    <div class="header">HEADER</div>
+    <div class="headerContainer">
+     <app-header></app-header>
+    </div>
+
 
     <form (ngSubmit)="login()" #userauth="ngForm" >
         <div class="headline">
@@ -9,20 +12,30 @@
             <div class="inputfield">
                 <div>
                     <img src="./img/mail.svg" alt="">
-                    <input #email="ngModel" [(ngModel)]="user.email" name="email" id="email" type="text" placeholder="E-Mail eingeben" required>
+                    <input #email="ngModel" [(ngModel)]="user.email" name="email" id="email" type="text" placeholder="E-Mail eingeben" required  pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">
+                  
                 </div>
-                
+                @if(email.touched && !email.valid){
+                    <span class="error">Bitte E-Mail-Adresse eingeben</span>
+                }
             </div>
             <div class="inputfield">
                 <div>
                     <img src="./img/lock.svg" alt="">
-                    <input #password [(ngModel)]="user.password" name="password" id="password" type="password" placeholder="Passwort eingeben" required>
+                    <input #password="ngModel" [(ngModel)]="user.password" name="password" id="password" type="password" placeholder="Passwort eingeben" required>
+               
                 </div>
-                
+                @if(password.touched && !password.valid){
+                    <span class="error">Bitte Password eingeben</span>
+                }
             </div>
-           
+         
             <div></div>
         </div>
         <button [disabled]="userauth.invalid" class="btn">Anmelden</button>
     </form>
+
+    <div class="footerContainer">
+        <app-footer></app-footer>
+    </div>
 </section>

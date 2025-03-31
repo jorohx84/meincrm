@@ -8,10 +8,12 @@ import { Router } from "@angular/router";
 
 export class SharedService {
     router = inject(Router);
+    isLogin = true;
 
 
-
-    navigateToPath(path:string){
+    navigateToPath(path: string) {
         this.router.navigate([path]);
     }
+
+  
 }

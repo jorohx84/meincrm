@@ -1,0 +1,40 @@
+section {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: rgba(177, 200, 210, 0.73);
+    
+}
+
+.content {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    box-sizing: border-box;
+    padding: 20px 60px;
+    gap: 40px;
+   
+}
+
+.sidebarContainer {
+    width: 100%;
+    max-width: 350px;
+    height: 100%;
+}
+
+.board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex: 1;
+  background-color: white;
+    border-radius: 30px;
+    >span {
+        font-size: 48px;
+
+    }
+}

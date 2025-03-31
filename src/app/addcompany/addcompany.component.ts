@@ -49,6 +49,8 @@ export class AddcompanyComponent {
               street: this.company.street,
               place: this.company.place,
               areacode: this.company.areacode,
+              logindate:'',
+              online:false,
             }).then(() => {
               sendPasswordResetEmail(this.auth, this.company.email);
             })

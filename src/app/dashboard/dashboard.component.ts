@@ -4,9 +4,11 @@ import { UserService } from '../user.service';
 import { Subscription } from 'rxjs';
 import { SharedService } from '../shared.service';
 import { DataService } from '../data.service';
+import { HeaderComponent } from '../header/header.component';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule],
+  imports: [CommonModule, HeaderComponent, SidebarComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   providers: [UserService, DataService],
@@ -20,30 +22,16 @@ export class DashboardComponent {
   isSuperAdmin: boolean = false;
   private userSubscription: Subscription | null = null;
 
-  constructor() {
-
-  }
-
-  checkRole() {
-    if (this.currentUser.role === 'admin') {
-      this.isAdmin = true;
-    }
-    if (this.currentUser.role === 'superadmin') {
-      this.isSuperAdmin = true;
-      this.isAdmin = true;
-    }
-
-    console.log(this.isAdmin);
-    console.log(this.isSuperAdmin);
+  constructor() {}
 
 
-  }
 
   ngOnInit() {
-
-    this.dataservice.getDataFromLocalStorage('user');
-    this.currentUser = this.dataservice.data;
+    this.currentUser = this.userservice.currentUser;
     console.log(this.currentUser);
-    this.checkRole();
   }
+
+
+
+
 }

@@ -17,13 +17,19 @@
             <div class="inputfield">
                 <div>
                     <img src="" alt="">
-                    <input #name="ngModel" [(ngModel)]="user.name" type="text" name="name" id="name" placeholder="Namen eingeben" required>
+                    <input #name="ngModel" [(ngModel)]="user.name" type="text" name="name" id="name" placeholder="Vor- und Zuname eingeben" required >
+                    @if(name.touched && !name.valid){
+                        <span class="error">Bitte Vor- und Zuname eingeben</span>
+                    }
                 </div>
             </div>
             <div class="inputfield" required>
                 <div>
                     <img src="" alt="">
-                    <input #email="ngModel" [(ngModel)]="user.email" type="email" name="email" placeholder="E-Mail-Adresse eingeben" required>
+                    <input #email="ngModel" [(ngModel)]="user.email" type="email" name="email" placeholder="E-Mail-Adresse eingeben" required  pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">>
+                    @if(email.touched && !email.valid){
+                        <span class="error">Bitte E-Mail-Adresse eingeben</span>
+                    }
                 </div>
             </div>
 

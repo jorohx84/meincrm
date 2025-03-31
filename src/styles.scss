@@ -18,7 +18,8 @@ button {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    &:active{
+
+    &:active {
         transform: scale(0.95);
     }
 }
@@ -30,8 +31,17 @@ input {
 
 }
 
-.btn{
-  min-width: 160px;
+a{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+p{
+    margin: 0;
+}
+
+.btn {
+    min-width: 160px;
     max-width: fit-content;
     height: 56px;
     background-color: var(--blue1) !important;
@@ -63,15 +73,41 @@ input:-webkit-autofill {
     transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
 }
 
+.headerContainer {
+    width: 100%;
+    height: 120px;
+    box-sizing: border-box;
+    padding: 20px 60px;
+}
+
+.footerContainer {
+    width: 100%;
+    height: 120px;
+    box-sizing: border-box;
+    padding: 20px 60px;
+}
 
 .header {
     position: absolute;
     top: 0;
     left: 0;
+
+}
+
+.error {
+    position: absolute;
+    bottom: -15px;
+    left: 20px;
+    height: 14px;
+    font-size: 14px;
+    color: var(--error);
 }
 
 :root {
 
     --border-color: rgba(21, 141, 226, 0.492);
     --blue1: rgb(6, 125, 244);
+    --error: rgb(149, 5, 5);
+    --font-color: rgb(97, 93, 93);
+    --blue2: rgb(0, 123, 255);
 }

@@ -1,0 +1,23 @@
+
+<section>
+<div class="information">
+    <p>Organisation</p>
+    <div class="divider"></div>
+    <span>{{currentUser.companyName}}</span>
+
+</div>
+
+    <div class="links">
+        <a >Aufgaben</a>
+        <a >Kunden</a>
+        <a >Postfach</a>
+        <a *ngIf="userService.isAdmin" (click)="sharedService.navigateToPath('/admin')" class="">Adminbereich</a>
+        <a *ngIf="userService.isSuperAdmin" (click)="sharedService.navigateToPath('/company')" class="">Superadmin</a>
+    </div>
+
+    <div class="legal">
+     <button>Impressum</button>
+     <button>Datenschutz</button>
+     <span>©maple Websolutions</span>
+    </div>
+</section>
