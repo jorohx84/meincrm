@@ -7,7 +7,21 @@ section {
     align-items: center;
 }
 
-
+.logo{
+    
+    display: flex;
+    justify-content: flex-start;
+   
+    align-items: center;
+    gap: 10px;
+    >span{
+        font-size: 32px;
+        font-weight: 600;
+    }
+    >img{
+        width: 70px;
+    }
+}
 .headline{
     font-size: 40px;
     font-weight: 600;

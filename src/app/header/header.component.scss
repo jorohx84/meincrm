@@ -25,9 +25,10 @@ section{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     box-sizing: border-box;
     padding: 10px 30px;
+    transition: transform 0.2s ease-in-out;
 
     cursor: pointer;
     >span{
@@ -55,9 +56,9 @@ section{
     align-items: center;
     border:solid;
     border-color: white;
-    border-width: 3px;
+    border-width: 1px;
     >span{
-        font-size: 24px;
-        font-weight: 600;
+        font-size: 20px;
+        font-weight: 500;
     }
 }

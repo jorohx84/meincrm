@@ -18,7 +18,7 @@ button {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-
+    transition: transform 0.2s ease-in-out;
     &:active {
         transform: scale(0.95);
     }
@@ -34,6 +34,10 @@ input {
 a{
     text-decoration: none;
     cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    &:active{
+        transform: scale(0.95);
+    }
 }
 
 p{

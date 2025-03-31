@@ -51,6 +51,7 @@ export class AddcompanyComponent {
               areacode: this.company.areacode,
               logindate:'',
               online:false,
+
             }).then(() => {
               sendPasswordResetEmail(this.auth, this.company.email);
             })
