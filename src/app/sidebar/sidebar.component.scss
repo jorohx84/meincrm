@@ -8,7 +8,7 @@ section {
     box-sizing: border-box;
     padding: 40px;
     background-color: rgb(255, 255, 255);
-    border-radius: 30px;
+   border-radius: 30px;
 }
 
 .information{
@@ -48,9 +48,9 @@ section {
         font-weight: 500;
 
         &:hover {
-            background-color: var(--blue1);
+            background-color: var(--blue-hover);
             border-radius: 50px;
-            color: white;
+            
         }
     }
 }

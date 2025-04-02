@@ -1,0 +1,45 @@
+<section>
+    <div class="headerContainer">
+        <app-header></app-header>
+    </div>
+    <div [ngClass]="{'fullscreen': sharedservice.isFullscreen}" class="content">
+        <div [ngClass]="{'slide':sharedservice.isSlide}" class="sidebarContainer">
+
+            <div class="sidebar">
+                <app-sidebar></app-sidebar>
+            </div>
+
+        </div>
+        <div [ngClass]="{'fullscreen': sharedservice.isFullscreen}" class="board">
+            <div class="menubar">
+                <div class="menuButtons">
+                    <button (click)="toggleSlide($event)" *ngIf="!sharedservice.isFullscreen" class="sidebarBack"> <img
+                            src="./img/sidebar-2-layout-toggle-nav-navbar.svg" alt=""></button>
+
+                    <!-- <button *ngIf="isSlide"  class="sidebarBack"><span>Menu einblenden</span></button>-->
+                    <button (click)="toogleFullscreen()"><img src="/img/goback.svg" alt=""></button>
+
+
+                </div>
+
+                <div class="date">
+         
+                    <span>{{currentTime| date:'d.MMMM.yy'}}</span>
+                    <span>{{currentTime | date:'HH:mm'}} Uhr</span>
+
+                </div>
+            </div>
+            <ng-container  class="components">
+                <app-dashboard *ngIf="sharedservice.component==='dashboard'"></app-dashboard>
+                <app-mailbox *ngIf="sharedservice.component==='mailbox'"></app-mailbox>
+                <app-customer *ngIf="sharedservice.component==='customers'"></app-customer>
+                <app-tasks *ngIf="sharedservice.component==='tasks'"></app-tasks>
+            </ng-container>
+            <!--    <div class="components"> <span>BOARD</span></div>dieser Container wird ein ng-container-->
+
+        </div>
+    </div>
+
+
+
+</section>

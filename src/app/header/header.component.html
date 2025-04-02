@@ -1,11 +1,11 @@
 <section>
     <div class="logo">
-        <img src="./img/maple_leaf.png" alt="">
+        <img src="./img/mapleIcon-bg.png" alt="">
         <span>maple CRM</span>
     </div>
-    <div class="currentUser">
+    <div (click)="logoutUser()" class="currentUser">
         <span>{{currentUser?.name}}</span>
-        <div class="initials" [ngStyle]="{'background-color': currentUser.color}">
+        <div class="initials" >
             <span>{{currentUser.initials}}</span>
         </div>
     </div>

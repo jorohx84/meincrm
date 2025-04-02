@@ -11,7 +11,12 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent {
   currentUser: any;
   userService = inject(UserService)
+
   constructor() {
     this.currentUser = this.userService.currentUser;
+  }
+
+  logoutUser(){
+    this.userService.logoutUser(this.currentUser);
   }
 }

@@ -8,10 +8,10 @@
 </div>
 
     <div class="links">
-        <a >Dashboard</a>
-        <a >Aufgaben</a>
-        <a >Kunden</a>
-        <a >Postfach</a>
+        <a (click)="changeComponents('dashboard')" >Dashboard</a>
+        <a (click)="changeComponents('tasks')" >Aufgaben</a>
+        <a (click)="changeComponents('customers')">Kunden</a>
+        <a (click)="changeComponents('mailbox')">Postfach</a>
         <a *ngIf="userService.isAdmin" (click)="sharedService.navigateToPath('/admin')" class="">Adminbereich</a>
         <a *ngIf="userService.isSuperAdmin" (click)="sharedService.navigateToPath('/company')" class="">Superadmin</a>
     </div>

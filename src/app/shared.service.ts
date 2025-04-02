@@ -9,11 +9,13 @@ import { Router } from "@angular/router";
 export class SharedService {
     router = inject(Router);
     isLogin = true;
-
+    isFullscreen: boolean = false;
+    isSlide: boolean = false;
+    component: string = '';
 
     navigateToPath(path: string) {
         this.router.navigate([path]);
     }
 
-  
+
 }
