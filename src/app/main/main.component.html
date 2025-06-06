@@ -8,9 +8,11 @@
             <div class="sidebar">
                 <app-sidebar></app-sidebar>
             </div>
+        
 
         </div>
-        <div [ngClass]="{'fullscreen': sharedservice.isFullscreen}" class="board">
+
+        <div [ngClass]="{'fullscreen': sharedservice.isFullscreen, 'widthChange':sharedservice.isSlide}" class="board">
             <div class="menubar">
                 <div class="menuButtons">
                     <button (click)="toggleSlide($event)" *ngIf="!sharedservice.isFullscreen" class="sidebarBack"> <img

@@ -16,30 +16,35 @@ section {
     flex: 1;
     display: flex;
     gap: 40px;
-
+position: relative;
 
 }
 
 .sidebarContainer {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    max-width: 350px;
+    width: 350px;
     height: 100%;
     background-color: white;
     border-radius: 30px;
     transform: translateX(0);
-transition: transform 0.3s ease-in-out;
+    transition: left 0.5s ease-in-out, width 0.3s ease-in-out;
+    position: absolute;
+    left: 32px;
 }
+
+
 
 .slide {
-    
-    width: 0px;
-    opacity: 0;
-    transform: translateX(-120%);
-position: absolute;
+
+    left: -382px;
+
 }
 
+.widthChange {
+  
+    width: calc(100% - 64px) !important;
+}
 
 
 .sidebar {
@@ -60,13 +65,17 @@ position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    position: absolute;
+    right: 32px;
+    top: 0;
+    bottom: 0;
+    width: calc(100% - 464px);
 
-    height: 100%;
 
     flex: 1;
     background-color: white;
     border-radius: 30px;
-
+transition: left 0.5s ease-in-out, width 0.5s ease-in-out;
 
 
 }
@@ -143,7 +152,7 @@ position: absolute;
 
     padding: 10px 30px;
     border-radius: 30px;
-   
+
     opacity: 0.6;
     box-sizing: border-box;
 }
