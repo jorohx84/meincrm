@@ -14,16 +14,30 @@ import { DataService } from '../data.service';
 })
 export class SidebarComponent {
   sharedService = inject(SharedService)
-  userService = inject(UserService);
+  userservice = inject(UserService);
   dataService = inject(DataService);
   currentUser: any;
 
   constructor() {
     this.sharedService.isLogin = false;
     console.log(this.sharedService.isLogin);
-    this.currentUser = this.userService.currentUser;
+    // this.currentUser = this.userservice.currentUser;
     console.log(this.currentUser);
     this.loadComponent();
+  }
+
+
+  async ngOnInit() {
+    this.userservice.currentUser$.subscribe(async (user) => {
+      if (user){
+      const companyID = user?.displayName;
+      this.currentUser = await this.userservice.findCurrentUser(user.uid, companyID);
+      console.log(this.currentUser);
+      
+      }
+
+    })
+
   }
 
   loadComponent() {

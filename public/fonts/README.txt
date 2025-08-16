@@ -1,34 +1,73 @@
-Nunito Variable Font
-====================
+Inter Variable Font
+===================
 
-This download contains Nunito as both variable fonts and static fonts.
+This download contains Inter as both variable fonts and static fonts.
 
-Nunito is a variable font with this axis:
+Inter is a variable font with these axes:
+  opsz
   wght
 
 This means all the styles are contained in these files:
-  Nunito-VariableFont_wght.ttf
-  Nunito-Italic-VariableFont_wght.ttf
+  Inter/Inter-VariableFont_opsz,wght.ttf
+  Inter/Inter-Italic-VariableFont_opsz,wght.ttf
 
 If your app fully supports variable fonts, you can now pick intermediate styles
 that aren’t available as static fonts. Not all apps support variable fonts, and
-in those cases you can use the static font files for Nunito:
-  static/Nunito-ExtraLight.ttf
-  static/Nunito-Light.ttf
-  static/Nunito-Regular.ttf
-  static/Nunito-Medium.ttf
-  static/Nunito-SemiBold.ttf
-  static/Nunito-Bold.ttf
-  static/Nunito-ExtraBold.ttf
-  static/Nunito-Black.ttf
-  static/Nunito-ExtraLightItalic.ttf
-  static/Nunito-LightItalic.ttf
-  static/Nunito-Italic.ttf
-  static/Nunito-MediumItalic.ttf
-  static/Nunito-SemiBoldItalic.ttf
-  static/Nunito-BoldItalic.ttf
-  static/Nunito-ExtraBoldItalic.ttf
-  static/Nunito-BlackItalic.ttf
+in those cases you can use the static font files for Inter:
+  Inter/static/Inter_18pt-Thin.ttf
+  Inter/static/Inter_18pt-ExtraLight.ttf
+  Inter/static/Inter_18pt-Light.ttf
+  Inter/static/Inter_18pt-Regular.ttf
+  Inter/static/Inter_18pt-Medium.ttf
+  Inter/static/Inter_18pt-SemiBold.ttf
+  Inter/static/Inter_18pt-Bold.ttf
+  Inter/static/Inter_18pt-ExtraBold.ttf
+  Inter/static/Inter_18pt-Black.ttf
+  Inter/static/Inter_24pt-Thin.ttf
+  Inter/static/Inter_24pt-ExtraLight.ttf
+  Inter/static/Inter_24pt-Light.ttf
+  Inter/static/Inter_24pt-Regular.ttf
+  Inter/static/Inter_24pt-Medium.ttf
+  Inter/static/Inter_24pt-SemiBold.ttf
+  Inter/static/Inter_24pt-Bold.ttf
+  Inter/static/Inter_24pt-ExtraBold.ttf
+  Inter/static/Inter_24pt-Black.ttf
+  Inter/static/Inter_28pt-Thin.ttf
+  Inter/static/Inter_28pt-ExtraLight.ttf
+  Inter/static/Inter_28pt-Light.ttf
+  Inter/static/Inter_28pt-Regular.ttf
+  Inter/static/Inter_28pt-Medium.ttf
+  Inter/static/Inter_28pt-SemiBold.ttf
+  Inter/static/Inter_28pt-Bold.ttf
+  Inter/static/Inter_28pt-ExtraBold.ttf
+  Inter/static/Inter_28pt-Black.ttf
+  Inter/static/Inter_18pt-ThinItalic.ttf
+  Inter/static/Inter_18pt-ExtraLightItalic.ttf
+  Inter/static/Inter_18pt-LightItalic.ttf
+  Inter/static/Inter_18pt-Italic.ttf
+  Inter/static/Inter_18pt-MediumItalic.ttf
+  Inter/static/Inter_18pt-SemiBoldItalic.ttf
+  Inter/static/Inter_18pt-BoldItalic.ttf
+  Inter/static/Inter_18pt-ExtraBoldItalic.ttf
+  Inter/static/Inter_18pt-BlackItalic.ttf
+  Inter/static/Inter_24pt-ThinItalic.ttf
+  Inter/static/Inter_24pt-ExtraLightItalic.ttf
+  Inter/static/Inter_24pt-LightItalic.ttf
+  Inter/static/Inter_24pt-Italic.ttf
+  Inter/static/Inter_24pt-MediumItalic.ttf
+  Inter/static/Inter_24pt-SemiBoldItalic.ttf
+  Inter/static/Inter_24pt-BoldItalic.ttf
+  Inter/static/Inter_24pt-ExtraBoldItalic.ttf
+  Inter/static/Inter_24pt-BlackItalic.ttf
+  Inter/static/Inter_28pt-ThinItalic.ttf
+  Inter/static/Inter_28pt-ExtraLightItalic.ttf
+  Inter/static/Inter_28pt-LightItalic.ttf
+  Inter/static/Inter_28pt-Italic.ttf
+  Inter/static/Inter_28pt-MediumItalic.ttf
+  Inter/static/Inter_28pt-SemiBoldItalic.ttf
+  Inter/static/Inter_28pt-BoldItalic.ttf
+  Inter/static/Inter_28pt-ExtraBoldItalic.ttf
+  Inter/static/Inter_28pt-BlackItalic.ttf
 
 Get started
 -----------

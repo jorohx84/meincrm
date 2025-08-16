@@ -3,21 +3,34 @@ section {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    gap: 32px;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
     padding: 40px;
     background-color: rgb(255, 255, 255);
-   border-radius: 30px;
+
 }
+
 
 .information{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 5px;
     width: 100%;
+    height: 100%;
     >span{
         font-size: 28px;
+    }
+}
+
+.companyInfo{
+display: flex;
+flex-direction: column;
+gap: 5px;
+  >span{
+        font-size: 24px;
     }
 }
 
@@ -31,8 +44,8 @@ section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 1;
-    margin-top: 100px;
+
+ 
     gap: 5px;
     width: 100%;
 
@@ -44,8 +57,8 @@ section {
         align-items: center;
         box-sizing: border-box;
         padding: 10px 30px;
-        font-size: 20px;
-        font-weight: 500;
+        font-size: 18px;
+        font-weight: 300;
 
         &:hover {
             background-color: var(--blue-hover);

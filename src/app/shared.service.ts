@@ -10,7 +10,7 @@ export class SharedService {
     router = inject(Router);
     isLogin = true;
     isFullscreen: boolean = false;
-    isSlide: boolean = false;
+    isSlide: boolean = true;
     component: string = '';
 
     navigateToPath(path: string) {

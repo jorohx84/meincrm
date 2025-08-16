@@ -1,13 +1,25 @@
 <section>
-    <div class="logo">
-        <img src="./img/mapleIcon-bg.png" alt="">
-        <span>maple CRM</span>
-    </div>
-    <div (click)="logoutUser()" class="currentUser">
-        <span>{{currentUser?.name}}</span>
-        <div class="initials" >
-            <span>{{currentUser.initials}}</span>
+    <div class="sidebarBtn">
+        <button (click)="toggleSlide($event)"><img src="./img/menu.svg" alt=""></button>
+        <div class="logo">
+            <img src="./img/mapleIcon-bg.png" alt="">
+            <span>maple CRM</span>
         </div>
     </div>
+    <div class="menubar">
+        <div class="date">
+
+            <span>{{currentTime| date:'d. MMMM. yyyy'}}</span>
+            <span>{{currentTime | date:'HH:mm'}} Uhr</span>
+
+        </div>
+
+        <div (click)="logoutUser()" class="currentUser">
+            <div class="initials">
+                <span>{{currentUser?.initials}}</span>
+            </div>
+        </div>
+    </div>
+
 
 </section>

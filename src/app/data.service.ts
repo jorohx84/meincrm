@@ -47,11 +47,11 @@ export class DataService {
     }
 
 
-    async getDataFromFirestore(dataCollection: string) {
+    async getDataFromFirestore(dataCollection: string, id:string) {
         console.log(dataCollection);
         
         try {
-            const usersCollection = collection(this.firestore, `companies/${this.companyID}/${dataCollection}`);
+            const usersCollection = collection(this.firestore, `companies/${id}/${dataCollection}`);
             const userSnapshot = await getDocs(usersCollection);
             return userSnapshot.docs.map((doc) => ({
                 id: doc.id,

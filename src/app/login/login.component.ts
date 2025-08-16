@@ -32,7 +32,7 @@ export class LoginComponent {
       console.log(this.userservice.user.uid);
       await this.userservice.setUserLoginTime(this.userservice.user);
       await this.userservice.setOnlineStatus('login', this.userservice.user.uid);
-      await this.userservice.findCurrentUser(this.userservice.user.uid);
+      await this.userservice.findCurrentUser(this.userservice.user.uid, this.userservice.user.displayName);
   
       setTimeout(() => {
         this.router.navigate(['/main'])

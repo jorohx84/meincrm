@@ -11,6 +11,7 @@ import { MailboxComponent } from '../mailbox/mailbox.component';
 import { TasksComponent } from '../tasks/tasks.component';
 import { CustomerComponent } from '../customer/customer.component';
 
+
 @Component({
   selector: 'app-main',
   imports: [CommonModule, HeaderComponent, SidebarComponent, DashboardComponent, MailboxComponent, TasksComponent, CustomerComponent],
@@ -32,19 +33,25 @@ export class MainComponent {
   private userSubscription: Subscription | null = null;
 
   constructor() {
-    this.loadMainWindow();
+    // this.loadMainWindow();
 
-
+   this.timer = setInterval(() => {
+      this.updateTime();
+    }, 1);
   }
 
 
 
-  ngOnInit() {
-    this.currentUser = this.userservice.currentUser;
+  async ngOnInit() {
+    this.userservice.currentUser$.subscribe(async (user) => {
+      if (user){
+      const companyID = user?.displayName;
+      this.currentUser = await this.userservice.findCurrentUser(user.uid, companyID);
+      console.log(this.currentUser);
+      
+      }
 
-    this.timer = setInterval(() => {
-      this.updateTime();
-    }, 1);
+    })
 
   }
 
@@ -67,13 +74,7 @@ export class MainComponent {
 
 
   }
-  toggleSlide(event: Event) {
-    this.sharedservice.isSlide = !this.sharedservice.isSlide;
-    this.sharedservice.isFullscreen = false;
-    this.dataservice.saveDataToLocalStorage('fullscreen', this.sharedservice.isFullscreen);
-    this.dataservice.saveDataToLocalStorage('slide', this.sharedservice.isSlide);
-    event.stopPropagation();
-  }
+
 
 
 
