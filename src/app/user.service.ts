@@ -43,7 +43,7 @@ export class UserService {
                 // this.dataservice.setCompanyID(this.companyIdent);
                 this.dataservice.saveDataToLocalStorage('companyID', this.companyIdent,);
                 console.log('User ist eingeloggt', this.user);
-               
+
             } else {
                 this.user = new User(null);
                 console.log('User ist ausgeloggt');
@@ -54,9 +54,9 @@ export class UserService {
     }
 
 
-    setUserRole(user:any) {
+    setUserRole(user: any) {
         console.log(user);
-        
+
         if (user) {
             if (user.role === 'admin') {
                 this.isAdmin = true;
@@ -77,7 +77,7 @@ export class UserService {
         const user = this.users.find(user => user.id === id);
         if (user) {
             this.dataservice.saveDataToLocalStorage('user', user);
-             this.setUserRole(user)
+            this.setUserRole(user)
             return user
         }
     }
@@ -85,8 +85,8 @@ export class UserService {
     async setUserLoginTime(user: any) {
         const loginTime = new Date().toISOString();
         console.log(loginTime);
+
         console.log(this.companyIdent);
-        console.log(user);
 
         const userDocRef = doc(this.firestore, `companies/${this.companyIdent}/users/${user.uid}`)
         await updateDoc(userDocRef, {

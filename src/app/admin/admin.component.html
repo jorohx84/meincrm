@@ -2,10 +2,10 @@
     <div class="header">
 <span>HEADER</span>
 <div>
-    <span>{{currentUser.companyName}}</span>
-    <span>{{currentUser.street}}</span>
-    <span>{{currentUser.areacode}}</span>
-    <span>{{currentUser.place}}</span>
+    <span>{{currentUser?.companyName}}</span>
+    <span>{{currentUser?.street}}</span>
+    <span>{{currentUser?.areacode}}</span>
+    <span>{{currentUser?.place}}</span>
 </div>
     </div>
     <form (ngSubmit)="addUser()" #useraccount="ngForm">

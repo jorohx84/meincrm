@@ -7,6 +7,8 @@ import { MailboxComponent } from './mailbox/mailbox.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { CustomerComponent } from './customer/customer.component';
 import { MainComponent } from './main/main.component';
+import { SignupComponent } from './signup/signup.component';
+
 
 export const routes: Routes = [
     { path: 'main', component: MainComponent },
@@ -18,4 +20,5 @@ export const routes: Routes = [
     { path: 'tasks', component: TasksComponent },
     { path: 'customers', component: CustomerComponent },
     { path: 'login', component: LoginComponent },
+    { path: 'signup', component: SignupComponent },
 ];

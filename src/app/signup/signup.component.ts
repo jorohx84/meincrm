@@ -1,3 +1,6 @@
+
+
+
 import { Component, inject } from '@angular/core';
 import { DataService } from '../data.service';
 import { CommonModule } from '@angular/common';
@@ -6,23 +9,29 @@ import { User } from '../models/user.class';
 import { createUserWithEmailAndPassword, sendPasswordResetEmail, updateProfile } from 'firebase/auth';
 import { Auth } from '@angular/fire/auth';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
-import { Company } from '../models/company.class';
+
 import { UserService } from '../user.service';
 import { AuthService } from '../auth.service';
-import { useReducer } from 'react';
+import { ActivatedRoute } from '@angular/router';
+
+
 @Component({
-  selector: 'app-admin',
+  selector: 'app-signup',
   imports: [CommonModule, FormsModule],
-  templateUrl: './admin.component.html',
-  styleUrl: './admin.component.scss',
-  providers: [DataService],
+  templateUrl: './signup.component.html',
+  styleUrl: './signup.component.scss'
 })
-export class AdminComponent {
+export class SignupComponent {
+
+
   dataservice = inject(DataService);
   userservice = inject(UserService);
   authservice = inject(AuthService);
+  link = inject(ActivatedRoute);
   currentUser: any;
-  companyID: string = '';
+  companyID: string | null = null;
+  email: string | null = null;
+  name: string | null = null;
   companyName: string = '';
   user: any = new User()
   auth = inject(Auth);
@@ -52,34 +61,29 @@ export class AdminComponent {
     "#B4E1FF", // Zartes Blau
   ];
 
-  ngOnInit() {
+  ngOnInit():void {
 
-    this.userservice.currentUser$.subscribe(async (user) => {
-      if (user) {
-        console.log(user.uid);
-
-        const companyID = user?.displayName;
-        this.currentUser = await this.userservice.findCurrentUser(user.uid, companyID);
-        this.companyID = this.currentUser.companyID
-
-      }
-
+    this.link.queryParamMap.subscribe(params => {
+      this.companyID = params?.get('companyId');
+       this.email = params?.get('email');
+         this.name = params?.get('name');
+          this.companyID = params?.get('companyId');
+       this.user.email = params?.get('email');
+         this.user.name = params?.get('name');
     })
 
+   console.log('Company ID:', this.companyID);
+      console.log('Email:', this.email);
+      console.log('Name:', this.name);
+    
   }
 
 
 
 
   async addUser() {
-
-    console.log(this.companyID);
-
-    console.log(this.user.email);
-    console.log(this.user.name);
-
-const generetedLink=this.generateSignupLink(this.companyID, this.user.name, this.user.email)
-console.log(generetedLink);
+console.log(this.user.password);
+console.log(this.companyID);
 
 
     // const colors = this.getRandomColor();
@@ -146,21 +150,6 @@ console.log(generetedLink);
   //   return this.colors[randomIndex]; // Die zufällige Farbe zurückgeben
   // }
 
-  generateSignupLink(companyId: string, name?:string, email?: string): string {
-    // Beispiel: lokale Entwicklung oder Produktion
-    const baseUrl = window.location.origin + '/signup';
-    // window.location.origin gibt z.B. 'http://localhost:4200' oder deine Produktiv-Domain zurück
 
-    const params = new URLSearchParams();
-    params.set('companyId', companyId);
-    if (email) {
-      params.set('email', email);
-    }
-       if (name) {
-      params.set('name', name);
-    }
-
-    return `${baseUrl}?${params.toString()}`;
-  }
 }
 
