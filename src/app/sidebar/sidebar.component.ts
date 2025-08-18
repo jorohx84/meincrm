@@ -13,14 +13,14 @@ import { DataService } from '../data.service';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
-  sharedService = inject(SharedService)
+  sharedservice = inject(SharedService)
   userservice = inject(UserService);
-  dataService = inject(DataService);
+  dataservice = inject(DataService);
   currentUser: any;
 
   constructor() {
-    this.sharedService.isLogin = false;
-    console.log(this.sharedService.isLogin);
+    this.sharedservice.isLogin = false;
+    console.log(this.sharedservice.isLogin);
     // this.currentUser = this.userservice.currentUser;
     console.log(this.currentUser);
     this.loadComponent();
@@ -30,10 +30,9 @@ export class SidebarComponent {
   async ngOnInit() {
     this.userservice.currentUser$.subscribe(async (user) => {
       if (user){
-      const companyID = user?.displayName;
-      this.currentUser = await this.userservice.findCurrentUser(user.uid, companyID);
+      this.currentUser = user;
       console.log(this.currentUser);
-      
+    
       }
 
     })
@@ -41,15 +40,13 @@ export class SidebarComponent {
   }
 
   loadComponent() {
-    this.dataService.getDataFromLocalStorage('component');
-    this.sharedService.component = this.dataService.data;
-    console.log(this.sharedService.component);
+    this.dataservice.getDataFromLocalStorage('component');
+    this.sharedservice.component = this.dataservice.data;
+    console.log(this.sharedservice.component);
     
   }
 
-  changeComponents(component: string) {
-    this.sharedService.component = component;
-    console.log(this.sharedService.component);
-    this.dataService.saveDataToLocalStorage('component', component);
-  }
+
+
+
 }

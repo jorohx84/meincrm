@@ -1,21 +1,21 @@
 <section>
     <div class="information">
         <div class="companyInfo">
-            <p>Organisation:</p>
+            <!-- <p>Organisation:</p> -->
             <span>{{currentUser?.companyName}}</span>
-            <div class="divider"></div>
+            <!-- <div class="divider"></div> -->
         </div>
 
 
 
 
         <div class="links">
-            <a (click)="changeComponents('dashboard')">Dashboard</a>
-            <a (click)="changeComponents('tasks')">Aufgaben</a>
-            <a (click)="changeComponents('customers')">Kunden</a>
-            <a (click)="changeComponents('mailbox')">Postfach</a>
-            <a *ngIf="userservice.isAdmin" (click)="sharedService.navigateToPath('/admin')" class="">Adminbereich</a>
-            <a *ngIf="userservice.isSuperAdmin" (click)="sharedService.navigateToPath('/company')"
+            <a (click)="sharedservice.changeComponents('dashboard')">Dashboard</a>
+            <a (click)="sharedservice.changeComponents('tasks')">Aufgaben</a>
+            <a (click)="sharedservice.changeComponents('customers')">Kunden</a>
+            <a (click)="sharedservice.changeComponents('mailbox')">Postfach</a>
+            <a *ngIf="userservice.isAdmin" (click)="sharedservice.changeComponents('admin')" class="">Adminbereich</a>
+            <a *ngIf="userservice.isSuperAdmin" (click)="sharedservice.navigateToPath('/company')"
                 class="">Superadmin</a>
         </div>
 

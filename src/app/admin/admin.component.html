@@ -1,14 +1,14 @@
 <section>
-    <div class="header">
-<span>HEADER</span>
-<div>
-    <span>{{currentUser?.companyName}}</span>
-    <span>{{currentUser?.street}}</span>
-    <span>{{currentUser?.areacode}}</span>
-    <span>{{currentUser?.place}}</span>
-</div>
-    </div>
-    <form (ngSubmit)="addUser()" #useraccount="ngForm">
+    <!-- <div class="headerContainer">
+        
+        <div>
+            <span>{{currentUser?.companyName}}</span>
+            <span>{{currentUser?.street}}</span>
+            <span>{{currentUser?.areacode}}</span>
+            <span>{{currentUser?.place}}</span>
+        </div>
+    </div> -->
+    <form (ngSubmit)="inviteUser()" #useraccount="ngForm">
         <div class="headline">
             <span>Benutzer anlegen</span>
         </div>
@@ -17,18 +17,21 @@
             <div class="inputfield">
                 <div>
                     <img src="" alt="">
-                    <input #name="ngModel" [(ngModel)]="user.name" type="text" name="name" id="name" placeholder="Vor- und Zuname eingeben" required >
+                    <input #name="ngModel" [(ngModel)]="user.name" type="text" name="name" id="name"
+                        placeholder="Vor- und Zuname eingeben" required>
                     @if(name.touched && !name.valid){
-                        <span class="error">Bitte Vor- und Zuname eingeben</span>
+                    <span class="error">Bitte Vor- und Zuname eingeben</span>
                     }
                 </div>
             </div>
             <div class="inputfield" required>
                 <div>
                     <img src="" alt="">
-                    <input #email="ngModel" [(ngModel)]="user.email" type="email" name="email" placeholder="E-Mail-Adresse eingeben" required  pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">>
+                    <input #email="ngModel" [(ngModel)]="user.email" type="email" name="email"
+                        placeholder="E-Mail-Adresse eingeben" required
+                        pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">
                     @if(email.touched && !email.valid){
-                        <span class="error">Bitte E-Mail-Adresse eingeben</span>
+                    <span class="error">Bitte E-Mail-Adresse eingeben</span>
                     }
                 </div>
             </div>
@@ -36,7 +39,12 @@
 
 
         </div>
-        <button [disabled]="useraccount.invalid" class="btn">Speichern</button>
+        <button [disabled]="useraccount.invalid" class="btn">Link generieren</button>
+      
 
     </form>
+    <div class="footerContainer">
+    
+    </div>
+
 </section>

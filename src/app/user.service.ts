@@ -26,20 +26,24 @@ export class UserService {
 
     constructor() {
         this.setCurrentUser();
+
     }
 
-    async getCurrentUser() {
-        this.dataservice.getDataFromLocalStorage('user');
-        this.currentUser = this.dataservice.data;
-    }
+    // async getCurrentUser() {
+    //     this.dataservice.getDataFromLocalStorage('user');
+    //     this.currentUser = this.dataservice.data;
+    // }
 
     setCurrentUser() {
-        onAuthStateChanged(this.auth, (user) => {
+        onAuthStateChanged(this.auth, async (user) => {
             if (user) {
                 this.user = user;
-                this.currentUserSubject.next(user);
+
                 console.log(this.user);
                 this.companyIdent = user.displayName;
+                const currentUser = await this.findCurrentUser(user.uid, this.companyIdent ?? '');
+
+                this.currentUserSubject.next(currentUser);
                 // this.dataservice.setCompanyID(this.companyIdent);
                 this.dataservice.saveDataToLocalStorage('companyID', this.companyIdent,);
                 console.log('User ist eingeloggt', this.user);
@@ -77,10 +81,11 @@ export class UserService {
         const user = this.users.find(user => user.id === id);
         if (user) {
             this.dataservice.saveDataToLocalStorage('user', user);
-            this.setUserRole(user)
+            this.setUserRole(user);
             return user
         }
     }
+
 
     async setUserLoginTime(user: any) {
         const loginTime = new Date().toISOString();

@@ -10,6 +10,8 @@ import { Company } from '../models/company.class';
 import { UserService } from '../user.service';
 import { AuthService } from '../auth.service';
 import { useReducer } from 'react';
+import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'app-admin',
   imports: [CommonModule, FormsModule],
@@ -21,6 +23,7 @@ export class AdminComponent {
   dataservice = inject(DataService);
   userservice = inject(UserService);
   authservice = inject(AuthService);
+  http = inject(HttpClient);
   currentUser: any;
   companyID: string = '';
   companyName: string = '';
@@ -28,6 +31,7 @@ export class AdminComponent {
   auth = inject(Auth);
   firestore = inject(Firestore);
   initials: string = '';
+  inviteLink: string | null = null;
 
   colors: string[] = [
     "#FAD02E", // Pastellgelb
@@ -53,74 +57,53 @@ export class AdminComponent {
   ];
 
   ngOnInit() {
-
     this.userservice.currentUser$.subscribe(async (user) => {
       if (user) {
-        console.log(user.uid);
-
         const companyID = user?.displayName;
         this.currentUser = await this.userservice.findCurrentUser(user.uid, companyID);
         this.companyID = this.currentUser.companyID
-
+        this.companyName = this.currentUser.companyName;
+        console.log(this.currentUser);
+        
       }
-
-    })
-
+    });
   }
 
 
+  async inviteUser() {
+    const generatedLink = this.generateSignupLink(this.user.name, this.user.email);
+    this.inviteLink = generatedLink;
 
+    const to = encodeURIComponent(this.user.email);
+    const subject = encodeURIComponent('Einladung zur Registrierung bei mapleCRM');
+    const body = encodeURIComponent(
+      `Hallo ${this.user.name},\n\n\n hier ist dein Link zur Registrierung bei mapleCRM:\n\n ${generatedLink}\n\n\n Freundliche Grüße \n\n Ihr ${this.currentUser.name}
+      `);
 
-  async addUser() {
+    const mailtoLink = `mailto:${to}?subject=${subject}&body=${body}`;
 
-    console.log(this.companyID);
+    window.location.href = mailtoLink;
 
-    console.log(this.user.email);
-    console.log(this.user.name);
-
-const generetedLink=this.generateSignupLink(this.companyID, this.user.name, this.user.email)
-console.log(generetedLink);
-
-
-    // const colors = this.getRandomColor();
-    // this.findInitials();
-    // await this.authservice.addUser(this.user, this.currentUser, this.initials, colors);
-
-    // await createUserWithEmailAndPassword(this.auth, this.user.email, "temporäresPasswort123")
-    //   .then((userCredential) => {
-
-    //     const user = userCredential.user;
-    //     return updateProfile(user, {
-    //       displayName: this.companyID,
-    //     }).then(() => {
-    //       this.findInitials();
-    //       const userColor = this.getRandomColor();
-    //       const userDocRef = doc(this.firestore, `companies/${this.companyID}/users/${user.uid}`);
-    //       return setDoc(userDocRef, {
-    //         name: this.user.name,
-    //         email: this.user.email,
-    //         companyID: this.companyID,
-    //         companyName: this.companyName,
-    //         messages: [],
-    //         tasks: [],
-    //         logindate: '',
-    //         role: 'user',
-    //         online: false,
-    //         initials: this.initials,
-    //         color: userColor,
-    //       }).then(() => {
-    //         sendPasswordResetEmail(this.auth, this.user.email);
-    //       })
-    //     })
-    //   })
-    // console.log(this.user.name);
-    // console.log(this.user.email);
-
-
-    // console.log('user erfolgreich angelegt');
-
+    // Optional: Felder leeren, falls du willst
+    this.user.email = '';
+    this.user.name = '';
   }
 
+
+  generateSignupLink(name?: string, email?: string): string {
+    const baseUrl = window.location.origin + '/signup';
+    const params = new URLSearchParams();
+    params.set('companyId', this.companyID);
+    params.set('companyName', this.companyName)
+    if (email) {
+      params.set('email', email);
+    }
+    if (name) {
+      params.set('name', name);
+    }
+
+    return `${baseUrl}?${params.toString()}`;
+  }
 
 
   // findInitials() {
@@ -146,21 +129,43 @@ console.log(generetedLink);
   //   return this.colors[randomIndex]; // Die zufällige Farbe zurückgeben
   // }
 
-  generateSignupLink(companyId: string, name?:string, email?: string): string {
-    // Beispiel: lokale Entwicklung oder Produktion
-    const baseUrl = window.location.origin + '/signup';
-    // window.location.origin gibt z.B. 'http://localhost:4200' oder deine Produktiv-Domain zurück
 
-    const params = new URLSearchParams();
-    params.set('companyId', companyId);
-    if (email) {
-      params.set('email', email);
-    }
-       if (name) {
-      params.set('name', name);
-    }
 
-    return `${baseUrl}?${params.toString()}`;
-  }
+  // const colors = this.getRandomColor();
+  // this.findInitials();
+  // await this.authservice.addUser(this.user, this.currentUser, this.initials, colors);
+
+  // await createUserWithEmailAndPassword(this.auth, this.user.email, "temporäresPasswort123")
+  //   .then((userCredential) => {
+
+  //     const user = userCredential.user;
+  //     return updateProfile(user, {
+  //       displayName: this.companyID,
+  //     }).then(() => {
+  //       this.findInitials();
+  //       const userColor = this.getRandomColor();
+  //       const userDocRef = doc(this.firestore, `companies/${this.companyID}/users/${user.uid}`);
+  //       return setDoc(userDocRef, {
+  //         name: this.user.name,
+  //         email: this.user.email,
+  //         companyID: this.companyID,
+  //         companyName: this.companyName,
+  //         messages: [],
+  //         tasks: [],
+  //         logindate: '',
+  //         role: 'user',
+  //         online: false,
+  //         initials: this.initials,
+  //         color: userColor,
+  //       }).then(() => {
+  //         sendPasswordResetEmail(this.auth, this.user.email);
+  //       })
+  //     })
+  //   })
+  // console.log(this.user.name);
+  // console.log(this.user.email);
+
+
+  // console.log('user erfolgreich angelegt');
 }
 

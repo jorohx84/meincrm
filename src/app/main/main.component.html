@@ -36,14 +36,16 @@
             </div> -->
 
             <div class="headerContainer">
-        <app-header></app-header>
-    </div>
-            <ng-container class="components">
+                <app-header></app-header>
+            </div>
+            <div class="components">
                 <app-dashboard *ngIf="sharedservice.component==='dashboard'"></app-dashboard>
                 <app-mailbox *ngIf="sharedservice.component==='mailbox'"></app-mailbox>
                 <app-customer *ngIf="sharedservice.component==='customers'"></app-customer>
                 <app-tasks *ngIf="sharedservice.component==='tasks'"></app-tasks>
-            </ng-container>
+                <app-admin *ngIf="sharedservice.component==='admin'"></app-admin>
+                <app-customercreation *ngIf="sharedservice.component==='create'"></app-customercreation>
+            </div>
             <!--    <div class="components"> <span>BOARD</span></div>dieser Container wird ein ng-container-->
 
         </div>

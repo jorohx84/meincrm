@@ -14,6 +14,31 @@ export class AuthService {
     auth = inject(Auth);
     router = inject(Router);
     firestore = inject(Firestore);
+    initials: string = '';
+
+    colors: string[] = [
+        "#FAD02E", // Pastellgelb
+        "#F28D35", // Pastellorange
+        "#F25F5C", // Pastellrot
+        "#D4A5A5", // Pastellrosa
+        "#6B4226", // Pastellbraun
+        "#F7B7A3", // Helles Rosa
+        "#C1D3FE", // Helles Blau
+        "#A4B7F1", // Pastellblau
+        "#D6E6F2", // Helles Himmelblau
+        "#8FD9B6", // Pastellgrün
+        "#F1E9D2", // Blassgelb
+        "#FFC3A0", // Helles Apricot
+        "#FFADAB", // Pastellpink
+        "#A9DFBF", // Sanftes Grün
+        "#D9EAD3", // Zartgrün
+        "#E9C7A4", // Helles Beige
+        "#C9A0DC", // Lavendel
+        "#B3C6D9", // Helles Blau
+        "#E3F2A7", // Helles Lime
+        "#B4E1FF", // Zartes Blau
+    ];
+
 
     async login(email: string, password: string) {
         try {
@@ -89,47 +114,60 @@ export class AuthService {
     }
 
 
-    async addUser(newUser: any, currentUser: any, initials: string, userColor: string) {
-      
-        console.log(currentUser);
-        console.log(newUser);
-        const companyID = currentUser.companyID
-        const userCredential = await createUserWithEmailAndPassword(this.auth, newUser.email, "temporäresPasswort123");
+    async addUser(name: string, email: string, password: string, companyID: string, companyName: string) {
+        const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
         const user = userCredential.user;
-        console.log(user);
-        console.log(currentUser);
-
         await updateProfile(user, {
             displayName: companyID,
-        });
+        })
+        const userData = this.getUserObject(name, email, companyID, companyName);
+        const userRef = doc(this.firestore, `companies/${companyID}/users/${user.uid}`)
+        await setDoc(userRef, userData)
+        console.log('user erfolgreich angelegt');
+
+    }
 
 
-        const userDocRef = doc(this.firestore, `companies/${currentUser.companyID}/users/${user.uid}`);
-        await setDoc(userDocRef, {
-            name: newUser.name,
-            email: newUser.email,
-            companyID: currentUser.companyID,
-            companyName: currentUser.companyName,
+    getUserObject(name: string, email: string, companyID: string | null, companyName: string) {
+        const colors = this.getRandomColor();
+        this.findInitials(name);
+        return {
+            name: name,
+            email: email,
+            companyID: companyID,
+            companyName: companyName,
             messages: [],
             tasks: [],
             logindate: '',
             role: 'user',
             online: false,
-            initials: initials,
-            color: userColor,
-        });
-        
-        sendPasswordResetEmail(this.auth, currentUser.email);
+            initials: this.initials,
+            color: colors,
 
+        }
+    }
 
+    findInitials(name: string) {
+        const nameParts = name.trim().split(' ');
+        console.log(nameParts);
 
-        console.log(newUser.name);
-        console.log(newUser.email);
+        if (nameParts.length > 1) {
+            const firstInitial = nameParts[0].charAt(0).toUpperCase(); // Erste Initiale des Vornamens
+            const lastInitial = nameParts[1].charAt(0).toUpperCase(); // Erste Initiale des Nachnamens
 
-
-        console.log('user erfolgreich angelegt', newUser);
+            this.initials = firstInitial + lastInitial; // Die Initialen kombinieren
+        } else if (nameParts.length === 1) {
+            // Wenn nur der Vorname vorhanden ist
+            this.initials = nameParts[0].charAt(0).toUpperCase(); // Nur die Initiale des Vornamens
+        } else {
+            this.initials = ''; // Falls kein Name eingegeben wurde
+        }
 
     }
 
+    getRandomColor(): string {
+        const randomIndex = Math.floor(Math.random() * this.colors.length); // Zufälligen Index generieren
+        return this.colors[randomIndex]; // Die zufällige Farbe zurückgeben
+    }
 }
 

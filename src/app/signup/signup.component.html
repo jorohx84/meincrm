@@ -1,7 +1,9 @@
 <section>
     <div class="header">
-<span>HEADER</span>
-<span>{{companyID}}</span>
+        <div class="logo">
+            <img src="./img/mapleIcon-bg.png" alt="">
+            <span>maple CRM</span>
+        </div>
     </div>
     <form (ngSubmit)="addUser()" #useraccount="ngForm">
         <div class="headline">
@@ -12,27 +14,32 @@
             <div class="inputfield">
                 <div>
                     <img src="" alt="">
-                    <input #name="ngModel" [(ngModel)]="user.name" type="text" name="name" id="name" placeholder="Vor- und Zuname eingeben" required readonly >
+                    <input #name="ngModel" [(ngModel)]="user.name" type="text" name="name" id="name"
+                        placeholder="Vor- und Zuname eingeben" required readonly>
                     @if(name.touched && !name.valid){
-                        <span class="error">Bitte Vor- und Zuname eingeben</span>
+                    <span class="error">Bitte Vor- und Zuname eingeben</span>
                     }
                 </div>
             </div>
             <div class="inputfield" required>
                 <div>
                     <img src="" alt="">
-                    <input #email="ngModel" [(ngModel)]="user.email" type="email" name="email" placeholder="E-Mail-Adresse eingeben" required readonly  pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">
+                    <input #email="ngModel" [(ngModel)]="user.email" type="email" name="email"
+                        placeholder="E-Mail-Adresse eingeben" required readonly
+                        pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">
                     @if(email.touched && !email.valid){
-                        <span class="error">Bitte E-Mail-Adresse eingeben</span>
+                    <span class="error">Bitte E-Mail-Adresse eingeben</span>
                     }
                 </div>
             </div>
-                  <div class="inputfield" required>
+            <div class="inputfield" required>
                 <div>
                     <img src="" alt="">
-                    <input #password="ngModel" [(ngModel)]="user.password" type="password" name="password" placeholder="Passwort festlegen" required  pattern="^(?=.*[A-Z])(?=.*\d).{8,}$">
+                    <input #password="ngModel" [(ngModel)]="user.password" type="password" name="password"
+                        placeholder="Passwort festlegen" required pattern="^(?=.*[A-Z])(?=.*\d).{8,}$">
                     @if(password.touched && !password.valid){
-                        <span class="error">Das Passwort muss mind. 8 Buchstaben, eine Großbuchstaben und ein Sonderzeichen beinhalten.</span>
+                    <span class="error">Das Passwort muss mind. 8 Buchstaben, eine Großbuchstaben und ein Sonderzeichen
+                        beinhalten.</span>
                     }
                 </div>
             </div>
@@ -43,4 +50,8 @@
         <button [disabled]="useraccount.invalid" class="btn">Speichern</button>
 
     </form>
+
+    <div class="footerContainer">
+        <app-footer></app-footer>
+    </div>
 </section>

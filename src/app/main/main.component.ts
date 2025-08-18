@@ -10,11 +10,13 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 import { MailboxComponent } from '../mailbox/mailbox.component';
 import { TasksComponent } from '../tasks/tasks.component';
 import { CustomerComponent } from '../customer/customer.component';
+import { AdminComponent } from '../admin/admin.component';
+import { CustomercreationComponent } from '../customercreation/customercreation.component';
 
 
 @Component({
   selector: 'app-main',
-  imports: [CommonModule, HeaderComponent, SidebarComponent, DashboardComponent, MailboxComponent, TasksComponent, CustomerComponent],
+  imports: [CommonModule, HeaderComponent, SidebarComponent, DashboardComponent, MailboxComponent, TasksComponent, CustomerComponent, AdminComponent, CustomercreationComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
   providers: [UserService, DataService],
@@ -35,7 +37,7 @@ export class MainComponent {
   constructor() {
     // this.loadMainWindow();
 
-   this.timer = setInterval(() => {
+    this.timer = setInterval(() => {
       this.updateTime();
     }, 1);
   }
@@ -44,11 +46,8 @@ export class MainComponent {
 
   async ngOnInit() {
     this.userservice.currentUser$.subscribe(async (user) => {
-      if (user){
-      const companyID = user?.displayName;
-      this.currentUser = await this.userservice.findCurrentUser(user.uid, companyID);
-      console.log(this.currentUser);
-      
+      if (user) {
+        this.currentUser = user; 
       }
 
     })

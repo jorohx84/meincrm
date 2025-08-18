@@ -8,6 +8,9 @@ export class DataService {
     data: any;
     companyID: string | null = null;
 
+
+    
+
     setCompanyID(id: string | null = null) {
         if (id) {
             this.companyID = id;

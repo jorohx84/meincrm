@@ -18,7 +18,7 @@ export class HeaderComponent {
   timer: any;
   currentTime: string = '';
 
-  
+
   constructor() {
     // this.currentUser = this.userservice.currentUser;
     this.timer = setInterval(() => {
@@ -29,16 +29,16 @@ export class HeaderComponent {
   async ngOnInit() {
     this.userservice.currentUser$.subscribe(async (user) => {
       if (user) {
-        const companyID = user?.displayName;
-        this.currentUser = await this.userservice.findCurrentUser(user.uid, companyID);
-        console.log(this.currentUser);
-
+        this.currentUser = user;
       }
 
     })
 
   }
 
+  checkLocation() {
+    return window.location.pathname.includes('main');
+  }
   updateTime() {
     const now = new Date();
     this.currentTime = now.toISOString();
