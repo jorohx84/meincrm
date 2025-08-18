@@ -1,5 +1,4 @@
 <section>
-    <p>{{currentUser?.name}}</p>
     <div class="menuBar">
         <button class="btn"></button>
         <div class="inputfield">
@@ -8,7 +7,33 @@
                 <input type="text" name="" id="">
             </div>
         </div>
-        <button class="btn" (click)="openCustomerCreation()">Kunde anlegen</button>
+        <button class="btn" (click)="sharedservice.changeComponents('create')">Kunde anlegen</button>
+
+    </div>
+    <div class="customerContainer">
+        <div class="customer divider">
+            <p>Name</p>
+            <p>Straße</p>
+            <p>PLZ</p>
+            <p>Stadt</p>
+            <p>Telefon</p>
+            <p>E-Mail</p>
+            <p>Branche</p>
+       
+        </div>
+      
+        <div class="" *ngFor="let customer of customers; let index = index">
+            <div [ngClass]="{'bg-color' : isBackground(index)}" class="customer">
+                <p>{{customer.name}}</p>
+                <p>{{customer.street}}</p>
+                <p>{{customer.areacode}}</p>
+                <p>{{customer.city}}</p>
+                <p>{{customer.phone}}</p>
+                <p>{{customer.email}}</p>
+                <p>{{customer.branch}}</p>
+
+            </div>
+        </div>
 
     </div>
 

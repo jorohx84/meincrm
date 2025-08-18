@@ -1,6 +1,56 @@
 <section>
-    <p>{{currentUser?.name}}</p>
-    <div>
+    <div class="menuBar">
         <button class="btn" (click)="sharedservice.changeComponents('customers')"></button>
     </div>
+
+
+    <div>
+        <div class="inputfield">
+            <div>
+                <input [(ngModel)]="customer.name" type="text" placeholder="Name">
+            </div>
+        </div>
+        <div class="inputfield">
+            <div>
+                <input [(ngModel)]="customer.street" type="text" placeholder="Straße">
+            </div>
+        </div>
+        <div class="inputfield">
+            <div>
+                <input [(ngModel)]="customer.city" type="text" placeholder="Stadt">
+            </div>
+        </div>
+        <div class="inputfield">
+            <div>
+                <input [(ngModel)]="customer.areacode" type="text" placeholder="PLZ">
+            </div>
+        </div>
+
+        <div class="inputfield">
+            <div>
+                <input [(ngModel)]="customer.branch" type="text" placeholder="Branche">
+            </div>
+        </div>
+             <div class="inputfield">
+            <div>
+                <input [(ngModel)]="customer.phone" type="text" placeholder="Telefon">
+            </div>
+        </div>
+             <div class="inputfield">
+            <div>
+                <input [(ngModel)]="customer.email" type="text" placeholder="E-Mail">
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <button class="btn" (click)="addCustomer()">ADD</button>
+
+
+
+
+
+
 </section>

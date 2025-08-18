@@ -3,6 +3,10 @@ import { SharedService } from '../shared.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../user.service';
+import { Customer } from '../models/customer.class';
+import { Firestore } from '@angular/fire/firestore';
+import { addDoc, collection, doc } from 'firebase/firestore';
+
 
 @Component({
   selector: 'app-customercreation',
@@ -12,9 +16,11 @@ import { UserService } from '../user.service';
 })
 export class CustomercreationComponent {
   sharedservice = inject(SharedService);
-  userservice = inject(UserService)
-  customer: any;
+  userservice = inject(UserService);
+  firestore = inject(Firestore);
+  customer: any = new Customer();
   currentUser: any;
+
 
   async ngOnInit() {
     this.userservice.currentUser$.subscribe(async (user) => {
@@ -24,18 +30,30 @@ export class CustomercreationComponent {
 
     })
 
+
   }
+
+  async addCustomer() {
+    const customerData = this.getCostumerObject();
+    const companyID = this.currentUser.companyID
+    const docRef = collection(this.firestore, `companies/${companyID}/customers/`)
+    await addDoc(docRef, customerData)
+    console.log('Kunde wurde in der Datenbank gespeichert', customerData);
+    this.sharedservice.changeComponents('customers');
+  }
+
+
 
   getCostumerObject() {
     return {
-      name: '',
-      street: '',
-      city: '',
-      areacode: '',
-      phone: '',
-      email: '',
+      name: this.customer.name,
+      street: this.customer.street,
+      city: this.customer.city,
+      areacode: this.customer.areacode,
+      phone: this.customer.phone,
+      email: this.customer.email,
       status: '',
-      branch: '',
+      branch: this.customer.branch,
     }
   }
 }

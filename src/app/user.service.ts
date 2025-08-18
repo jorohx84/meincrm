@@ -42,7 +42,7 @@ export class UserService {
                 console.log(this.user);
                 this.companyIdent = user.displayName;
                 const currentUser = await this.findCurrentUser(user.uid, this.companyIdent ?? '');
-
+                await this.dataservice.loadCustomers(this.companyIdent ?? '')
                 this.currentUserSubject.next(currentUser);
                 // this.dataservice.setCompanyID(this.companyIdent);
                 this.dataservice.saveDataToLocalStorage('companyID', this.companyIdent,);

@@ -1,5 +1,6 @@
 import { Injectable, inject } from "@angular/core";
-import { Firestore, collection, getDocs, doc, updateDoc } from "@angular/fire/firestore";
+import { Firestore, collection, getDocs, doc, updateDoc, onSnapshot } from "@angular/fire/firestore";
+import { BehaviorSubject } from "rxjs";
 @Injectable({
     providedIn: 'root',
 })
@@ -7,17 +8,19 @@ export class DataService {
     firestore = inject(Firestore);
     data: any;
     companyID: string | null = null;
+    private customerSubject = new BehaviorSubject<any>(null)
+    public customerSubject$ = this.customerSubject.asObservable();
 
+    constructor() {
 
-    
-
+    }
     setCompanyID(id: string | null = null) {
         if (id) {
             this.companyID = id;
             console.log('companyID geladen', this.companyID);
-        }else{
+        } else {
             this.getDataFromLocalStorage('companyID');
-            this.companyID=this.data;
+            this.companyID = this.data;
             console.log('companyID aus localStorage geladen', this.companyID);
         }
     }
@@ -41,18 +44,18 @@ export class DataService {
     saveDataToLocalStorage(local: string, data: any) {
 
         if (typeof data === 'string') {
-          
+
             localStorage.setItem(local, data);
         } else {
-          
+
             localStorage.setItem(local, JSON.stringify(data));
         }
     }
 
 
-    async getDataFromFirestore(dataCollection: string, id:string) {
+    async getDataFromFirestore(dataCollection: string, id: string) {
         console.log(dataCollection);
-        
+
         try {
             const usersCollection = collection(this.firestore, `companies/${id}/${dataCollection}`);
             const userSnapshot = await getDocs(usersCollection);
@@ -65,4 +68,22 @@ export class DataService {
             throw error;
         }
     }
+
+
+    async loadCustomers(companyID: string) {
+        const collectionRef = collection(this.firestore, `companies/${companyID}/customers/`)
+        onSnapshot(collectionRef, (snapshot) => {
+            const customers = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+
+            this.customerSubject.next(customers); 
+
+        })
+
+
+    }
+
+    
 }
