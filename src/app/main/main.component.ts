@@ -47,7 +47,8 @@ export class MainComponent {
   async ngOnInit() {
     this.userservice.currentUser$.subscribe(async (user) => {
       if (user) {
-        this.currentUser = user; 
+        this.currentUser = user;
+       
       }
 
     })
@@ -73,7 +74,6 @@ export class MainComponent {
 
 
   }
-
 
 
 

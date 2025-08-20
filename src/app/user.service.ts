@@ -5,6 +5,7 @@ import { Firestore, collection, getDocs, doc, updateDoc } from "@angular/fire/fi
 import { DataService } from "./data.service";
 import { SharedService } from "./shared.service";
 import { BehaviorSubject } from "rxjs";
+import { Company } from "./models/company.class";
 
 @Injectable({
     providedIn: 'root',
@@ -40,12 +41,13 @@ export class UserService {
                 this.user = user;
 
                 console.log(this.user);
-                this.companyIdent = user.displayName;
-                const currentUser = await this.findCurrentUser(user.uid, this.companyIdent ?? '');
-                await this.dataservice.loadCustomers(this.companyIdent ?? '')
-                this.currentUserSubject.next(currentUser);
-                // this.dataservice.setCompanyID(this.companyIdent);
-                this.dataservice.saveDataToLocalStorage('companyID', this.companyIdent,);
+                // this.companyIdent = user.displayName;
+                const companyID = user.displayName;
+                await this.intitializeData(user, companyID ?? '');
+                // const currentUser = await this.findCurrentUser(user.uid, this.companyIdent ?? '');
+                // await this.dataservice.loadCustomers(this.companyIdent ?? '')
+                // this.currentUserSubject.next(currentUser);
+                // this.dataservice.saveDataToLocalStorage('companyID', this.companyIdent,);
                 console.log('User ist eingeloggt', this.user);
 
             } else {
@@ -55,6 +57,18 @@ export class UserService {
             }
 
         })
+    }
+
+    async intitializeData(user: any, companyID: string) {
+        if (companyID) {
+
+
+            const currentUser = await this.findCurrentUser(user.uid, companyID);
+            this.currentUserSubject.next(currentUser);
+            await this.dataservice.loadCustomers(companyID)
+            this.dataservice.saveDataToLocalStorage('companyID', companyID);
+        }
+
     }
 
 
@@ -88,19 +102,20 @@ export class UserService {
 
 
     async setUserLoginTime(user: any) {
+        console.log(user);
+
         const loginTime = new Date().toISOString();
         console.log(loginTime);
+        const companyID = user.displayName
 
-        console.log(this.companyIdent);
-
-        const userDocRef = doc(this.firestore, `companies/${this.companyIdent}/users/${user.uid}`)
+        const userDocRef = doc(this.firestore, `companies/${companyID}/users/${user.uid}`)
         await updateDoc(userDocRef, {
             logindate: loginTime,
         })
 
     }
 
-    async setOnlineStatus(status: string, id: any) {
+    async setOnlineStatus(status: string, user: any) {
         let onlineStatus = false;
         if (status === 'login') {
             onlineStatus = true;
@@ -108,14 +123,14 @@ export class UserService {
         if (status === 'logout') {
             onlineStatus = false;
         }
-        console.log(id);
-
+        console.log(user);
+        const companyID = user.displayName
         console.log(onlineStatus);
 
-        await this.updateOnlineStatus(id, onlineStatus);
+        await this.updateOnlineStatus(user.uid, onlineStatus, companyID);
     }
-    async updateOnlineStatus(id: string, onlineStatus: boolean) {
-        const userDocRef = doc(this.firestore, `companies/${this.companyIdent}/users/${id}`);
+    async updateOnlineStatus(id: string, onlineStatus: boolean, companyID: string) {
+        const userDocRef = doc(this.firestore, `companies/${companyID}/users/${id}`);
         await updateDoc(userDocRef, {
             online: onlineStatus,
         })

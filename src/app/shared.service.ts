@@ -15,6 +15,8 @@ export class SharedService {
     isSlide: boolean = true;
     component: string = '';
     currentUser: any;
+    counter: number = 0;
+
 
     navigateToPath(path: string) {
         this.router.navigate([path]);
@@ -25,4 +27,6 @@ export class SharedService {
         console.log(this.component);
         this.dataservice.saveDataToLocalStorage('component', component);
     }
+
+ 
 }

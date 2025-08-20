@@ -1,37 +1,69 @@
 <section>
     <div class="menuBar">
-        <button class="btn"></button>
-        <div class="inputfield">
-            <div>
-                <img src="./icons/search.svg" alt="">
-                <input type="text" name="" id="">
+        <button class="btn">
+            <img src="./icons/filter_white.svg" alt="">
+        </button>
+
+
+        <div class="searchContainer">
+            <div class="filterContainer">
+                <div class="searchFilter" (click)="openFilter()">
+                    <img [ngClass]="{'rotate': searchFilterOpen}" src="./icons/dropdown.svg" alt="">
+                    <p>{{currentSearchFilter?.displayName}}</p>
+                </div>
+                <div *ngIf="searchFilterOpen" class="searchOptions">
+                    <div *ngFor="let filter of customerFields; let index = index">
+                        <p (click)="changeSearchFitler(index); openFilter()">{{filter.displayName}}</p>
+                    </div>
+                </div>
+
             </div>
+
+
+            <div class="inputfield">
+
+                <div>
+
+
+                    <input (input)="searchCustomer()" [(ngModel)]="searchValue" type="text" name="" id="">
+                    <img src="./icons/search.svg" alt="">
+                </div>
+            </div>
+
         </div>
         <button class="btn" (click)="sharedservice.changeComponents('create')">Kunde anlegen</button>
 
     </div>
-    <div class="customerContainer">
-        <div class="customer divider">
-            <p>Name</p>
-            <p>Straße</p>
-            <p>PLZ</p>
-            <p>Stadt</p>
-            <p>Telefon</p>
-            <p>E-Mail</p>
-            <p>Branche</p>
-       
+
+
+    <div class="listInfos">
+        <div class="CustomerCount">
+            <span>Anzahl der Kunden:</span>
+            <p>{{customers.length}}</p>
         </div>
-      
+    </div>
+
+
+    <div class="customerListContainer">
+        <div class="customer divider">
+            <p *ngFor="let headline of customerFields; let index = index" (click)="sortList(headline.fieldName, index)">
+                <img class="dropdownIcon"
+                    [ngClass]="{'rotateUp': activeSortIndex===index && isSortUp, 'rotateDown': activeSortIndex===index && isSortDown}"
+                    src="./icons/dropdown.svg" alt="">
+                <span>{{getDisplayName(headline.fieldName)}}</span>
+            </p>
+
+        </div>
+        <div *ngIf="isloading">
+            <p>Kundendaten werden geladen...</p>
+        </div>
+        <div *ngIf="!isFound && isSearch">
+            <p>Keine Kunden gefunden</p>
+        </div>
+
         <div class="" *ngFor="let customer of customers; let index = index">
             <div [ngClass]="{'bg-color' : isBackground(index)}" class="customer">
-                <p>{{customer.name}}</p>
-                <p>{{customer.street}}</p>
-                <p>{{customer.areacode}}</p>
-                <p>{{customer.city}}</p>
-                <p>{{customer.phone}}</p>
-                <p>{{customer.email}}</p>
-                <p>{{customer.branch}}</p>
-
+                <p *ngFor="let field of customerFields">{{customer[field.fieldName]}}</p>
             </div>
         </div>
 

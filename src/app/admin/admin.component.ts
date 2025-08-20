@@ -33,34 +33,12 @@ export class AdminComponent {
   initials: string = '';
   inviteLink: string | null = null;
 
-  colors: string[] = [
-    "#FAD02E", // Pastellgelb
-    "#F28D35", // Pastellorange
-    "#F25F5C", // Pastellrot
-    "#D4A5A5", // Pastellrosa
-    "#6B4226", // Pastellbraun
-    "#F7B7A3", // Helles Rosa
-    "#C1D3FE", // Helles Blau
-    "#A4B7F1", // Pastellblau
-    "#D6E6F2", // Helles Himmelblau
-    "#8FD9B6", // Pastellgrün
-    "#F1E9D2", // Blassgelb
-    "#FFC3A0", // Helles Apricot
-    "#FFADAB", // Pastellpink
-    "#A9DFBF", // Sanftes Grün
-    "#D9EAD3", // Zartgrün
-    "#E9C7A4", // Helles Beige
-    "#C9A0DC", // Lavendel
-    "#B3C6D9", // Helles Blau
-    "#E3F2A7", // Helles Lime
-    "#B4E1FF", // Zartes Blau
-  ];
 
   ngOnInit() {
     this.userservice.currentUser$.subscribe(async (user) => {
       if (user) {
         const companyID = user?.displayName;
-        this.currentUser = await this.userservice.findCurrentUser(user.uid, companyID);
+        this.currentUser = user;
         this.companyID = this.currentUser.companyID
         this.companyName = this.currentUser.companyName;
         console.log(this.currentUser);

@@ -41,11 +41,13 @@ export class AuthService {
 
 
     async login(email: string, password: string) {
+        console.log(email, password);
+        
         try {
             await signInWithEmailAndPassword(this.auth, email, password);
             console.log(this.userservice.user.uid);
             await this.userservice.setUserLoginTime(this.userservice.user);
-            await this.userservice.setOnlineStatus('login', this.userservice.user.uid);
+            await this.userservice.setOnlineStatus('login', this.userservice.user);
             await this.userservice.findCurrentUser(this.userservice.user.uid, this.userservice.user.displayName);
 
             setTimeout(() => {
