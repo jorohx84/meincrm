@@ -12,11 +12,12 @@ import { TasksComponent } from '../tasks/tasks.component';
 import { CustomerComponent } from '../customer/customer.component';
 import { AdminComponent } from '../admin/admin.component';
 import { CustomercreationComponent } from '../customercreation/customercreation.component';
+import { CustomerprofileComponent } from '../customerprofile/customerprofile.component';
 
 
 @Component({
   selector: 'app-main',
-  imports: [CommonModule, HeaderComponent, SidebarComponent, DashboardComponent, MailboxComponent, TasksComponent, CustomerComponent, AdminComponent, CustomercreationComponent],
+  imports: [CommonModule, HeaderComponent, SidebarComponent, DashboardComponent, MailboxComponent, TasksComponent, CustomerComponent, AdminComponent, CustomercreationComponent, CustomerprofileComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
   providers: [UserService, DataService],
@@ -35,7 +36,7 @@ export class MainComponent {
   private userSubscription: Subscription | null = null;
 
   constructor() {
-    // this.loadMainWindow();
+    this.loadMainWindow();
 
     this.timer = setInterval(() => {
       this.updateTime();
@@ -48,7 +49,7 @@ export class MainComponent {
     this.userservice.currentUser$.subscribe(async (user) => {
       if (user) {
         this.currentUser = user;
-       
+
       }
 
     })
@@ -59,7 +60,9 @@ export class MainComponent {
     this.dataservice.getDataFromLocalStorage('fullscreen');
     this.sharedservice.isFullscreen = this.dataservice.data;
     this.dataservice.getDataFromLocalStorage('slide');
+
     this.sharedservice.isSlide = this.dataservice.data;
+    console.log(this.sharedservice.isSlide);
 
   }
 

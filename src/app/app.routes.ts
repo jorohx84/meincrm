@@ -9,6 +9,7 @@ import { CustomerComponent } from './customer/customer.component';
 import { MainComponent } from './main/main.component';
 import { SignupComponent } from './signup/signup.component';
 import { CustomercreationComponent } from './customercreation/customercreation.component';
+import { CustomerprofileComponent } from './customerprofile/customerprofile.component';
 
 
 export const routes: Routes = [
@@ -22,5 +23,6 @@ export const routes: Routes = [
     { path: 'customers', component: CustomerComponent },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
-     { path: 'create', component: CustomercreationComponent },
+    { path: 'create', component: CustomercreationComponent },
+    { path: 'customer', component: CustomerprofileComponent },
 ];

@@ -142,8 +142,9 @@ export class UserService {
         this.dataservice.saveDataToLocalStorage('component', null)
         this.dataservice.saveDataToLocalStorage('companyID', null);
         this.dataservice.saveDataToLocalStorage('fullscreen', null);
-        this.dataservice.saveDataToLocalStorage('slide', null);
+        this.dataservice.saveDataToLocalStorage('slide', false);
         this.dataservice.saveDataToLocalStorage('user', null);
+          this.dataservice.saveDataToLocalStorage('customer', null);
         signOut(this.auth);
         setTimeout(() => {
             this.sharedservice.navigateToPath('/login');

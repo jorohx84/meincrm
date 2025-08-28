@@ -8,7 +8,7 @@
         <div class="searchContainer">
             <div class="filterContainer">
                 <div class="searchFilter" (click)="openFilter()">
-                    <img [ngClass]="{'rotate': searchFilterOpen}" src="./icons/dropdown.svg" alt="">
+                    <img [ngClass]="{'rotate': !searchFilterOpen}" src="./icons/dropdown.svg" alt="">
                     <p>{{currentSearchFilter?.displayName}}</p>
                 </div>
                 <div *ngIf="searchFilterOpen" class="searchOptions">
@@ -45,10 +45,10 @@
 
 
     <div class="customerListContainer">
-        <div class="customer divider">
+        <div class="customer listHeadline">
             <p *ngFor="let headline of customerFields; let index = index" (click)="sortList(headline.fieldName, index)">
                 <img class="dropdownIcon"
-                    [ngClass]="{'rotateUp': activeSortIndex===index && isSortUp, 'rotateDown': activeSortIndex===index && isSortDown}"
+                    [ngClass]="{'rotateUp': activeSortIndex===index && isSortUp, 'rotateDown': activeSortIndex===index && !isSortUp}"
                     src="./icons/dropdown.svg" alt="">
                 <span>{{getDisplayName(headline.fieldName)}}</span>
             </p>
@@ -63,7 +63,7 @@
 
         <div class="" *ngFor="let customer of customers; let index = index">
             <div [ngClass]="{'bg-color' : isBackground(index)}" class="customer">
-                <p *ngFor="let field of customerFields">{{customer[field.fieldName]}}</p>
+                <p (click)="openCustomerProfile(index)" *ngFor="let field of customerFields">{{customer[field.fieldName]}}</p>
             </div>
         </div>
 

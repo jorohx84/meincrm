@@ -19,6 +19,7 @@ export class CustomerComponent {
   sharedservice = inject(SharedService);
   dataservice = inject(DataService);
   currentUser: any;
+  customer: any | null = null
   customers: any[] = [];
   allCustomers: any[] = [];
   searchFilterOpen: boolean = false;
@@ -32,12 +33,13 @@ export class CustomerComponent {
   isSortDown: boolean = false;
   toggle: boolean = false;
   activeSortIndex: number | null = null;
+  sortDirections: { [index: number]: 'asc' | 'desc' } = {};
 
   customerFields = [  //hier werden die felder der Tabelle hinzugefügt!!!!!
     { fieldName: 'name', displayName: 'Name' },
     { fieldName: 'street', displayName: 'Straße' },
     { fieldName: 'city', displayName: 'Stadt' },
-    { fieldName: 'areacode', displayName: 'PLZ' },
+    { fieldName: 'areacode', displayName: 'Postleitzahl' },
     { fieldName: 'phone', displayName: 'Telefon' },
     { fieldName: 'email', displayName: 'E-Mail' },
     { fieldName: 'branch', displayName: 'Branche' },
@@ -45,6 +47,7 @@ export class CustomerComponent {
   ];
 
   currentSearchFilter: any = this.customerFields[0];
+
   async ngOnInit() {
     this.userservice.currentUser$.subscribe((user) => {
       if (user) {
@@ -76,12 +79,14 @@ export class CustomerComponent {
   changeSearchFitler(index: number) {
     console.log(index);
     this.currentSearchFilter = this.customerFields[index];
+    console.log(this.currentSearchFilter);
+
   }
 
   searchCustomer() {
     if (this.searchValue.length > 0) {
       this.isSearch = true
-      const key: keyof Customer = this.currentSearchFilter.keyName as keyof Customer;
+      const key: keyof Customer = this.currentSearchFilter.fieldName as keyof Customer;
       const searchedCustomers: any[] = [];
       for (let index = 0; index < this.allCustomers.length; index++) {
         const customer = this.allCustomers[index];
@@ -99,10 +104,22 @@ export class CustomerComponent {
 
   sortList(fieldName: string, iconIndex: number) {
     this.activeSortIndex = iconIndex;
-    this.toggle = !this.toggle;
-    this.isSortUp = this.toggle === false ? true : false;
-    this.isSortDown = this.toggle === true ? true : false;
-    console.log(this.activeSortIndex);
+    if (this.sortDirections[iconIndex] === 'asc') {
+      this.sortDirections[iconIndex] = 'desc';
+      this.isSortUp = true;
+    } else {
+      this.isSortUp = false;
+      this.sortDirections[iconIndex] = 'asc';
+    }
+
+    this.customers.sort((a, b) => {
+      const valA = a[fieldName].toString().toLowerCase();
+      const valB = b[fieldName].toString().toLowerCase();
+      if (valA < valB) return this.sortDirections[iconIndex] === 'asc' ? -1 : 1;
+      if (valA > valB) return this.sortDirections[iconIndex] === 'asc' ? 1 : -1;
+      return 0;
+    });
+
   }
 
   getDisplayName(fieldName: string) {
@@ -113,5 +130,15 @@ export class CustomerComponent {
       }
     }
     return
+  }
+
+  openCustomerProfile(index: number) {
+    this.sharedservice.changeComponents('customer')
+    console.log(index);
+    const customer = this.customers[index];
+    this.sharedservice.customer = customer;
+    this.dataservice.saveDataToLocalStorage('customer', customer);
+    console.log(this.customer);
+
   }
 }

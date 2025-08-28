@@ -16,7 +16,7 @@ export class SharedService {
     component: string = '';
     currentUser: any;
     counter: number = 0;
-
+    customer: any;
 
     navigateToPath(path: string) {
         this.router.navigate([path]);
@@ -28,5 +28,5 @@ export class SharedService {
         this.dataservice.saveDataToLocalStorage('component', component);
     }
 
- 
+
 }
