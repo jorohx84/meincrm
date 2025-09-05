@@ -3,8 +3,7 @@ import { Component, inject } from '@angular/core';
 import { SharedService } from '../shared.service';
 import { DataService } from '../data.service';
 import { FormsModule } from '@angular/forms';
-
-
+import { Contact } from '../models/contact.class';
 @Component({
   selector: 'app-customerprofile',
   imports: [CommonModule, FormsModule],
@@ -18,7 +17,14 @@ export class CustomerprofileComponent {
   customerIndex: number = -1;
   currentUser: any;
   customers: any[] = [];
-  ngOnInit() {
+  isEdit: boolean = false;
+  template: string = 'dashboard';
+  contact: any = new Contact;
+  contacts: any[] = [];
+
+
+
+  async ngOnInit() {
     if (this.sharedservice.customer) {
       this.customer = this.sharedservice.customer;
     } else {
@@ -32,6 +38,12 @@ export class CustomerprofileComponent {
       this.dataservice.getDataFromLocalStorage('user');
       this.currentUser = this.dataservice.data;
     }
+    this.dataservice.getDataFromLocalStorage('template');
+    this.template = this.dataservice.data;
+    this.dataservice.loadContacts(this.currentUser.companyID, this.customer.id);
+    this.dataservice.contactSubject$.subscribe((contactsData) => {
+      this.contacts = contactsData;
+    })
 
   }
 
@@ -43,6 +55,7 @@ export class CustomerprofileComponent {
       field.disabled = !field.disabled;
 
     }
+    this.isEdit = !this.isEdit;
   }
 
   saveEdit() {
@@ -50,6 +63,28 @@ export class CustomerprofileComponent {
     console.log(this.customer);
     console.log(this.currentUser);
     this.dataservice.saveDataToLocalStorage('customer', this.customer);
-    this.dataservice.updateCustomer(this.currentUser.companyID, this.customer.id, this.customer)
+    this.dataservice.updateCustomer(this.currentUser.companyID, this.customer.id, this.customer);
+
+  }
+
+  openCard(cardKey: string) {
+    console.log(cardKey);
+    this.template = cardKey;
+    this.dataservice.saveDataToLocalStorage('template', cardKey);
+    // this.dataservice.customerID = this.customer.id;
+    // this.dataservice.companyID = this.currentUser.companyID;
+
+  }
+
+  addContact() {
+    const data = {
+      name: this.contact.name,
+      phone: this.contact.phone,
+      email: this.contact.email,
+      function: this.contact.function,
+
+    }
+    console.log(data);
+    this.dataservice.addContact(this.currentUser.companyID, this.customer.id, data);
   }
 }

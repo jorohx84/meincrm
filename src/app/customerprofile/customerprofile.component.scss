@@ -1,15 +1,137 @@
-.customerData{
-    width: 100%;
-    max-width: fit-content;
+section {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    position: relative;
+    padding: 16px;
 }
 
-.adress{
+.dataContainer {
+    width: 100%;
+    height: fit-content;
     display: flex;
+    flex-direction: column;
+    padding-bottom: 12px;
+    border-bottom: solid;
+  position: relative;
 }
 
-input{
-   max-width: fit-content;
+.customerData {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 16px;
+    padding: 8px;
+    border-radius: 4px;
+
+}
+
+input {
+    border-radius: 4px;
+    padding: 6px;
+    width: 100%;
+    max-width: fit-content;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.adress {
+    display: flex;
+    flex-direction: column;
+}
+
+.contactData {
+    width: 100%;
+    min-width: fit-content;
+    display: flex;
+   
+
+
+    >div {
+        width: 100%;
+        min-width: fit-content;
+        display: flex;
+        gap: 4px;
+        align-items: center;
+
+        >span {
+            min-width: fit-content;
+        }
+    }
+}
+
+.btnContainer {
+    width: 100%;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    display: flex;
+    justify-content: flex-end;
+
+    .exitBtn {
+
+        >img {
+            width: 25px;
+        }
+
+    }
+
+}
+
+.editBtnContainer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+position: absolute;
+bottom: 16px;
+right: 0px;
+    gap: 4px;
+
+    .editBtn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: solid;
+        border-radius: 4px;
+        padding: 4px;
+
+        >img {
+            width: 16px;
+        }
+    }
+}
+
+.activeInputs {
+    input {
+        background-color: var(--blue-hover);
+    }
+
+}
+
+.bold {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.menubar{
+    display: flex;
+    gap: 16px;
+    border-bottom: solid;
+    padding: 16px;
+}
+
+.inputfields{
+    display: flex;
+align-items: center;
+gap: 16px;
+   
+    >input{
+        height: 30px;
+        border: solid 1px var(--border-color);
+        &::placeholder{
+            font-size: 14px;
+        }
+    }
 }

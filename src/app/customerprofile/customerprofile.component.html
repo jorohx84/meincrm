@@ -1,16 +1,65 @@
-<div>
-    <button class="btn" (click)="sharedservice.changeComponents('customers')"></button>
-</div>
-<button class="btn" (click)="toggleActivateEdit()">Bearbeiten</button>
-<button class="btn" (click)="saveEdit()">Speichern</button>
-<div class="customerData" >
-    <input type="text" [(ngModel)]="customer.name" disabled="">
-    <input type="text" [(ngModel)]="customer.street" disabled="">
-    <div class="adress">
-        <input type="text" [(ngModel)]="customer.areacode" disabled="">
-        <input type="text" [(ngModel)]="customer.city" disabled="">
+<section>
+    <div class="btnContainer">
+        <button class="exitBtn" (click)="sharedservice.changeComponents('customers')"><img src="./icons/close.svg"
+                alt=""></button>
     </div>
-    <input type="text" [(ngModel)]="customer.phone" disabled="">
-    <input type="text" [(ngModel)]="customer.email" disabled="">
+    <div class="dataContainer" [ngClass]="{'activeInputs': isEdit}">
+        <input type="text" class="bold" [(ngModel)]="customer.name" disabled="">
+        <div class="customerData" [ngClass]="{'activeInputs': isEdit}">
+            <div class="adress">
 
-</div>
+                <input type="text" [(ngModel)]="customer.street" disabled="">
+                <input type="text" [(ngModel)]="customer.areacode" disabled="">
+                <input type="text" [(ngModel)]="customer.city" disabled="">
+            </div>
+
+            <div class="contactData">
+                <div>
+                    <span>Tel:</span>
+                    <input type="text" [(ngModel)]="customer.phone" disabled="">
+                </div>
+                <div>
+                    <span>E-Mail:</span>
+                    <input type="text" [(ngModel)]="customer.email" disabled="">
+                </div>
+
+            </div>
+
+        </div>
+        <div class="editBtnContainer">
+            <button *ngIf="!isEdit" class="editBtn" (click)="toggleActivateEdit()"><img src="./icons/edit.svg"
+                    alt=""></button>
+            <button *ngIf="isEdit" class="editBtn" (click)="toggleActivateEdit()"><img src="./icons/close.svg"
+                    alt=""></button>
+            <button *ngIf="isEdit" class="editBtn" (click)="saveEdit()"><img src="./icons/save.svg" alt=""></button>
+        </div>
+    </div>
+
+    <div class="menubar">
+        <button class="btn" (click)="openCard('dashboard')">Dashbaord</button>
+        <button class="btn" (click)="openCard('asp')">Kontakte</button>
+
+    </div>
+    <!-- Dashboard -->
+    <div *ngIf="template==='dashboard'" class="costumerDashboard">
+        customerDashboard
+    </div>
+
+    <!-- Contacts -->
+    <div *ngIf="template==='asp'" class="contactPerson">
+        hallo
+        <div class="inputfields">
+            <input type="text" placeholder="Name" [(ngModel)]="contact.name">
+            <input type="text" placeholder="Telefon" [(ngModel)]="contact.phone">
+            <input type="text" placeholder="E-Mail" [(ngModel)]="contact.email">
+            <input type="text" placeholder="Funktion" [(ngModel)]="contact.function">
+            <button class="btn" (click)="addContact()"></button>
+        </div>
+        <div *ngFor="let contact of contacts">
+            <p>{{contact.name}}</p>
+        </div>
+    </div>
+
+
+
+</section>

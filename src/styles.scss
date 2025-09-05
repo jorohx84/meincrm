@@ -80,6 +80,10 @@ p {
     }
 }
 
+div, input, section, p, span{
+    box-sizing: border-box;
+}
+
 form {
     width: 100%;
     max-width: 700px;
@@ -137,6 +141,7 @@ form {
 
 input {
     width: 100%;
+   
 }
 
 input:focus {

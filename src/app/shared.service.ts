@@ -17,7 +17,7 @@ export class SharedService {
     currentUser: any;
     counter: number = 0;
     customer: any;
-
+    companyID: string='';
     navigateToPath(path: string) {
         this.router.navigate([path]);
     }

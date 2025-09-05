@@ -2,15 +2,20 @@ import { Injectable, inject } from "@angular/core";
 import { Firestore, getDocs, doc, updateDoc, onSnapshot } from "@angular/fire/firestore";
 import { addDoc, collection } from "firebase/firestore";
 import { BehaviorSubject } from "rxjs";
+import { SharedService } from "./shared.service";
 @Injectable({
     providedIn: 'root',
 })
 export class DataService {
     firestore = inject(Firestore);
+
     data: any;
-    companyID: string | null = null;
+    customerID: string = '';
+    companyID: string = '';
     private customerSubject = new BehaviorSubject<any>(null)
     public customerSubject$ = this.customerSubject.asObservable();
+    private contactSubject = new BehaviorSubject<any>(null);
+    public contactSubject$ = this.contactSubject.asObservable();
 
     customers: any[] = [
 
@@ -73,16 +78,21 @@ export class DataService {
     constructor() {
 
     }
-    setCompanyID(id: string | null = null) {
-        if (id) {
-            this.companyID = id;
-            console.log('companyID geladen', this.companyID);
-        } else {
-            this.getDataFromLocalStorage('companyID');
-            this.companyID = this.data;
-            console.log('companyID aus localStorage geladen', this.companyID);
-        }
+
+
+    ngOnInit() {
+     
     }
+    // setCompanyID(id: string | null = null) {
+    //     if (id) {
+    //         this.companyID = id;
+    //         console.log('companyID geladen', this.companyID);
+    //     } else {
+    //         this.getDataFromLocalStorage('companyID');
+    //         this.companyID = this.data;
+    //         console.log('companyID aus localStorage geladen', this.companyID);
+    //     }
+    // }
 
 
     getDataFromLocalStorage(data: any) {
@@ -151,7 +161,27 @@ export class DataService {
         await updateDoc(docRef, data);
 
     }
+    async addContact(companyID: string, customerID: string, data: any) {
+        console.log(companyID);
+        console.log(customerID)
+        console.log(data);
+        const collectionRef = collection(this.firestore, `companies/${companyID}/customers/${customerID}/contacts`);
+        await addDoc(collectionRef, data);
 
+    }
+
+
+    async loadContacts(companyID: string, customerID: string,) {
+        const collectionRef = collection(this.firestore, `companies/${companyID}/customers/${customerID}/contacts`);
+        onSnapshot(collectionRef, (snapshot) => {
+            const contacts = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+            this.contactSubject.next(contacts);
+
+        })
+    }
 
     // async addCostumer(companyID: string) {
     //     console.log(companyID);
