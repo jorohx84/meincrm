@@ -1,4 +1,16 @@
 <div>
     <button class="btn" (click)="sharedservice.changeComponents('customers')"></button>
 </div>
-<p>{{customer.name}}</p>
+<button class="btn" (click)="toggleActivateEdit()">Bearbeiten</button>
+<button class="btn" (click)="saveEdit()">Speichern</button>
+<div class="customerData" >
+    <input type="text" [(ngModel)]="customer.name" disabled="">
+    <input type="text" [(ngModel)]="customer.street" disabled="">
+    <div class="adress">
+        <input type="text" [(ngModel)]="customer.areacode" disabled="">
+        <input type="text" [(ngModel)]="customer.city" disabled="">
+    </div>
+    <input type="text" [(ngModel)]="customer.phone" disabled="">
+    <input type="text" [(ngModel)]="customer.email" disabled="">
+
+</div>

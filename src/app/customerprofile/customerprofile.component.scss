@@ -1,0 +1,15 @@
+.customerData{
+    width: 100%;
+    max-width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.adress{
+    display: flex;
+}
+
+input{
+   max-width: fit-content;
+}

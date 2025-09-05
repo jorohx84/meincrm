@@ -144,7 +144,13 @@ export class DataService {
 
     }
 
+    async updateCustomer(companyID: string, customerID: string, data: any) {
+        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}`);
+        console.log(docRef);
+        console.log(data);
+        await updateDoc(docRef, data);
 
+    }
 
 
     // async addCostumer(companyID: string) {
