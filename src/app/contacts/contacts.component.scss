@@ -1,28 +1,53 @@
-section{
+section {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
+    gap: 32px;
 }
+// :host {
+//   display: block;
+//   height: 100%; // <== ganz wichtig!
+// }
 
-
-.inputfields{
+.inputfields {
     display: flex;
-align-items: center;
-gap: 16px;
-   
-    >input{
+    align-items: center;
+    gap: 16px;
+
+    >input {
         width: 100%;
         max-width: 300px;
         height: 30px;
         border: solid 1px var(--border-color);
-        &::placeholder{
+
+        &::placeholder {
             font-size: 14px;
         }
     }
 }
 
-.contactsRow{
+
+.contactList {
+    width: 100%;
+
     display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+    overflow-y: scroll;
+
+
+}
+
+.contactsCard {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
     gap: 16px;
+    border: solid;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
 }

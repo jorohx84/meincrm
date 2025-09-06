@@ -41,13 +41,19 @@
         <button class="btn" (click)="changeTemplate('contacts')">Kontakte</button>
 
     </div>
-    <!-- Dashboard -->
-    <div *ngIf="customerTemplate==='dashboard'" class="costumerDashboard">
-        customerDashboard
+ 
+
+
+
+    <div class="templateContainer">
+           <!-- Dashboard -->
+        <div *ngIf="customerTemplate==='dashboard'" class="costumerDashboard">
+            customerDashboard
+        </div>
+        <!-- Contacts -->
+        <app-contacts *ngIf="customerTemplate==='contacts'"></app-contacts>
     </div>
 
-    <!-- Contacts -->
-    <app-contacts *ngIf="customerTemplate==='contacts'"></app-contacts>
 
 
 
