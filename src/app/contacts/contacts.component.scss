@@ -1,0 +1,28 @@
+section{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.inputfields{
+    display: flex;
+align-items: center;
+gap: 16px;
+   
+    >input{
+        width: 100%;
+        max-width: 300px;
+        height: 30px;
+        border: solid 1px var(--border-color);
+        &::placeholder{
+            font-size: 14px;
+        }
+    }
+}
+
+.contactsRow{
+    display: flex;
+    gap: 16px;
+}

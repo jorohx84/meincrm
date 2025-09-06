@@ -1,0 +1,16 @@
+<section>
+    <div class="inputfields">
+        <input type="text" placeholder="Name" [(ngModel)]="contact.name">
+        <input type="text" placeholder="Telefon" [(ngModel)]="contact.phone">
+        <input type="text" placeholder="E-Mail" [(ngModel)]="contact.email">
+        <input type="text" placeholder="Funktion" [(ngModel)]="contact.function">
+        <button class="btn" (click)="addContact()"></button>
+    </div>
+    <div *ngFor="let contact of contacts" class="contactsRow">
+        <p>{{contact.name}}</p>
+        <p>{{contact.phone}}</p>
+        <p>{{contact.email}}</p>
+        <p>{{contact.function}}</p>
+    </div>
+
+</section>

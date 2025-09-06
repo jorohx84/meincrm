@@ -1,7 +1,8 @@
 <section>
     <div class="btnContainer">
-        <button class="exitBtn" (click)="sharedservice.changeComponents('customers')"><img src="./icons/close.svg"
-                alt=""></button>
+        <button class="exitBtn"
+            (click)="sharedservice.changeComponents('customers'); changeTemplate('dashboard');resetCuntomer()"><img
+                src="./icons/close.svg" alt=""></button>
     </div>
     <div class="dataContainer" [ngClass]="{'activeInputs': isEdit}">
         <input type="text" class="bold" [(ngModel)]="customer.name" disabled="">
@@ -36,29 +37,17 @@
     </div>
 
     <div class="menubar">
-        <button class="btn" (click)="openCard('dashboard')">Dashbaord</button>
-        <button class="btn" (click)="openCard('asp')">Kontakte</button>
+        <button class="btn" (click)="changeTemplate('dashboard')">Dashbaord</button>
+        <button class="btn" (click)="changeTemplate('contacts')">Kontakte</button>
 
     </div>
     <!-- Dashboard -->
-    <div *ngIf="template==='dashboard'" class="costumerDashboard">
+    <div *ngIf="customerTemplate==='dashboard'" class="costumerDashboard">
         customerDashboard
     </div>
 
     <!-- Contacts -->
-    <div *ngIf="template==='asp'" class="contactPerson">
-        hallo
-        <div class="inputfields">
-            <input type="text" placeholder="Name" [(ngModel)]="contact.name">
-            <input type="text" placeholder="Telefon" [(ngModel)]="contact.phone">
-            <input type="text" placeholder="E-Mail" [(ngModel)]="contact.email">
-            <input type="text" placeholder="Funktion" [(ngModel)]="contact.function">
-            <button class="btn" (click)="addContact()"></button>
-        </div>
-        <div *ngFor="let contact of contacts">
-            <p>{{contact.name}}</p>
-        </div>
-    </div>
+    <app-contacts *ngIf="customerTemplate==='contacts'"></app-contacts>
 
 
 

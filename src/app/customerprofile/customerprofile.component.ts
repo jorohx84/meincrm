@@ -3,10 +3,10 @@ import { Component, inject } from '@angular/core';
 import { SharedService } from '../shared.service';
 import { DataService } from '../data.service';
 import { FormsModule } from '@angular/forms';
-import { Contact } from '../models/contact.class';
+import { ContactsComponent } from '../contacts/contacts.component';
 @Component({
   selector: 'app-customerprofile',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ContactsComponent],
   templateUrl: './customerprofile.component.html',
   styleUrl: './customerprofile.component.scss'
 })
@@ -18,8 +18,8 @@ export class CustomerprofileComponent {
   currentUser: any;
   customers: any[] = [];
   isEdit: boolean = false;
-  template: string = 'dashboard';
-  contact: any = new Contact;
+  customerTemplate: string = 'dashboard';
+
   contacts: any[] = [];
 
 
@@ -38,8 +38,8 @@ export class CustomerprofileComponent {
       this.dataservice.getDataFromLocalStorage('user');
       this.currentUser = this.dataservice.data;
     }
-    this.dataservice.getDataFromLocalStorage('template');
-    this.template = this.dataservice.data;
+    this.dataservice.getDataFromLocalStorage('customerTemplate');
+    this.customerTemplate = this.dataservice.data;
     this.dataservice.loadContacts(this.currentUser.companyID, this.customer.id);
     this.dataservice.contactSubject$.subscribe((contactsData) => {
       this.contacts = contactsData;
@@ -67,24 +67,18 @@ export class CustomerprofileComponent {
 
   }
 
-  openCard(cardKey: string) {
+  changeTemplate(cardKey: string) {
     console.log(cardKey);
-    this.template = cardKey;
-    this.dataservice.saveDataToLocalStorage('template', cardKey);
+    this.customerTemplate = cardKey;
+    this.dataservice.saveDataToLocalStorage('customerTemplate', cardKey);
     // this.dataservice.customerID = this.customer.id;
     // this.dataservice.companyID = this.currentUser.companyID;
 
   }
 
-  addContact() {
-    const data = {
-      name: this.contact.name,
-      phone: this.contact.phone,
-      email: this.contact.email,
-      function: this.contact.function,
-
-    }
-    console.log(data);
-    this.dataservice.addContact(this.currentUser.companyID, this.customer.id, data);
+  resetCuntomer() {
+    this.customer = null;
+    this.dataservice.saveDataToLocalStorage('customer', this.customer);
   }
+
 }

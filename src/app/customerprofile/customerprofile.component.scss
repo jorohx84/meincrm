@@ -70,7 +70,7 @@ input {
     justify-content: flex-end;
 
     .exitBtn {
-
+z-index: 1;
         >img {
             width: 25px;
         }
@@ -120,18 +120,4 @@ right: 0px;
     gap: 16px;
     border-bottom: solid;
     padding: 16px;
-}
-
-.inputfields{
-    display: flex;
-align-items: center;
-gap: 16px;
-   
-    >input{
-        height: 30px;
-        border: solid 1px var(--border-color);
-        &::placeholder{
-            font-size: 14px;
-        }
-    }
 }
