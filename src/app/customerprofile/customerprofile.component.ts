@@ -20,7 +20,7 @@ export class CustomerprofileComponent {
   customerIndex: number = -1;
   currentUser: any;
   customers: any[] = [];
-  isEdit: boolean = false;
+  // isEdit: boolean = false;
   customerTemplate: string = '';
   contacts: any[] = [];
 
@@ -51,31 +51,31 @@ export class CustomerprofileComponent {
 
     this.dataservice.getDataFromLocalStorage('customerTemplate');
     this.sharedservice.customerTemplate = this.dataservice.data;
-console.log(this.customerTemplate);
+    console.log(this.customerTemplate);
 
     this.dataservice.loadContacts(this.currentUser.companyID, this.customer.id);
 
   }
 
-  toggleActivateEdit() {
-    const fields = document.getElementsByTagName('input');
-    console.log(fields);
-    for (let index = 0; index < fields.length; index++) {
-      const field = fields[index];
-      field.disabled = !field.disabled;
+  // toggleActivateEdit() {
+  //   const fields = document.getElementsByTagName('input');
+  //   console.log(fields);
+  //   for (let index = 0; index < fields.length; index++) {
+  //     const field = fields[index];
+  //     field.disabled = !field.disabled;
 
-    }
-    this.isEdit = !this.isEdit;
-  }
+  //   }
+  //   this.isEdit = !this.isEdit;
+  // }
 
-  saveEdit() {
-    this.toggleActivateEdit();
-    console.log(this.customer);
-    console.log(this.currentUser);
-    this.dataservice.saveDataToLocalStorage('customer', this.customer);
-    this.dataservice.updateCustomer(this.currentUser.companyID, this.customer.id, this.customer);
+  // saveEdit() {
+  //   this.toggleActivateEdit();
+  //   console.log(this.customer);
+  //   console.log(this.currentUser);
+  //   this.dataservice.saveDataToLocalStorage('customer', this.customer);
+  //   this.dataservice.updateCustomer(this.currentUser.companyID, this.customer.id, this.customer);
 
-  }
+  // }
 
   changeTemplate(cardKey: string) {
     console.log(cardKey);
@@ -91,4 +91,5 @@ console.log(this.customerTemplate);
     this.dataservice.saveDataToLocalStorage('customer', this.customer);
   }
 
+ 
 }

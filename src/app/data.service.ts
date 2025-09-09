@@ -1,6 +1,6 @@
 import { Injectable, inject } from "@angular/core";
 import { Firestore, getDocs, doc, updateDoc, onSnapshot } from "@angular/fire/firestore";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, deleteDoc } from "firebase/firestore";
 import { BehaviorSubject } from "rxjs";
 import { SharedService } from "./shared.service";
 @Injectable({
@@ -193,6 +193,11 @@ export class DataService {
         await addDoc(docRef, customerData)
         console.log('Kunde wurde in der Datenbank gespeichert', customerData);
 
+    }
+
+    async deleteCustomer(companyID: string, customerID: string) {
+        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}`);
+        await deleteDoc(docRef);
     }
 
 

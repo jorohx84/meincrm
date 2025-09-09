@@ -144,5 +144,7 @@ export class CustomerComponent {
     console.log(this.customer);
     this.sharedservice.sendCustomerData(customer);
   }
+
+ 
 }
 

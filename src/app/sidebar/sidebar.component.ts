@@ -21,7 +21,7 @@ export class SidebarComponent {
   users: any[] = [];
   customer: any;
   newCostumer = new Customer;
-  foundCustomer: any;
+  isEdit: boolean = false;
   customers: any[] = [];
   contact = new Contact;
   timer: any;
@@ -50,6 +50,7 @@ export class SidebarComponent {
     this.dataservice.customersSubject$.subscribe((customersData) => {
       if (customersData) {
         this.customers = customersData;
+
       } else {
         this.dataservice.getDataFromLocalStorage('customer');
         this.customer = this.dataservice.data;
@@ -68,7 +69,8 @@ export class SidebarComponent {
     this.sharedservice.customerSubject$.subscribe((customerObject) => {
       if (customerObject) {
         this.customer = customerObject
-        console.log(customerObject);
+        console.log(this.customer);
+
 
       } else {
         this.dataservice.getDataFromLocalStorage('customer');
@@ -88,6 +90,13 @@ export class SidebarComponent {
     const data = this.getCostumerObject();
     await this.dataservice.addCustomer(this.currentUser.companyID, data);
     this.customer = this.findnewCustomer(data);
+    this.newCostumer.name = '';
+    this.newCostumer.street = '';
+    this.newCostumer.city = '';
+    this.newCostumer.phone = '';
+    this.newCostumer.email = '';
+    this.newCostumer.branch = '';
+
 
   }
 
@@ -97,7 +106,6 @@ export class SidebarComponent {
       console.log(searchCustomer);
       this.sharedservice.sendCustomerData(searchCustomer);
       this.sharedservice.customer = searchCustomer;
-      this.foundCustomer = searchCustomer;
       this.dataservice.saveDataToLocalStorage('customer', searchCustomer);
       this.sharedservice.changeComponents('customer');
 
@@ -138,6 +146,31 @@ export class SidebarComponent {
       customerName: this.customer.name,
       customerID: this.customer.id,
     }
+  }
+
+    toggleActivateEdit() {
+    const fields = document.getElementsByTagName('input');
+    console.log(fields);
+    for (let index = 0; index < fields.length; index++) {
+      const field = fields[index];
+      field.disabled = !field.disabled;
+
+    }
+    this.isEdit = !this.isEdit;
+  }
+
+  async deleteCustomer() {
+    await this.dataservice.deleteCustomer(this.currentUser.companyID, this.customer.id);
+    this.sharedservice.changeComponents('customers');
+  }
+
+    saveEdit() {
+    this.toggleActivateEdit();
+    console.log(this.customer);
+    console.log(this.currentUser);
+    this.dataservice.saveDataToLocalStorage('customer', this.customer);
+    this.dataservice.updateCustomer(this.currentUser.companyID, this.customer.id, this.customer);
+
   }
 
 }

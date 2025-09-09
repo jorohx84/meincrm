@@ -64,6 +64,7 @@
         <div class="" *ngFor="let customer of customers; let index = index">
             <div [ngClass]="{'bg-color' : isBackground(index)}" class="customer">
                 <p (click)="openCustomerProfile(index)" *ngFor="let field of customerFields">{{customer[field.fieldName]}}</p>
+               
             </div>
         </div>
 
