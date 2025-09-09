@@ -6,14 +6,16 @@ section {
     justify-content: space-between;
     box-sizing: border-box;
     padding: 10px 20px;
-//  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.128);
-border-bottom: solid 5px var(--blue-hover);
+    //  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.128);
+    border-bottom: solid 5px var(--blue-hover);
 }
 
 .sidebarBtn {
     display: flex;
-justify-content: center;
-gap: 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+
     >button {
         >img {
             width: 30px;
@@ -27,7 +29,7 @@ gap: 32px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-   
+
 
     >span {
         font-size: 20px;
@@ -39,10 +41,18 @@ gap: 32px;
     }
 }
 
-.menubar{
+.menubar {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+}
+
 .date {
     display: flex;
     justify-content: center;
@@ -52,7 +62,7 @@ gap: 32px;
     padding: 10px 30px;
     border-radius: 30px;
 
-    opacity: 0.6;
+
     box-sizing: border-box;
 }
 

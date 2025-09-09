@@ -1,24 +1,90 @@
 <section>
-    <div class="inputfields">
+    <!-- <div class="inputfields">
         <input type="text" placeholder="Name" [(ngModel)]="contact.name">
         <input type="text" placeholder="Telefon" [(ngModel)]="contact.phone">
         <input type="text" placeholder="E-Mail" [(ngModel)]="contact.email">
         <input type="text" placeholder="Funktion" [(ngModel)]="contact.function">
         <button class="btn" (click)="addContact()"></button>
+    </div> -->
+
+    <div *ngIf="sharedservice.isCard" class="contactCards">
+        <p *ngIf="contacts.length===0">Keine Kontakte gefunden</p>
+        <div *ngFor="let contact of contacts; let index=index" class="contactsCard">
+            <div *ngIf="!isEdit || editIndex!==index" class="contactsCardInner">
+                <div class="contactHeadline">
+                    <img src="./icons/profile.svg" alt="">
+                    <div class="contactInfo">
+                        <p class="name">{{contact?.name}}</p>
+                        <span class="company">{{contact?.customerName}}</span>
+                        <span class="function">{{contact?.function}}</span>
+                    </div>
+
+                </div>
+                <div class="contactDataContainer">
+                    <div class="contactData">
+                        <img *ngIf="sharedservice.isCard" src="./icons/phone.svg" alt="">
+                        <a [href]="'tel:' + contact?.phone">{{contact?.phone}}</a>
+                    </div>
+                    <div class="contactData">
+                        <img *ngIf="sharedservice.isCard" src="./icons/email.svg" alt="">
+                        <a [href]="'mailto:' + contact?.email">{{contact?.email}}</a>
+                    </div>
+                </div>
+                <div class="contactmenu">
+                    <img (click)="editContact(index)" src="./icons/edit.svg" alt="">
+                </div>
+
+
+
+
+
+            </div>
+
+            <div class="editContainer" *ngIf="isEdit && editIndex===index">
+
+                <input type="text" [(ngModel)]="editedContact.name" placeholder="Name">
+                <input type="text" [(ngModel)]="editedContact.function" placeholder="Funktion">
+                <input type="text" [(ngModel)]="editedContact.phone" placeholder="Telefon">
+                <input type="text" [(ngModel)]="editedContact.email" placeholder="E-Mail">
+                <div class="contactmenu">
+                    <img (click)="isEdit=false" src="./icons/close.svg" alt="">
+                    <img (click)="saveEdit()" src="./icons/save.svg" alt="">
+                </div>
+            </div>
+        </div>
+
     </div>
-  
-        <div class="contactList">
-            <div *ngFor="let contact of contacts" class="contactsCard">
-                <p>{{contact.name}}</p>
-                <p>{{contact.phone}}</p>
-                <p>{{contact.email}}</p>
-                <p>{{contact.function}}</p>
+
+    <div *ngIf="!sharedservice.isCard" class="contactList">
+        <p *ngIf="contacts.length===0">Keine Kontakte gefunden</p>
+        <div class="listrow" *ngFor="let contact of contacts; let index=index">
+            <div *ngIf="!isEdit || editIndex!==index" class="listrowInner">
+                <img src="./icons/profile.svg" alt="">
+                <p>{{contact?.name}}</p>
+                <p>{{contact?.function}}</p>
+                <p>{{contact?.phone}}</p>
+                <p>{{contact?.email}}</p>
+                <div class="contactmenu">
+                    <img (click)="editContact(index)" src="./icons/edit.svg" alt="">
+                </div>
+
+            </div>
+            <div class="editContainer row" *ngIf="isEdit && editIndex===index">
+
+                <input type="text" [(ngModel)]="editedContact.name" placeholder="Name">
+                <input type="text" [(ngModel)]="editedContact.function" placeholder="Funktion">
+                <input type="text" [(ngModel)]="editedContact.phone" placeholder="Telefon">
+                <input type="text" [(ngModel)]="editedContact.email" placeholder="E-Mail">
+                <div class="contactmenu">
+                    <img (click)="isEdit=false" src="./icons/close.svg" alt="">
+                    <img (click)="saveEdit()" src="./icons/save.svg" alt="">
+                </div>
             </div>
 
         </div>
+        <div>
 
-
-    
-
+        </div>
+    </div>
 
 </section>

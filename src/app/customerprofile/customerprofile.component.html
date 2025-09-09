@@ -4,7 +4,8 @@
             (click)="sharedservice.changeComponents('customers'); changeTemplate('dashboard');resetCuntomer()"><img
                 src="./icons/close.svg" alt=""></button>
     </div>
-    <div class="dataContainer" [ngClass]="{'activeInputs': isEdit}">
+    <!-- <h1>{{customer?.name}}</h1> -->
+    <!-- <div class="dataContainer" [ngClass]="{'activeInputs': isEdit}">
         <input type="text" class="bold" [(ngModel)]="customer.name" disabled="">
         <div class="customerData" [ngClass]="{'activeInputs': isEdit}">
             <div class="adress">
@@ -34,24 +35,33 @@
                     alt=""></button>
             <button *ngIf="isEdit" class="editBtn" (click)="saveEdit()"><img src="./icons/save.svg" alt=""></button>
         </div>
-    </div>
+    </div> -->
 
     <div class="menubar">
-        <button class="btn" (click)="changeTemplate('dashboard')">Dashbaord</button>
-        <button class="btn" (click)="changeTemplate('contacts')">Kontakte</button>
+        <div class="tabs">
+            <button class="btn" (click)="changeTemplate('dashboard')">Dashbaord</button>
+            <button class="btn" (click)="changeTemplate('contacts')">Kontakte</button>
+            <button class="btn" (click)="changeTemplate('tasks')">Aufgabe</button>
+        </div>
 
+        <div class="depiction">
+            <img (click)="sharedservice.changeDepiction('list')" src="./icons/list.svg" alt="">
+            <img (click)="sharedservice.changeDepiction('cards')" src="./icons/cards.svg" alt="">
+        </div>
     </div>
- 
+
 
 
 
     <div class="templateContainer">
-           <!-- Dashboard -->
+        <!-- Dashboard -->
         <div *ngIf="customerTemplate==='dashboard'" class="costumerDashboard">
             customerDashboard
         </div>
         <!-- Contacts -->
         <app-contacts *ngIf="customerTemplate==='contacts'"></app-contacts>
+        <!-- Tasks -->
+         <app-tasks *ngIf="customerTemplate==='tasks'"></app-tasks>
     </div>
 
 

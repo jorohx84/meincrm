@@ -81,7 +81,7 @@ export class DataService {
 
 
     ngOnInit() {
-     
+
     }
     // setCompanyID(id: string | null = null) {
     //     if (id) {
@@ -182,6 +182,23 @@ export class DataService {
 
         })
     }
+
+
+    async updateContact(companyID: string, customerID: string, contactID: string, data: any) {
+        console.log(data);
+        console.log(customerID);
+        console.log(companyID);
+        console.log(contactID);
+
+
+
+
+        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}/contacts/${contactID}`);
+
+        await updateDoc(docRef, data);
+    }
+
+
 
     // async addCostumer(companyID: string) {
     //     console.log(companyID);

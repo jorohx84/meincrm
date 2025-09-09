@@ -1,12 +1,24 @@
 <section>
-    <div  class="sidebarBtn">
-        <button  (click)="toggleSlide($event)"><img src="./img/menu.svg" alt=""></button>
-        <div class="logo">
+    <div class="sidebarBtn">
+        <button (click)="toggleSlide($event)"><img src="./img/menu.svg" alt=""></button>
+        <!-- <div class="logo">
             <img src="./img/mapleIcon-bg.png" alt="">
             <span>maple CRM</span>
-        </div>
+        </div> -->
+       <p>{{currentUser.companyName}}</p>
     </div>
+
     <div class="menubar">
+        <nav>
+            <a (click)="sharedservice.changeComponents('dashboard')">Dashboard</a>
+            <a (click)="sharedservice.changeComponents('tasks')">Aufgaben</a>
+            <a (click)="sharedservice.changeComponents('customers')">Kunden</a>
+            <a (click)="sharedservice.changeComponents('mailbox')">Postfach</a>
+            <a *ngIf="userservice.isAdmin" (click)="sharedservice.changeComponents('admin')" class="">Adminbereich</a>
+            <a *ngIf="userservice.isSuperAdmin" (click)="sharedservice.navigateToPath('/company')"
+                class="">Superadmin</a>
+        </nav>
+
         <div class="date">
 
             <span>{{currentTime| date:'d. MMMM. yyyy'}}</span>

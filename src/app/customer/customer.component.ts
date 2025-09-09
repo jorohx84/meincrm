@@ -137,9 +137,9 @@ export class CustomerComponent {
     console.log(index);
     const customer = this.customers[index];
     this.sharedservice.customer = customer;
-    this.sharedservice.currentUser = this.currentUser;
+    // this.sharedservice.currentUser = this.currentUser;
     this.dataservice.saveDataToLocalStorage('customer', customer);
     console.log(this.customer);
-
+    this.sharedservice.sendCustomerData(customer);
   }
 }

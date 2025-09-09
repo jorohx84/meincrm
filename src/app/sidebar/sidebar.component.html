@@ -1,14 +1,15 @@
 <section>
-    <div class="information">
-        <div class="companyInfo">
-            <!-- <p>Organisation:</p> -->
-            <span>{{currentUser?.companyName}}</span>
-            <!-- <div class="divider"></div> -->
-        </div>
+    <div class="companyInfo">
+        <h1 *ngIf="sharedservice.component==='customers' || sharedservice.component==='customer'">Kunden</h1>
+        <!-- <span>{{currentUser?.companyName}}</span> -->
+        <h1 *ngIf="sharedservice.component==='tasks'">Aufgaben</h1>
+
+    </div>
+    <!-- <div class="information">
+   
 
 
-
-
+      
         <div class="links">
             <a (click)="sharedservice.changeComponents('dashboard')">Dashboard</a>
             <a (click)="sharedservice.changeComponents('tasks')">Aufgaben</a>
@@ -24,5 +25,23 @@
             <button>Datenschutz</button>
 
         </div>
+    </div> -->
+    <div *ngIf="sharedservice.component==='customer'">
+        <div>
+            <p>{{customer?.name}}</p>
+            <p>{{customer?.street}}</p>
+            <p>{{customer?.areacode}}</p>
+            <p>{{customer?.city}}</p>
+        </div>
+
+        <div class="inputfields">
+            <input type="text" placeholder="Name" [(ngModel)]="contact.name">
+            <input type="text" placeholder="Telefon" [(ngModel)]="contact.phone">
+            <input type="text" placeholder="E-Mail" [(ngModel)]="contact.email">
+            <input type="text" placeholder="Funktion" [(ngModel)]="contact.function">
+            <button class="btn" (click)="addContact()"></button>
+        </div>
+
     </div>
+
 </section>

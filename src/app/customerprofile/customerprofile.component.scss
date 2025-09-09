@@ -120,9 +120,24 @@ input {
 
 .menubar {
     display: flex;
+    justify-content: space-between;
     gap: 16px;
     border-bottom: solid;
     padding: 16px;
+}
+
+.tabs{
+    display: flex;
+    gap: 16px;
+}
+.depiction{
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    >img{
+        width: 30px;
+        cursor: pointer;
+    }
 }
 
 .templateContainer {

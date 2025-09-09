@@ -1,6 +1,7 @@
 import { Injectable, inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { DataService } from "./data.service";
+import { BehaviorSubject, Observable } from "rxjs";
 
 
 @Injectable({
@@ -17,9 +18,17 @@ export class SharedService {
     currentUser: any;
     counter: number = 0;
     customer: any;
-    companyID: string='';
+    companyID: string = '';
+    isCard: boolean | null = null;
+    customerSubject = new BehaviorSubject<any>(null);
+    customerSubject$ = this.customerSubject.asObservable();
     navigateToPath(path: string) {
         this.router.navigate([path]);
+    }
+
+    constructor() {
+        this.dataservice.getDataFromLocalStorage('isCard');
+        this.isCard = this.dataservice.data;
     }
 
     changeComponents(component: string) {
@@ -28,5 +37,15 @@ export class SharedService {
         this.dataservice.saveDataToLocalStorage('component', component);
     }
 
+    changeDepiction(key: string) {
+        key === 'cards' ? this.isCard = true : this.isCard = false;
+        console.log(this.isCard);
+        this.dataservice.saveDataToLocalStorage('isCard', this.isCard);
+    }
 
+
+    sendCustomerData(customer: any) {
+        console.log(customer);
+        this.customerSubject.next(customer);
+    }
 }

@@ -4,22 +4,25 @@ import { SharedService } from '../shared.service';
 import { DataService } from '../data.service';
 import { FormsModule } from '@angular/forms';
 import { ContactsComponent } from '../contacts/contacts.component';
+import { UserService } from '../user.service';
+import { TasksComponent } from '../tasks/tasks.component';
 @Component({
   selector: 'app-customerprofile',
-  imports: [CommonModule, FormsModule, ContactsComponent],
+  imports: [CommonModule, FormsModule, ContactsComponent, TasksComponent],
   templateUrl: './customerprofile.component.html',
   styleUrl: './customerprofile.component.scss'
 })
 export class CustomerprofileComponent {
   sharedservice = inject(SharedService);
   dataservice = inject(DataService);
+  userservice = inject(UserService);
   customer: any;
   customerIndex: number = -1;
   currentUser: any;
   customers: any[] = [];
   isEdit: boolean = false;
   customerTemplate: string = 'dashboard';
-
+  private contactsLoaded = false;
   contacts: any[] = [];
 
 
@@ -32,18 +35,22 @@ export class CustomerprofileComponent {
       this.customer = this.dataservice.data;
     }
 
-    if (this.sharedservice.currentUser) {
-      this.currentUser = this.sharedservice.currentUser;
-    } else {
-      this.dataservice.getDataFromLocalStorage('user');
-      this.currentUser = this.dataservice.data;
-    }
+    this.userservice.currentUser$.subscribe((user) => {
+      if (user) {
+        this.currentUser = user;
+
+        console.log(this.currentUser);
+
+      } else {
+        this.dataservice.getDataFromLocalStorage('user');
+        this.currentUser = this.dataservice.data;
+      }
+    });
+
     this.dataservice.getDataFromLocalStorage('customerTemplate');
     this.customerTemplate = this.dataservice.data;
+
     this.dataservice.loadContacts(this.currentUser.companyID, this.customer.id);
-    this.dataservice.contactSubject$.subscribe((contactsData) => {
-      this.contacts = contactsData;
-    })
 
   }
 
