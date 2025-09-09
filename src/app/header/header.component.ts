@@ -21,9 +21,9 @@ export class HeaderComponent {
 
   constructor() {
     // this.currentUser = this.userservice.currentUser;
-    this.timer = setInterval(() => {
-      this.updateTime();
-    }, 1);
+    // this.timer = setInterval(() => {
+    //   this.updateTime();
+    // }, 1);
   }
 
   async ngOnInit() {
@@ -39,10 +39,10 @@ export class HeaderComponent {
   checkLocation() {
     return window.location.pathname.includes('main');
   }
-  updateTime() {
-    const now = new Date();
-    this.currentTime = now.toISOString();
-  }
+  // updateTime() {
+  //   const now = new Date();
+  //   this.currentTime = now.toISOString();
+  // }
 
   logoutUser() {
     this.userservice.logoutUser(this.currentUser);

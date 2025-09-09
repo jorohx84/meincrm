@@ -76,7 +76,7 @@ export class CustomerprofileComponent {
 
   changeTemplate(cardKey: string) {
     console.log(cardKey);
-    this.customerTemplate = cardKey;
+    this.sharedservice.customerTemplate = cardKey;
     this.dataservice.saveDataToLocalStorage('customerTemplate', cardKey);
     // this.dataservice.customerID = this.customer.id;
     // this.dataservice.companyID = this.currentUser.companyID;

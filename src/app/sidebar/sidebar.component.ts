@@ -20,12 +20,17 @@ export class SidebarComponent {
   currentUser: any;
   customer: any;
   contact = new Contact;
+  timer: any;
+  currentTime: string = '';
   constructor() {
     this.sharedservice.isLogin = false;
     console.log(this.sharedservice.isLogin);
     // this.currentUser = this.userservice.currentUser;
 
     this.loadComponent();
+    this.timer = setInterval(() => {
+      this.updateTime();
+    }, 1);
   }
 
 
@@ -61,6 +66,11 @@ export class SidebarComponent {
 
   }
 
+  updateTime() {
+    const now = new Date();
+    this.currentTime = now.toISOString();
+  }
+
 
   async addContact() {
     const data = {
@@ -81,4 +91,6 @@ export class SidebarComponent {
     // this.contact.function = '';
 
   }
+
+
 }

@@ -22,6 +22,7 @@ export class SharedService {
     isCard: boolean | null = null;
     customerSubject = new BehaviorSubject<any>(null);
     customerSubject$ = this.customerSubject.asObservable();
+    customerTemplate: string = 'dashboard';
     navigateToPath(path: string) {
         this.router.navigate([path]);
     }
@@ -48,4 +49,6 @@ export class SharedService {
         console.log(customer);
         this.customerSubject.next(customer);
     }
+
+ 
 }

@@ -1,7 +1,7 @@
 <section>
     <div class="btnContainer">
         <button class="exitBtn"
-            (click)="sharedservice.changeComponents('customers'); changeTemplate('dashboard');resetCuntomer()"><img
+            (click)="sharedservice.changeComponents('customers'); changeTemplate('Dashbaord');resetCuntomer()"><img
                 src="./icons/close.svg" alt=""></button>
     </div>
     <!-- <h1>{{customer?.name}}</h1> -->
@@ -55,13 +55,13 @@
 
     <div class="templateContainer">
         <!-- Dashboard -->
-        <div *ngIf="customerTemplate==='dashboard'" class="costumerDashboard">
+        <div *ngIf="sharedservice.customerTemplate==='dashboard'" class="costumerDashboard">
             customerDashboard
         </div>
         <!-- Contacts -->
-        <app-contacts *ngIf="customerTemplate==='contacts'"></app-contacts>
+        <app-contacts *ngIf="sharedservice.customerTemplate==='contacts'"></app-contacts>
         <!-- Tasks -->
-         <app-tasks *ngIf="customerTemplate==='tasks'"></app-tasks>
+         <app-tasks *ngIf="sharedservice.customerTemplate==='tasks'"></app-tasks>
     </div>
 
 

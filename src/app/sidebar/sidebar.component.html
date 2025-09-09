@@ -5,6 +5,12 @@
         <h1 *ngIf="sharedservice.component==='tasks'">Aufgaben</h1>
 
     </div>
+        <div class="date">
+
+            <span>{{currentTime| date:'d. MMMM. yyyy'}}</span>
+            <span>{{currentTime | date:'HH:mm'}} Uhr</span>
+
+        </div>
     <!-- <div class="information">
    
 
@@ -34,7 +40,9 @@
             <p>{{customer?.city}}</p>
         </div>
 
-        <div class="inputfields">
+
+        <div *ngIf="sharedservice.customerTemplate==='contacts'" class="inputfields">
+            Neuer Kontakt:
             <input type="text" placeholder="Name" [(ngModel)]="contact.name">
             <input type="text" placeholder="Telefon" [(ngModel)]="contact.phone">
             <input type="text" placeholder="E-Mail" [(ngModel)]="contact.email">
