@@ -8,12 +8,11 @@ import { SharedService } from "./shared.service";
 })
 export class DataService {
     firestore = inject(Firestore);
-
     data: any;
     customerID: string = '';
     companyID: string = '';
-    private customerSubject = new BehaviorSubject<any>(null)
-    public customerSubject$ = this.customerSubject.asObservable();
+    private customersSubject = new BehaviorSubject<any>(null)
+    public customersSubject$ = this.customersSubject.asObservable();
     private contactSubject = new BehaviorSubject<any>(null);
     public contactSubject$ = this.contactSubject.asObservable();
 
@@ -147,7 +146,7 @@ export class DataService {
                 ...doc.data(),
             }));
 
-            this.customerSubject.next(customers);
+            this.customersSubject.next(customers);
 
         })
 
@@ -185,19 +184,16 @@ export class DataService {
 
 
     async updateContact(companyID: string, customerID: string, contactID: string, data: any) {
-        console.log(data);
-        console.log(customerID);
-        console.log(companyID);
-        console.log(contactID);
-
-
-
-
         const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}/contacts/${contactID}`);
-
         await updateDoc(docRef, data);
     }
 
+    async addCustomer(companyID: string, customerData: any) {
+        const docRef = collection(this.firestore, `companies/${companyID}/customers/`)
+        await addDoc(docRef, customerData)
+        console.log('Kunde wurde in der Datenbank gespeichert', customerData);
+
+    }
 
 
     // async addCostumer(companyID: string) {

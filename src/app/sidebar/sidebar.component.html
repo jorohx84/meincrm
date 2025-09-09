@@ -5,12 +5,7 @@
         <h1 *ngIf="sharedservice.component==='tasks'">Aufgaben</h1>
 
     </div>
-        <div class="date">
 
-            <span>{{currentTime| date:'d. MMMM. yyyy'}}</span>
-            <span>{{currentTime | date:'HH:mm'}} Uhr</span>
-
-        </div>
     <!-- <div class="information">
    
 
@@ -32,12 +27,60 @@
 
         </div>
     </div> -->
-    <div *ngIf="sharedservice.component==='customer'">
-        <div>
-            <p>{{customer?.name}}</p>
-            <p>{{customer?.street}}</p>
-            <p>{{customer?.areacode}}</p>
-            <p>{{customer?.city}}</p>
+    <div *ngIf="sharedservice.component==='customers'">
+        <h3>Neuer Kunde </h3>
+        <div >
+            <div class="inputfield">
+                <div>
+                    <input [(ngModel)]="newCostumer.name" type="text" placeholder="Name">
+                </div>
+            </div>
+            <div class="inputfield">
+                <div>
+                    <input [(ngModel)]="newCostumer.street" type="text" placeholder="Straße">
+                </div>
+            </div>
+            <div class="inputfield">
+                <div>
+                    <input [(ngModel)]="newCostumer.city" type="text" placeholder="Stadt">
+                </div>
+            </div>
+            <div class="inputfield">
+                <div>
+                    <input [(ngModel)]="newCostumer.areacode" type="text" placeholder="PLZ">
+                </div>
+            </div>
+
+            <div class="inputfield">
+                <div>
+                    <input [(ngModel)]="newCostumer.branch" type="text" placeholder="Branche">
+                </div>
+            </div>
+            <div class="inputfield">
+                <div>
+                    <input [(ngModel)]="newCostumer.phone" type="text" placeholder="Telefon">
+                </div>
+            </div>
+            <div class="inputfield">
+                <div>
+                    <input [(ngModel)]="newCostumer.email" type="text" placeholder="E-Mail">
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <button class="btn" (click)="addCustomer()">ADD</button>
+    </div>
+
+
+    <div *ngIf="sharedservice.component==='customer'" class="variableContainer">
+        <div class="customerInfo">
+            <p>{{customer?.name || foundCustomer.name}}</p>
+            <p>{{customer?.street || foundCustomer.street}}</p>
+            <p>{{customer?.areacode || foundCustomer.areacode}}</p>
+            <p>{{customer?.city || foundCustomer.city}}</p>
         </div>
 
 

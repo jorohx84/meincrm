@@ -55,7 +55,7 @@ export class CustomerComponent {
         console.log(this.currentUser);
       }
     });
-    this.dataservice.customerSubject$.subscribe((customers) => {
+    this.dataservice.customersSubject$.subscribe((customers) => {
       if (customers) {
         this.customers = customers;
         this.allCustomers = customers;
@@ -130,7 +130,9 @@ export class CustomerComponent {
       }
     }
     return
+
   }
+
 
   openCustomerProfile(index: number) {
     this.sharedservice.changeComponents('customer')
@@ -143,3 +145,4 @@ export class CustomerComponent {
     this.sharedservice.sendCustomerData(customer);
   }
 }
+

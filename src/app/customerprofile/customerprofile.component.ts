@@ -21,26 +21,28 @@ export class CustomerprofileComponent {
   currentUser: any;
   customers: any[] = [];
   isEdit: boolean = false;
-  customerTemplate: string = 'dashboard';
-  private contactsLoaded = false;
+  customerTemplate: string = '';
   contacts: any[] = [];
 
 
 
   async ngOnInit() {
-    if (this.sharedservice.customer) {
-      this.customer = this.sharedservice.customer;
-    } else {
-      this.dataservice.getDataFromLocalStorage('customer');
-      this.customer = this.dataservice.data;
-    }
+
+    this.sharedservice.customerSubject$.subscribe((customerData) => {
+      if (customerData) {
+        this.customer = customerData;
+        console.log(this.customer);
+
+      } else {
+        this.dataservice.getDataFromLocalStorage('customer');
+        this.customer = this.dataservice.data;
+      }
+    })
+
 
     this.userservice.currentUser$.subscribe((user) => {
       if (user) {
         this.currentUser = user;
-
-        console.log(this.currentUser);
-
       } else {
         this.dataservice.getDataFromLocalStorage('user');
         this.currentUser = this.dataservice.data;
@@ -48,7 +50,8 @@ export class CustomerprofileComponent {
     });
 
     this.dataservice.getDataFromLocalStorage('customerTemplate');
-    this.customerTemplate = this.dataservice.data;
+    this.sharedservice.customerTemplate = this.dataservice.data;
+console.log(this.customerTemplate);
 
     this.dataservice.loadContacts(this.currentUser.companyID, this.customer.id);
 

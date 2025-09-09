@@ -38,9 +38,9 @@ export class MainComponent {
   constructor() {
     this.loadMainWindow();
 
-    this.timer = setInterval(() => {
-      this.updateTime();
-    }, 1);
+    // this.timer = setInterval(() => {
+    //   this.updateTime();
+    // }, 1);
   }
 
 
@@ -66,10 +66,10 @@ export class MainComponent {
 
   }
 
-  updateTime() {
-    const now = new Date();
-    this.currentTime = now.toISOString();
-  }
+  // updateTime() {
+  //   const now = new Date();
+  //   this.currentTime = now.toISOString();
+  // }
 
   toogleFullscreen() {
     this.sharedservice.isFullscreen = !this.sharedservice.isFullscreen;

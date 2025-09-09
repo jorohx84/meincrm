@@ -22,6 +22,8 @@ export class UserService {
     currentUser: any;
     private currentUserSubject = new BehaviorSubject<any>(null);
     public currentUser$ = this.currentUserSubject.asObservable();
+    private usersSubject = new BehaviorSubject<any>(null);
+    public usersSubject$ = this.usersSubject.asObservable();
     isAdmin: boolean = false;
     isSuperAdmin: boolean = false;
 
@@ -92,6 +94,7 @@ export class UserService {
         console.log(companyID);
         this.users = await this.dataservice.getDataFromFirestore('users', companyID);
         console.log(this.users);
+        this.usersSubject.next(this.users);
         const user = this.users.find(user => user.id === id);
         if (user) {
             this.dataservice.saveDataToLocalStorage('user', user);
@@ -144,7 +147,7 @@ export class UserService {
         this.dataservice.saveDataToLocalStorage('fullscreen', null);
         this.dataservice.saveDataToLocalStorage('slide', false);
         this.dataservice.saveDataToLocalStorage('user', null);
-          this.dataservice.saveDataToLocalStorage('customer', null);
+        this.dataservice.saveDataToLocalStorage('customer', null);
         signOut(this.auth);
         setTimeout(() => {
             this.sharedservice.navigateToPath('/login');

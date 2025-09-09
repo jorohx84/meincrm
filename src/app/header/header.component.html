@@ -5,7 +5,7 @@
             <img src="./img/mapleIcon-bg.png" alt="">
             <span>maple CRM</span>
         </div> -->
-       <p>{{currentUser.companyName}}</p>
+       <p>{{currentUser?.companyName}}</p>
     </div>
 
     <div class="menubar">
@@ -19,12 +19,12 @@
                 class="">Superadmin</a>
         </nav>
 
-        <!-- <div class="date">
+        <div class="date">
 
             <span>{{currentTime| date:'d. MMMM. yyyy'}}</span>
             <span>{{currentTime | date:'HH:mm'}} Uhr</span>
 
-        </div> -->
+        </div>
 
         <div (click)="logoutUser()" class="currentUser">
             <div class="initials">
