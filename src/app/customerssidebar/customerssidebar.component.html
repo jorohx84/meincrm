@@ -1,0 +1,43 @@
+<section class="customersContainer">
+    <div class="listInfos">
+        <h3>Kundenstamm:</h3>
+        <div class="customerCount">
+            <span>Anzahl der Kunden:</span>
+            <p>{{customers.length}}</p>
+        </div>
+    </div>
+
+
+    <div class="customerCreation">
+        <p>Neuer Kunde:</p>
+
+        <input [(ngModel)]="newCostumer.name" type="text" placeholder="Name">
+        <input [(ngModel)]="newCostumer.street" type="text" placeholder="Straße">
+        <input [(ngModel)]="newCostumer.city" type="text" placeholder="Stadt">
+        <input [(ngModel)]="newCostumer.areacode" type="text" placeholder="PLZ">
+        <input [(ngModel)]="newCostumer.branch" type="text" placeholder="Branche">
+        <input [(ngModel)]="newCostumer.phone" type="text" placeholder="Telefon">
+        <input [(ngModel)]="newCostumer.email" type="text" placeholder="E-Mail">
+
+        <input (click)="openUserList('outside')" [(ngModel)]="newCostumer.outsideSales.name" type="text"
+            placeholder="Außendienst">
+
+        <input (click)="openUserList('inside')" [(ngModel)]="newCostumer.insideSales.name" type="text"
+            placeholder="Innendienst">
+
+        <div class="btnContainer">
+            <button class="btn" (click)="addCustomer()"><img src="./icons/add.svg" alt=""></button>
+        </div>
+
+
+
+    </div>
+    <div class="employeeList" *ngIf="userListOpen">
+        <p>Mitarbeiter auswählen:</p>
+        <div *ngFor="let employee of users; let index=index">
+
+            <p (click)="chooseEmployee(index)" *ngIf="employee.name!=='Admin'">{{employee.name}}</p>
+        </div>
+    </div>
+
+</section>

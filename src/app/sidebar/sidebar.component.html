@@ -6,105 +6,11 @@
 
     </div>
 
-    <!-- <div class="information">
-   
-
-
-      
-        <div class="links">
-            <a (click)="sharedservice.changeComponents('dashboard')">Dashboard</a>
-            <a (click)="sharedservice.changeComponents('tasks')">Aufgaben</a>
-            <a (click)="sharedservice.changeComponents('customers')">Kunden</a>
-            <a (click)="sharedservice.changeComponents('mailbox')">Postfach</a>
-            <a *ngIf="userservice.isAdmin" (click)="sharedservice.changeComponents('admin')" class="">Adminbereich</a>
-            <a *ngIf="userservice.isSuperAdmin" (click)="sharedservice.navigateToPath('/company')"
-                class="">Superadmin</a>
-        </div>
-
-        <div class="legal">
-            <button>Impressum</button>
-            <button>Datenschutz</button>
-
-        </div>
-    </div> -->
-    <div *ngIf="sharedservice.component==='customers'">
-        <h3>Neuer Kunde </h3>
-        <div>
-            <div class="inputfield">
-                <div>
-                    <input [(ngModel)]="newCostumer.name" type="text" placeholder="Name">
-                </div>
-            </div>
-            <div class="inputfield">
-                <div>
-                    <input [(ngModel)]="newCostumer.street" type="text" placeholder="Straße">
-                </div>
-            </div>
-            <div class="inputfield">
-                <div>
-                    <input [(ngModel)]="newCostumer.city" type="text" placeholder="Stadt">
-                </div>
-            </div>
-            <div class="inputfield">
-                <div>
-                    <input [(ngModel)]="newCostumer.areacode" type="text" placeholder="PLZ">
-                </div>
-            </div>
-
-            <div class="inputfield">
-                <div>
-                    <input [(ngModel)]="newCostumer.branch" type="text" placeholder="Branche">
-                </div>
-            </div>
-            <div class="inputfield">
-                <div>
-                    <input [(ngModel)]="newCostumer.phone" type="text" placeholder="Telefon">
-                </div>
-            </div>
-            <div class="inputfield">
-                <div>
-                    <input [(ngModel)]="newCostumer.email" type="text" placeholder="E-Mail">
-                </div>
-            </div>
-
-        </div>
-
-
-
-        <button class="btn" (click)="addCustomer()">ADD</button>
+    <div class="sidebarCompnents">
+        <app-customerssidebar *ngIf="sharedservice.component==='customers'"></app-customerssidebar>
+        <app-singlecustomersidebar *ngIf="sharedservice.component==='customer'"></app-singlecustomersidebar>
     </div>
 
 
-    <div *ngIf="sharedservice.component==='customer'" class="variableContainer">
-        <div class="customerInfo"
-            [ngClass]="{'activeInputs': isEdit}">
 
-
-            <input type="text" [(ngModel)]="customer.name" disabled="">
-            <input type="text" [(ngModel)]="customer.street" disabled="">
-            <input type="text" [(ngModel)]="customer.areacode" disabled="">
-            <input type="text" [(ngModel)]="customer.city" disabled="">
-            <input type="text" [(ngModel)]="customer.phone" disabled="">
-            <input type="text" [(ngModel)]="customer.email" disabled="">
-
-
-        </div>
-
-
-        <div *ngIf="sharedservice.customerTemplate==='contacts'" class="inputfields">
-            Neuer Kontakt:
-            <input type="text" placeholder="Name" [(ngModel)]="contact.name">
-            <input type="text" placeholder="Telefon" [(ngModel)]="contact.phone">
-            <input type="text" placeholder="E-Mail" [(ngModel)]="contact.email">
-            <input type="text" placeholder="Funktion" [(ngModel)]="contact.function">
-            <button class="btn" (click)="addContact()"></button>
-        </div>
-
-    </div>
-    <div class="sidebarMenu">
-        <img *ngIf="!isEdit && sharedservice.component==='customer'" (click)="toggleActivateEdit()" src="./icons/edit.svg" alt="">
-        <img *ngIf="isEdit" (click)="isEdit=false" src="./icons/close.svg" alt="">
-        <img *ngIf="isEdit" (click)="saveEdit()" src="./icons/save.svg" alt="">
-        <img (click)="deleteCustomer()" *ngIf="sharedservice.component==='customer'" src="./icons/trash.svg" alt="">
-    </div>
 </section>

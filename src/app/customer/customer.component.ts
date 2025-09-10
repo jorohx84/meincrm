@@ -52,7 +52,6 @@ export class CustomerComponent {
     this.userservice.currentUser$.subscribe((user) => {
       if (user) {
         this.currentUser = user;
-        console.log(this.currentUser);
       }
     });
     this.dataservice.customersSubject$.subscribe((customers) => {
@@ -77,10 +76,7 @@ export class CustomerComponent {
   }
 
   changeSearchFitler(index: number) {
-    console.log(index);
     this.currentSearchFilter = this.customerFields[index];
-    console.log(this.currentSearchFilter);
-
   }
 
   searchCustomer() {
@@ -136,12 +132,10 @@ export class CustomerComponent {
 
   openCustomerProfile(index: number) {
     this.sharedservice.changeComponents('customer')
-    console.log(index);
     const customer = this.customers[index];
     this.sharedservice.customer = customer;
     // this.sharedservice.currentUser = this.currentUser;
     this.dataservice.saveDataToLocalStorage('customer', customer);
-    console.log(this.customer);
     this.sharedservice.sendCustomerData(customer);
   }
 

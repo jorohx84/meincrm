@@ -1,8 +1,8 @@
 import { Injectable, inject } from "@angular/core";
 import { Firestore, getDocs, doc, updateDoc, onSnapshot } from "@angular/fire/firestore";
-import { addDoc, collection, deleteDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, getDoc } from "firebase/firestore";
 import { BehaviorSubject } from "rxjs";
-import { SharedService } from "./shared.service";
+
 @Injectable({
     providedIn: 'root',
 })
@@ -11,6 +11,7 @@ export class DataService {
     data: any;
     customerID: string = '';
     companyID: string = '';
+    newCustomer: any;
     private customersSubject = new BehaviorSubject<any>(null)
     public customersSubject$ = this.customersSubject.asObservable();
     private contactSubject = new BehaviorSubject<any>(null);
@@ -122,8 +123,6 @@ export class DataService {
 
 
     async getDataFromFirestore(dataCollection: string, id: string) {
-        console.log(dataCollection);
-
         try {
             const usersCollection = collection(this.firestore, `companies/${id}/${dataCollection}`);
             const userSnapshot = await getDocs(usersCollection);
@@ -155,15 +154,10 @@ export class DataService {
 
     async updateCustomer(companyID: string, customerID: string, data: any) {
         const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}`);
-        console.log(docRef);
-        console.log(data);
         await updateDoc(docRef, data);
 
     }
     async addContact(companyID: string, customerID: string, data: any) {
-        console.log(companyID);
-        console.log(customerID)
-        console.log(data);
         const collectionRef = collection(this.firestore, `companies/${companyID}/customers/${customerID}/contacts`);
         await addDoc(collectionRef, data);
 
@@ -189,8 +183,20 @@ export class DataService {
     }
 
     async addCustomer(companyID: string, customerData: any) {
-        const docRef = collection(this.firestore, `companies/${companyID}/customers/`)
-        await addDoc(docRef, customerData)
+        const collectionRef = collection(this.firestore, `companies/${companyID}/customers/`)
+        const newCustomerRef = await addDoc(collectionRef, customerData);
+        console.log(newCustomerRef);
+
+        const newDoc = await getDoc(newCustomerRef);
+        const newCustomer = {
+            id: newDoc.id,
+            ...newDoc.data(),
+        }
+
+        console.log(newCustomer);
+        this.newCustomer = newCustomer;
+
+
         console.log('Kunde wurde in der Datenbank gespeichert', customerData);
 
     }

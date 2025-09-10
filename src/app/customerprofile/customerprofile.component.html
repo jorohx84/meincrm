@@ -1,9 +1,5 @@
 <section>
-    <div class="btnContainer">
-        <button class="exitBtn"
-            (click)="sharedservice.changeComponents('customers'); changeTemplate('Dashbaord');resetCuntomer()"><img
-                src="./icons/close.svg" alt=""></button>
-    </div>
+  
     <!-- <h1>{{customer?.name}}</h1> -->
     <!-- <div class="dataContainer" [ngClass]="{'activeInputs': isEdit}">
         <input type="text" class="bold" [(ngModel)]="customer.name" disabled="">
@@ -47,6 +43,8 @@
         <div class="depiction">
             <img (click)="sharedservice.changeDepiction('list')" src="./icons/list.svg" alt="">
             <img (click)="sharedservice.changeDepiction('cards')" src="./icons/cards.svg" alt="">
+            <img (click)="sharedservice.changeComponents('customers'); changeTemplate('Dashbaord');resetCuntomer()" src="./icons/close.svg" alt="">
+          
         </div>
     </div>
 

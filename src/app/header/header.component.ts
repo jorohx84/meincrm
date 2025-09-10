@@ -20,7 +20,7 @@ export class HeaderComponent {
 
 
   constructor() {
-    // this.currentUser = this.userservice.currentUser;
+    this.currentUser = this.userservice.currentUser;
     this.timer = setInterval(() => {
       this.updateTime();
     }, 1);

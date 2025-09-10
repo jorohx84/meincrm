@@ -41,14 +41,12 @@ export class AuthService {
 
 
     async login(email: string, password: string) {
-        console.log(email, password);
         
         try {
             await signInWithEmailAndPassword(this.auth, email, password);
-            console.log(this.userservice.user.uid);
-            await this.userservice.setUserLoginTime(this.userservice.user);
-            await this.userservice.setOnlineStatus('login', this.userservice.user);
-            await this.userservice.findCurrentUser(this.userservice.user.uid, this.userservice.user.displayName);
+            // await this.userservice.setUserLoginTime(this.userservice.user);
+            // await this.userservice.setOnlineStatus('login', this.userservice.user);
+            // await this.userservice.findCurrentUser(this.userservice.user.uid, this.userservice.user.displayName);
 
             setTimeout(() => {
                 this.router.navigate(['/main'])
@@ -151,8 +149,6 @@ export class AuthService {
 
     findInitials(name: string) {
         const nameParts = name.trim().split(' ');
-        console.log(nameParts);
-
         if (nameParts.length > 1) {
             const firstInitial = nameParts[0].charAt(0).toUpperCase(); // Erste Initiale des Vornamens
             const lastInitial = nameParts[1].charAt(0).toUpperCase(); // Erste Initiale des Nachnamens

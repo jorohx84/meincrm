@@ -48,7 +48,6 @@ export class SignupComponent {
       this.companyName = params?.get('companyName');
       this.user.email = params?.get('email');
       this.user.name = params?.get('name');
-      console.log(this.companyName);
     })
 
 

@@ -26,7 +26,6 @@ export class ContactsComponent {
     this.dataservice.contactSubject$.subscribe((contactsData) => {
       if (contactsData) {
         this.contacts = contactsData
-        console.log(this.contacts);
         this.sortList();
       }
 
@@ -48,7 +47,6 @@ export class ContactsComponent {
     this.userservice.currentUser$.subscribe((user) => {
       if (user) {
         this.currentUser = user;
-        console.log(this.currentUser);
       }
     });
   }
@@ -79,7 +77,6 @@ export class ContactsComponent {
   // }
 
   async editContact(index: number) {
-    console.log(index);
     this.isEdit = true;
     this.editIndex = index;
     this.editedContact = this.contacts[index];
@@ -87,9 +84,6 @@ export class ContactsComponent {
   }
 
   async saveEdit() {
-
-
-    console.log(this.editedContact);
     this.isEdit = false;
 
 this.dataservice.updateContact(this.currentUser.companyID, this.customer.id, this.editedContact.id, this.editedContact)

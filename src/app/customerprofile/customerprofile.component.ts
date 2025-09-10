@@ -20,7 +20,7 @@ export class CustomerprofileComponent {
   customerIndex: number = -1;
   currentUser: any;
   customers: any[] = [];
-  // isEdit: boolean = false;
+  isEdit: boolean = false;
   customerTemplate: string = '';
   contacts: any[] = [];
 
@@ -31,8 +31,6 @@ export class CustomerprofileComponent {
     this.sharedservice.customerSubject$.subscribe((customerData) => {
       if (customerData) {
         this.customer = customerData;
-        console.log(this.customer);
-
       } else {
         this.dataservice.getDataFromLocalStorage('customer');
         this.customer = this.dataservice.data;
@@ -51,8 +49,6 @@ export class CustomerprofileComponent {
 
     this.dataservice.getDataFromLocalStorage('customerTemplate');
     this.sharedservice.customerTemplate = this.dataservice.data;
-    console.log(this.customerTemplate);
-
     this.dataservice.loadContacts(this.currentUser.companyID, this.customer.id);
 
   }
@@ -78,7 +74,6 @@ export class CustomerprofileComponent {
   // }
 
   changeTemplate(cardKey: string) {
-    console.log(cardKey);
     this.sharedservice.customerTemplate = cardKey;
     this.dataservice.saveDataToLocalStorage('customerTemplate', cardKey);
     // this.dataservice.customerID = this.customer.id;

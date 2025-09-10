@@ -20,9 +20,12 @@ export class SharedService {
     customer: any;
     companyID: string = '';
     isCard: boolean | null = null;
-    customerSubject = new BehaviorSubject<any>(null);
-    customerSubject$ = this.customerSubject.asObservable();
+    private customerSubject = new BehaviorSubject<any>(null);
+    public customerSubject$ = this.customerSubject.asObservable();
     customerTemplate: string = 'dashboard';
+
+
+
     navigateToPath(path: string) {
         this.router.navigate([path]);
     }
@@ -34,13 +37,11 @@ export class SharedService {
 
     changeComponents(component: string) {
         this.component = component;
-        console.log(this.component);
         this.dataservice.saveDataToLocalStorage('component', component);
     }
 
     changeDepiction(key: string) {
         key === 'cards' ? this.isCard = true : this.isCard = false;
-        console.log(this.isCard);
         this.dataservice.saveDataToLocalStorage('isCard', this.isCard);
     }
 

@@ -9,7 +9,5 @@ export class CompanyService {
 
     setCompany(company: any) {
         this.company = company
-        console.log(this.company);
-
     }
 }

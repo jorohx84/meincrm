@@ -1,0 +1,28 @@
+<section>
+    <div class="customerInfo" [ngClass]="{'activeInputs': isEdit}">
+        <p>{{customer.name}}</p>
+        <p>{{customer.street}}</p>
+        <p>{{customer.areacode}}</p>
+        <p>{{customer.city}}</p>
+        <p>{{customer.phone}}</p>
+        <p>{{customer.email}}</p>
+        <p>{{customer.insideSales?.name}}</p>
+        <p>{{customer.outsideSales?.name}}</p>
+    </div>
+
+     <div *ngIf="sharedservice.customerTemplate==='contacts'" class="inputfields">
+            <p>Neuer Kontakt</p>
+            <input type="text" placeholder="Name" [(ngModel)]="contact.name">
+            <input type="text" placeholder="Telefon" [(ngModel)]="contact.phone">
+            <input type="text" placeholder="E-Mail" [(ngModel)]="contact.email">
+            <input type="text" placeholder="Funktion" [(ngModel)]="contact.function">
+            <button class="btn" (click)="addContact()"></button>
+        </div>
+           <div class="sidebarMenu" *ngIf="sharedservice.component!=='customers'">
+        <img *ngIf="!isEdit && sharedservice.component==='customer'" (click)="toggleActivateEdit()"
+            src="./icons/edit.svg" alt="">
+        <img *ngIf="isEdit" (click)="isEdit=false" src="./icons/close.svg" alt="">
+        <img *ngIf="isEdit" (click)="saveEdit()" src="./icons/save.svg" alt="">
+        <img (click)="deleteCustomer()" *ngIf="sharedservice.component==='customer'" src="./icons/trash.svg" alt="">
+    </div>
+</section>
