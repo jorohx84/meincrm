@@ -51,5 +51,12 @@ export class SharedService {
         this.customerSubject.next(customer);
     }
 
+      changeTemplate(cardKey: string) {
+    this.customerTemplate = cardKey;
+    this.dataservice.saveDataToLocalStorage('customerTemplate', cardKey);
+    // this.dataservice.customerID = this.customer.id;
+    // this.dataservice.companyID = this.currentUser.companyID;
+
+  }
 
 }

@@ -78,15 +78,15 @@
 
     <div class="menubar">
         <div class="tabs">
-            <button class="btn" (click)="changeTemplate('dashboard')">Dashbaord</button>
-            <button class="btn" (click)="changeTemplate('contacts')">Kontakte</button>
-            <button class="btn" (click)="changeTemplate('tasks')">Aufgabe</button>
+            <button class="btn" (click)="sharedservice.changeTemplate('dashboard')">Dashbaord</button>
+            <button class="btn" (click)="sharedservice.changeTemplate('contacts')">Kontakte</button>
+            <button class="btn" (click)="sharedservice.changeTemplate('tasks')">Aufgaben</button>
         </div>
 
         <div class="depiction">
             <img (click)="sharedservice.changeDepiction('list')" src="./icons/list.svg" alt="">
             <img (click)="sharedservice.changeDepiction('cards')" src="./icons/cards.svg" alt="">
-            <img (click)="sharedservice.changeComponents('customers'); changeTemplate('Dashbaord');resetCuntomer()"
+            <img (click)="sharedservice.changeComponents('customers'); sharedservice.changeTemplate('Dashbaord');resetCuntomer()"
                 src="./icons/close.svg" alt="">
 
         </div>
