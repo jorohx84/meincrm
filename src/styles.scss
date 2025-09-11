@@ -48,8 +48,7 @@ button {
 input {
     background-color: transparent;
     border: none;
-
-
+    font-family: 'Noto';
 
 }
 
@@ -66,6 +65,16 @@ a {
 p {
     margin: 0;
 }
+h3{
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+h4{
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
 
 .btn {
     width: 160px;
@@ -77,12 +86,17 @@ p {
     border-radius: 5px;
     color: white;
     font-size: 16px;
-    >img{
+
+    >img {
         width: 30px;
     }
 }
 
-div, input, section, p, span{
+div,
+input,
+section,
+p,
+span {
     box-sizing: border-box;
 }
 
@@ -143,7 +157,7 @@ form {
 
 input {
     width: 100%;
-   
+
 }
 
 input:focus {
@@ -200,7 +214,7 @@ input:-webkit-autofill {
     --blue1: rgb(6, 125, 244);
     --error: rgb(149, 5, 5);
     --font-color: #615D5D;
- 
+
     --blue2: rgb(0, 123, 255);
     --blue3: rgb(0, 140, 255);
     --blue-hover: rgba(0, 140, 255, 0.109);

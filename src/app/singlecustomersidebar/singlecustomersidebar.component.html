@@ -1,24 +1,111 @@
 <section>
-    <div class="customerInfo" [ngClass]="{'activeInputs': isEdit}">
-        <p>{{customer.name}}</p>
+    <div *ngIf="!isEdit" class="customerInfo" [ngClass]="{'activeInputs': isEdit}">
+        <p class="name">{{customer.name}}</p>
         <p>{{customer.street}}</p>
-        <p>{{customer.areacode}}</p>
-        <p>{{customer.city}}</p>
-        <p>{{customer.phone}}</p>
-        <p>{{customer.email}}</p>
-        <p>{{customer.insideSales?.name}}</p>
-        <p>{{customer.outsideSales?.name}}</p>
+        <div class="location">
+            <p>{{customer.areacode}}</p>
+            <p>{{customer.city}}</p>
+        </div>
+        <div class="contactInfos">
+            <div class="infoContainer">
+                <img src="./icons/phone.svg" alt="">
+                <p>{{customer.phone}}</p>
+            </div>
+            <div class="infoContainer">
+                <img src="./icons/email.svg" alt="">
+                <p>{{customer.email}}</p>
+            </div>
+
+        </div>
+        <div class="employeeInfos">
+            <div class="infoContainer">
+                <h3>Innendienst</h3>
+                <div class="employee">
+                    <!-- <img src="./icons/profile.svg" alt=""> -->
+                    <div class="contactData">
+                        <h4>{{customer.insideSales?.name}}</h4>
+                        <div class="contactDataContainer">
+                            <img src="./icons/phone.svg" alt="">
+                            <a href="tel:{{customer.insideSales?.phone}}">{{customer.insideSales?.phone}}</a>
+                        </div>
+                        <div class="contactDataContainer">
+                            <img src="./icons/email.svg" alt="">
+                            <a href="mailto:{{customer.insideSales?.email}}">{{customer.insideSales?.email}}</a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="infoContainer">
+                <h3>Außendienst</h3>
+                <div class="employee">
+                    <!-- <img src="./icons/profile.svg" alt=""> -->
+                    <div class="contactData">
+                        <h4>{{customer.outsideSales?.name}}</h4>
+                        <div class="contactDataContainer">
+                            <img src="./icons/phone.svg" alt="">
+                            <a href="tel:{{customer.outsideSales?.phone}}">{{customer.outsideSales?.phone}}</a>
+                        </div>
+                        <div class="contactDataContainer">
+                            <img src="./icons/email.svg" alt="">
+                            <a href="mailto:{{customer.outsideSales?.email}}">{{customer.outsideSales?.email}}</a>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
     </div>
 
-     <div *ngIf="sharedservice.customerTemplate==='contacts'" class="inputfields">
-            <p>Neuer Kontakt</p>
-            <input type="text" placeholder="Name" [(ngModel)]="contact.name">
-            <input type="text" placeholder="Telefon" [(ngModel)]="contact.phone">
-            <input type="text" placeholder="E-Mail" [(ngModel)]="contact.email">
-            <input type="text" placeholder="Funktion" [(ngModel)]="contact.function">
-            <button class="btn" (click)="addContact()"></button>
+    <div class="editCustomer" *ngIf="isEdit">
+
+        <h3>Kundendaten bearbeiten:</h3>
+
+        <input type="text" [(ngModel)]="customer.name" placeholder="Name">
+        <input type="text" [(ngModel)]="customer.street" placeholder="Straße">
+        <input type="text" [(ngModel)]="customer.areacode" placeholder="Postleitzahl">
+        <input type="text" [(ngModel)]="customer.city" placeholder="Stadt">
+        <input type="text" [(ngModel)]="customer.phone" placeholder="Telefon">
+        <input type="text" [(ngModel)]="customer.email" placeholder="E-Mail">
+        <div (click)="openUserList('inside')" class="dropdown">
+            <p>{{customer.insideSales?.name || 'Innendienst'}} </p>
         </div>
-           <div class="sidebarMenu" *ngIf="sharedservice.component!=='customers'">
+        <div (click)="openUserList('outside')" class="dropdown">
+            <p>{{customer.outsideSales?.name || 'Außendienst'}} </p>
+        </div>
+        <!-- <div class="btnContainer">
+            <button class="btn" (click)="saveEdit()">Speichern</button>
+        </div> -->
+        <div *ngIf="isOpen" class="usersList">
+            <div *ngFor="let user of users; let index=index" (click)="chooseEmployee(index)">
+                <p>{{user?.name}}</p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div *ngIf="sharedservice.customerTemplate==='contacts' && !isEdit" class="inputfields">
+        <p>Neuer Kontakt</p>
+        <input type="text" placeholder="Name" [(ngModel)]="contact.name">
+        <input type="text" placeholder="Telefon" [(ngModel)]="contact.phone">
+        <input type="text" placeholder="E-Mail" [(ngModel)]="contact.email">
+        <input type="text" placeholder="Funktion" [(ngModel)]="contact.function">
+
+        <div class="btnContainer">
+            <button class="btn" (click)="addContact()">Speichern</button>
+        </div>
+    </div>
+
+
+
+    <div class="sidebarMenu" *ngIf="sharedservice.component!=='customers'">
         <img *ngIf="!isEdit && sharedservice.component==='customer'" (click)="toggleActivateEdit()"
             src="./icons/edit.svg" alt="">
         <img *ngIf="isEdit" (click)="isEdit=false" src="./icons/close.svg" alt="">

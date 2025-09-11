@@ -1,4 +1,4 @@
-section{
+section {
     width: 100%;
     height: 100%;
     display: flex;
@@ -8,17 +8,117 @@ section{
 }
 
 .customerInfo {
-    :nth-child(1) {
-        font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    .name {
+        font-size: 20px;
         font-weight: 600;
+        margin-bottom: 16px;
     }
+
+    .location {
+        display: flex;
+        gap: 8px;
+    }
+
+    .contactInfos {
+        margin-top: 16px;
+        margin-bottom: 96px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .infoContainer {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            >img {
+                width: 20px;
+            }
+        }
+    }
+
+    .employeeInfos {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        .infoContainer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 24px 16px;
+            // box-shadow: 3px 3px 6px 2px rgba(0, 0, 0, 0.08);
+            border-radius: 5px;
+
+            .employee {
+                width: 100%;
+                display: flex;
+
+                align-items: flex-start;
+                gap: 16px;
+
+                .contactData {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+
+                    >h4 {
+                        margin-block: 10px;
+                    }
+
+                    .contactDataContainer {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+
+
+
+                        >img {
+                            width: 16px;
+                        }
+
+                        >a {
+                            color: black;
+                            font-size: 14px;
+                        }
+                    }
+
+                    >p {
+                        margin-bottom: 4px;
+                    }
+
+
+                }
+
+                >img {
+                    width: 30px;
+                    background-color: var(--border-color);
+                    border-radius: 100px;
+                    padding: 8px;
+                }
+            }
+
+        }
+
+    }
+
+
 }
+
+
+
 
 .inputfields {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
     align-items: flex-start;
     gap: 16px;
 
@@ -33,6 +133,12 @@ section{
         &::placeholder {
             font-size: 12px;
         }
+    }
+
+    .btnContainer {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
     }
 }
 
@@ -53,4 +159,26 @@ section{
         background-color: var(--blue-hover);
     }
 
+}
+
+.editCustomer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    >input,
+    .dropdown {
+        width: 100%;
+        border: solid var(--border-color);
+        border-radius: 5px;
+        padding: 8px;
+        font-size: 14px;
+    }
+
+
+}
+
+.usersList {
+    width: 100%;
+    height: 100%;
 }

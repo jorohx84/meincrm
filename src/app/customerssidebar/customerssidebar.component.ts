@@ -38,6 +38,11 @@ export class CustomerssidebarComponent {
         this.users = allUsers;
       }
     })
+    this.dataservice.customersSubject$.subscribe((customersData) => {
+      if (customersData) {
+        this.customers = customersData;
+      }
+    })
 
   }
   async addCustomer() {

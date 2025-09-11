@@ -5,6 +5,8 @@ import { SharedService } from '../shared.service';
 import { DataService } from '../data.service';
 import { UserService } from '../user.service';
 import { Contact } from '../models/contact.class';
+import { user } from '@angular/fire/auth';
+
 @Component({
   selector: 'app-singlecustomersidebar',
   imports: [CommonModule, FormsModule],
@@ -18,9 +20,11 @@ export class SinglecustomersidebarComponent {
   currentUser: any;
   customer: any;
   isEdit: boolean = false;
+  isOpen: boolean = false;
   contact = new Contact;
-
-  async ngOnInit(){
+  users: any[] = [];
+  usersKey: string = '';
+  async ngOnInit() {
     this.userservice.currentUser$.subscribe(async (user) => {
       if (user) {
         this.currentUser = user;
@@ -28,7 +32,13 @@ export class SinglecustomersidebarComponent {
       }
 
     });
-       this.sharedservice.customerSubject$.subscribe((customerObject) => {
+
+    this.userservice.usersSubject$.subscribe((userData) => {
+      if (userData) {
+        this.users = userData;
+      }
+    })
+    this.sharedservice.customerSubject$.subscribe((customerObject) => {
       if (customerObject) {
         this.customer = customerObject
       } else {
@@ -66,19 +76,36 @@ export class SinglecustomersidebarComponent {
 
 
   toggleActivateEdit() {
-    const fields = document.getElementsByTagName('input');
-    for (let index = 0; index < fields.length; index++) {
-      const field = fields[index];
-      field.disabled = !field.disabled;
-
-    }
     this.isEdit = !this.isEdit;
   }
 
+  openUserList(key: string) {
+    this.usersKey = key;
+    this.isOpen = true;
+    console.log(this.usersKey);
+
+  }
+
   saveEdit() {
-    this.toggleActivateEdit();
+    console.log(this.customer);
+    this.isOpen = false;
+
+
     this.dataservice.saveDataToLocalStorage('customer', this.customer);
     this.dataservice.updateCustomer(this.currentUser.companyID, this.customer.id, this.customer);
+    this.toggleActivateEdit();
+  }
 
+  chooseEmployee(index: number) {
+    const employee = this.users[index];
+    if (this.usersKey === 'outside') {
+      this.customer.outsideSales = employee;
+    }
+    if (this.usersKey === 'inside') {
+      this.customer.insideSales = employee;
+    }
+    console.log(this.customer);
+
+    this.isOpen = false;
   }
 }
