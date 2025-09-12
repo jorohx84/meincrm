@@ -9,6 +9,7 @@ export class Customer {
     branch: string;
     outsideSales: any;
     insideSales: any;
+    favorites: any[];
 
     constructor(customer?: any) {
         this.name = customer?.name || '';
@@ -21,5 +22,6 @@ export class Customer {
         this.branch = customer?.branch || '';
         this.outsideSales = customer?.outsideSales || '';
         this.insideSales = customer?.insideSales || '';
+        this.favorites = customer?.favorites || [];
     }
 }

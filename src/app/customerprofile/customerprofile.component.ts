@@ -5,10 +5,10 @@ import { DataService } from '../data.service';
 import { FormsModule } from '@angular/forms';
 import { ContactsComponent } from '../contacts/contacts.component';
 import { UserService } from '../user.service';
-import { TasksComponent } from '../tasks/tasks.component';
+import { CustomertasksComponent } from '../customertasks/customertasks.component';
 @Component({
   selector: 'app-customerprofile',
-  imports: [CommonModule, FormsModule, ContactsComponent, TasksComponent],
+  imports: [CommonModule, FormsModule, ContactsComponent, CustomertasksComponent],
   templateUrl: './customerprofile.component.html',
   styleUrl: './customerprofile.component.scss'
 })
@@ -50,6 +50,7 @@ export class CustomerprofileComponent {
     this.dataservice.getDataFromLocalStorage('customerTemplate');
     this.sharedservice.customerTemplate = this.dataservice.data;
     this.dataservice.loadContacts(this.currentUser.companyID, this.customer.id);
+    this.dataservice.loadTasks(this.currentUser.companyID, this.customer.id);
 
   }
 
@@ -80,5 +81,5 @@ export class CustomerprofileComponent {
     this.dataservice.saveDataToLocalStorage('customer', this.customer);
   }
 
- 
+
 }

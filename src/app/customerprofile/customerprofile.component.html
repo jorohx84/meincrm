@@ -1,6 +1,50 @@
 <section>
+    <div class="customerHeader" [ngClass]="{'contentLeft': !sharedservice.isSlide}" *ngIf="sharedservice.isSlide">
+        <div class="customerInfoContainer" >
+            <div class="name">
+                <h1>{{customer?.name}}</h1>
+            </div>
 
-    <!-- <h1 *ngIf="sharedservice.isSlide">{{customer?.name}}</h1> -->
+            <div class="contactInfos">
+                <div>
+                    <p>{{customer?.street}}</p>
+                    <div class="location">
+                        <p>{{customer.areacode}}</p>
+                        <p>{{customer.city}}</p>
+                    </div>
+                </div>
+
+                <!-- <div class="contactData">
+                    <img src="./icons/phone.svg" alt="">
+                    <p>{{customer.phone}}</p>
+                </div>
+                <div class="contactData">
+                    <img src="./icons/email.svg" alt="">
+                    <p>{{customer.email}}</p>
+                </div> -->
+                <div class="contactDataContainer">
+                    <div class="contactData">
+                        <img src="./icons/phone.svg" alt="">
+                        <p>{{customer.phone}}</p>
+                    </div>
+                    <div class="contactData">
+                        <img src="./icons/email.svg" alt="">
+                        <p>{{customer.email}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="depiction" *ngIf="sharedservice.isSlide">
+            <img (click)="sharedservice.changeDepiction('list')" src="./icons/list.svg" alt="">
+            <img (click)="sharedservice.changeDepiction('cards')" src="./icons/cards.svg" alt="">
+            <img (click)="sharedservice.changeComponents('customers'); sharedservice.changeTemplate('Dashbaord');resetCuntomer()"
+                src="./icons/close.svg" alt="">
+
+        </div>
+    </div>
+
     <!-- <div class="dataContainer" [ngClass]="{'activeInputs': isEdit}">
 
 
@@ -8,19 +52,10 @@
         <div *ngIf="sharedservice.isSlide" class="customerInfo" [ngClass]="{'activeInputs': isEdit}">
             <p class="name">{{customer.name}}</p>
             <p>{{customer.street}}</p>
-            <div class="location">
-                <p>{{customer.areacode}}</p>
-                <p>{{customer.city}}</p>
-            </div>
+           
             <div class="contactInfos">
-                <div class="infoContainer">
-                    <img src="./icons/phone.svg" alt="">
-                    <p>{{customer.phone}}</p>
-                </div>
-                <div class="infoContainer">
-                    <img src="./icons/email.svg" alt="">
-                    <p>{{customer.email}}</p>
-                </div>
+            
+              
 
             </div>
         </div>
@@ -76,20 +111,21 @@
 
     </div> -->
 
+
     <div class="menubar">
         <div class="tabs">
             <button class="btn" (click)="sharedservice.changeTemplate('dashboard')">Dashbaord</button>
             <button class="btn" (click)="sharedservice.changeTemplate('contacts')">Kontakte</button>
             <button class="btn" (click)="sharedservice.changeTemplate('tasks')">Aufgaben</button>
         </div>
-
-        <div class="depiction">
+  <div class="depiction" *ngIf="!sharedservice.isSlide">
             <img (click)="sharedservice.changeDepiction('list')" src="./icons/list.svg" alt="">
             <img (click)="sharedservice.changeDepiction('cards')" src="./icons/cards.svg" alt="">
             <img (click)="sharedservice.changeComponents('customers'); sharedservice.changeTemplate('Dashbaord');resetCuntomer()"
                 src="./icons/close.svg" alt="">
 
         </div>
+
     </div>
 
 
@@ -103,8 +139,22 @@
         <!-- Contacts -->
         <app-contacts *ngIf="sharedservice.customerTemplate ==='contacts'"></app-contacts>
         <!-- Tasks -->
-        <app-tasks *ngIf="sharedservice.customerTemplate ==='tasks'"></app-tasks>
+       
+        <app-customertasks *ngIf="sharedservice.customerTemplate ==='tasks'"></app-customertasks>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

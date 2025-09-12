@@ -76,6 +76,7 @@ export class CustomerssidebarComponent {
       createdBy: this.currentUser.name,
       outsideSales: this.newCostumer.outsideSales,
       insideSales: this.newCostumer.insideSales,
+      favorites: [],
     }
 
   }

@@ -16,7 +16,8 @@ export class DataService {
     public customersSubject$ = this.customersSubject.asObservable();
     private contactSubject = new BehaviorSubject<any>(null);
     public contactSubject$ = this.contactSubject.asObservable();
-
+    private tasksSubject = new BehaviorSubject<any>(null);
+    public tasksSubject$ = this.tasksSubject.asObservable();
     customers: any[] = [
 
         { name: "Müller GmbH", street: "Hauptstraße 12", city: "Berlin", areacode: "10115", phone: "030 1234567", email: "kontakt@mueller-gmbh.de", status: "", branch: "Bau" },
@@ -163,6 +164,13 @@ export class DataService {
 
     }
 
+    async addTask(companyID: string, customerID: string, data: any) {
+        const collectionRef = collection(this.firestore, `companies/${companyID}/customers/${customerID}/tasks`);
+        await addDoc(collectionRef, data);
+
+    }
+
+
 
     async loadContacts(companyID: string, customerID: string,) {
         const collectionRef = collection(this.firestore, `companies/${companyID}/customers/${customerID}/contacts`);
@@ -176,10 +184,28 @@ export class DataService {
         })
     }
 
+    async loadTasks(companyID: string, customerID: string,) {
+        const collectionRef = collection(this.firestore, `companies/${companyID}/customers/${customerID}/tasks`);
+        onSnapshot(collectionRef, (snapshot) => {
+            const tasks = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+            this.tasksSubject.next(tasks);
+        })
+    }
+
 
     async updateContact(companyID: string, customerID: string, contactID: string, data: any) {
         const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}/contacts/${contactID}`);
         await updateDoc(docRef, data);
+    }
+
+    async updateVipStatus(companyID: string, customerID: string, contactID: string, status: boolean) {
+        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}/contacts/${contactID}`);
+        await updateDoc(docRef, {
+            isVIP: status,
+        });
     }
 
     async addCustomer(companyID: string, customerData: any) {
@@ -206,18 +232,23 @@ export class DataService {
         await deleteDoc(docRef);
     }
 
+    async deleteContact(companyID: string, customerID: string, contact: any) {
+        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}/contacts/${contact.id}`);
+        console.log(companyID);
+        console.log(contact.id);
+        console.log(customerID);
 
-    // async addCostumer(companyID: string) {
-    //     console.log(companyID);
-    //     const collectionRef = collection(this.firestore, `companies/${companyID}/customers/`);
-    //     console.log(this.customers);
 
-    //     for (let index = 0; index < this.customers.length; index++) {
-    //         const cust = this.customers[index];
-    //         console.log(cust);
 
-    //         await addDoc(collectionRef, cust)
-    //     }
+        await deleteDoc(docRef);
+    }
 
-    // }
+
+    async addFavoritesToCustomer(companyID: string, customerID: string, data: any,) {
+        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}`);
+        await updateDoc(docRef, {
+            favorites: data,
+        })
+
+    }
 }

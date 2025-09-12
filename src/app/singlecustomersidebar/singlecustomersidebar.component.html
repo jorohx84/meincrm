@@ -63,6 +63,10 @@
 
     </div>
 
+    <div *ngFor="let vip of vipList; let index =index">
+        <p>{{vip.name}}</p>
+    </div>
+
     <div class="editCustomer" *ngIf="isEdit">
 
         <h3>Kundendaten bearbeiten:</h3>
@@ -103,6 +107,26 @@
         </div>
     </div>
 
+
+
+
+    <div *ngIf="sharedservice.customerTemplate==='tasks' && !isEdit" class="inputfields">
+        <p>Neue Aufgabe</p>
+        <input type="text" [(ngModel)]="task.title" placeholder="Titel">
+
+        <textarea name="" id="" [(ngModel)]="task.description" placeholder="Beschreibung"></textarea>
+
+
+
+
+        <input type="datetime-local" [(ngModel)]="task.start_date" placeholder="Startzeit">
+        <input type="datetime-local" [(ngModel)]="task.due_date" placeholder="zu Erledigen bis:">
+        <!-- drei buttons oder drowpdown für priority -->
+        <div class="btnContainer">
+            <button class="btn" (click)="addTask()">Speichern</button>
+        </div>
+
+    </div>
 
 
     <div class="sidebarMenu" *ngIf="sharedservice.component!=='customers'">

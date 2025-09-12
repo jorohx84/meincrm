@@ -31,7 +31,10 @@
                     </div>
                 </div>
                 <div class="contactmenu">
+                    <img *ngIf="contact.isVIP===false" (click)="changeToFavorites(index,'add')" src="./icons/star.svg" alt="">
+                    <img *ngIf="contact.isVIP===true" (click)="changeToFavorites(index,'remove')" src="./icons/star_filled.svg" alt="">
                     <img (click)="editContact(index)" src="./icons/edit.svg" alt="">
+                    <img (click)="deleteContact(index)" src="./icons/trash.svg" alt="">
                 </div>
 
 

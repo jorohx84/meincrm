@@ -155,6 +155,20 @@ form {
     }
 }
 
+textarea{
+    all: unset;
+    box-sizing: border-box;
+ width: 100%;
+ height: 200px;
+ max-width: 300px;
+ border: solid 1px var(--border-color);
+ border-radius: 5px;
+ padding: 8px;
+&::placeholder{
+    font-size: 12px;
+}
+}
+
 input {
     width: 100%;
 

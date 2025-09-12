@@ -3,13 +3,14 @@ section {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    
     gap: 56px;
 }
 
 .customerInfo {
     display: flex;
     flex-direction: column;
+   
     .name {
         font-size: 20px;
         font-weight: 600;
@@ -19,11 +20,12 @@ section {
     .location {
         display: flex;
         gap: 8px;
+        
     }
 
     .contactInfos {
-        margin-top: 16px;
-        margin-bottom: 96px;
+        margin-block: 16px 32px;
+    
         display: flex;
         flex-direction: column;
         gap: 4px;
@@ -35,7 +37,7 @@ section {
             gap: 16px;
 
             >img {
-                width: 20px;
+                width: 16px;
             }
         }
     }
@@ -51,7 +53,7 @@ section {
             display: flex;
             flex-direction: column;
             gap: 16px;
-            padding: 24px 16px;
+           
             // box-shadow: 3px 3px 6px 2px rgba(0, 0, 0, 0.08);
             border-radius: 5px;
 
@@ -118,7 +120,7 @@ section {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+ 
     align-items: flex-start;
     gap: 16px;
 
@@ -143,10 +145,13 @@ section {
 }
 
 .sidebarMenu {
-    width: 100%;
+  
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    position: absolute;
+    right: 24px;
+    bottom: 24px;
     gap: 24px;
 
     >img {

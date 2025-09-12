@@ -5,7 +5,8 @@ import { SharedService } from '../shared.service';
 import { DataService } from '../data.service';
 import { UserService } from '../user.service';
 import { Contact } from '../models/contact.class';
-import { user } from '@angular/fire/auth';
+import { Task } from '../models/task.class';
+import { takeLast } from 'rxjs';
 
 @Component({
   selector: 'app-singlecustomersidebar',
@@ -24,6 +25,8 @@ export class SinglecustomersidebarComponent {
   contact = new Contact;
   users: any[] = [];
   usersKey: string = '';
+  vipList: any[] = [];
+  task = new Task;
   async ngOnInit() {
     this.userservice.currentUser$.subscribe(async (user) => {
       if (user) {
@@ -41,11 +44,15 @@ export class SinglecustomersidebarComponent {
     this.sharedservice.customerSubject$.subscribe((customerObject) => {
       if (customerObject) {
         this.customer = customerObject
+        this.vipList = customerObject.favorites;
       } else {
         this.dataservice.getDataFromLocalStorage('customer');
         this.customer = this.dataservice.data;
+        this.vipList = this.customer.favorites;
       }
     })
+    console.log(this.task);
+
   }
   async addContact() {
     const data = this.getContactData();
@@ -62,6 +69,7 @@ export class SinglecustomersidebarComponent {
       function: this.contact.function,
       customerName: this.customer.name,
       customerID: this.customer.id,
+      isVIP: false,
     }
   }
 
@@ -108,4 +116,44 @@ export class SinglecustomersidebarComponent {
 
     this.isOpen = false;
   }
+
+
+  async addTask() {
+    const task = this.getTaskObject()
+    console.log(task);
+    await this.dataservice.addTask(this.currentUser.companyID, this.customer.id, task);
+  }
+
+  getTaskObject() {
+    return {
+      title: this.task.title,
+      description: this.task.description,
+      created_by: this.currentUser,
+      assigned_to: this.task.assigned_to,
+      reviewer: this.task.reviewer,
+      due_date: this.task.due_date,
+      start_date: this.task.start_date,
+      completed_at: '',
+      updated_at: '',
+      state: 'undone',
+      priority: this.task.priority,
+      tags: '',
+      collaboraters: [],
+      is_completed: false,
+      blocked_by: {},
+      customer: this.customer,
+      comments: [],
+    }
+  }
+
+
+
+
+
+
+
+
+
+
 }
+
