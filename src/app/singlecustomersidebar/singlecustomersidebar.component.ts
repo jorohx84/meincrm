@@ -7,10 +7,11 @@ import { UserService } from '../user.service';
 import { Contact } from '../models/contact.class';
 import { Task } from '../models/task.class';
 import { takeLast } from 'rxjs';
+import { UserslistComponent } from '../userslist/userslist.component';
 
 @Component({
   selector: 'app-singlecustomersidebar',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, UserslistComponent],
   templateUrl: './singlecustomersidebar.component.html',
   styleUrl: './singlecustomersidebar.component.scss'
 })
@@ -27,6 +28,7 @@ export class SinglecustomersidebarComponent {
   usersKey: string = '';
   vipList: any[] = [];
   task = new Task;
+  assignedUser: any;
   async ngOnInit() {
     this.userservice.currentUser$.subscribe(async (user) => {
       if (user) {
@@ -51,8 +53,13 @@ export class SinglecustomersidebarComponent {
         this.vipList = this.customer.favorites;
       }
     })
-    console.log(this.task);
 
+    this.sharedservice.userSubject$.subscribe((userObject) => {
+      if (userObject) {
+        this.assignedUser = userObject;
+        this.chooseEmployee();
+      }
+    })
   }
   async addContact() {
     const data = this.getContactData();
@@ -104,13 +111,13 @@ export class SinglecustomersidebarComponent {
     this.toggleActivateEdit();
   }
 
-  chooseEmployee(index: number) {
-    const employee = this.users[index];
+  chooseEmployee() {
+  
     if (this.usersKey === 'outside') {
-      this.customer.outsideSales = employee;
+      this.customer.outsideSales = this.assignedUser;
     }
     if (this.usersKey === 'inside') {
-      this.customer.insideSales = employee;
+      this.customer.insideSales = this.assignedUser;
     }
     console.log(this.customer);
 
@@ -121,7 +128,7 @@ export class SinglecustomersidebarComponent {
   async addTask() {
     const task = this.getTaskObject()
     console.log(task);
-    await this.dataservice.addTask(this.currentUser.companyID, this.customer.id, task);
+    await this.dataservice.addTask(this.currentUser.companyID, task);
   }
 
   getTaskObject() {
@@ -129,10 +136,10 @@ export class SinglecustomersidebarComponent {
       title: this.task.title,
       description: this.task.description,
       created_by: this.currentUser,
-      assigned_to: this.task.assigned_to,
+      assigned_to: this.currentUser,
       reviewer: this.task.reviewer,
       due_date: this.task.due_date,
-      start_date: this.task.start_date,
+      start_date: new Date().toISOString(),
       completed_at: '',
       updated_at: '',
       state: 'undone',
@@ -143,6 +150,7 @@ export class SinglecustomersidebarComponent {
       blocked_by: {},
       customer: this.customer,
       comments: [],
+      subtasks: [],
     }
   }
 

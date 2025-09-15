@@ -1,0 +1,27 @@
+.tasksList{
+width: 100%;
+height: 100%;
+display: flex;
+flex-direction: column;
+gap: 8px;
+}
+.taskRow{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    background-color: var(--list);
+    border-radius: 5px;
+    >p{
+        width: 100%;
+    }
+}
+
+.headlineRow{
+    background-color: white;
+    border-bottom: solid 1px var(--back);
+    border-radius: 0;
+}
+

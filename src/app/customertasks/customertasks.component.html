@@ -1,6 +1,20 @@
 <section>
+    <div *ngIf="!sharedservice.isCard" class="tasksList">
+        <div class="taskRow headlineRow">
+            <p *ngFor="let field of tasksfields; let index = index">
+                <span>{{field.displayName}}</span>
+            </p>
+        </div>
+        <div class="taskRow" *ngFor="let task of tasks; let index = index">
+            <p>{{task.title}}</p>
+            <p>{{task.start_date | date: 'dd.MM.yyyy'}}</p>
+            <p>{{task.due_date | date: 'dd.MM.yyyy'}}</p>
+            <p>{{task.created_by.name}}</p>
+            <p>{{task.assigned_to.name}}</p>
+            <p>{{task.priority}}</p>
+            <p>{{task.state}}</p>
+        </div>
 
-    <div *ngFor="let task of tasks; let index = index">
-        <p>{{task.title}}</p>
     </div>
+
 </section>

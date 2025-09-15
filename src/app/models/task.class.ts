@@ -16,6 +16,7 @@ export class Task {
     blocked_by: any;
     customer: any;
     comments: any[];
+    subtasks: any[];
 
     constructor(task?: any) {
         this.title = task ? task.title : '';
@@ -35,5 +36,6 @@ export class Task {
         this.blocked_by = task ? task.blocked_by : {};
         this.customer = task ? task.customer : {};
         this.comments = task ? task.comments : [];
+        this.subtasks = task ? task.subtasks : [];
     }
 }

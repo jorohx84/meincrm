@@ -1,0 +1,5 @@
+<section>
+    <div *ngFor="let user of users; let index = index">
+        <p (click)="setUser(index); sharedservice.userListOpen=false">{{user.name}}</p>
+    </div>
+</section>

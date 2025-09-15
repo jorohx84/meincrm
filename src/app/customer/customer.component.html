@@ -1,9 +1,9 @@
 <section>
     <div class="menuBar">
-        <button class="btn">
+        <!-- <button class="btn">
             <img src="./icons/filter_white.svg" alt="">
-        </button>
-
+        </button> -->
+<h1>Kundenstamm</h1>
 
         <div class="searchContainer">
             <div class="filterContainer">
@@ -50,7 +50,8 @@
                 <img class="dropdownIcon"
                     [ngClass]="{'rotateUp': activeSortIndex===index && isSortUp, 'rotateDown': activeSortIndex===index && !isSortUp}"
                     src="./icons/dropdown.svg" alt="">
-                <span>{{getDisplayName(headline.fieldName)}}</span>
+                <!-- <span>{{getDisplayName(headline.fieldName)}}</span> -->
+                 <span>{{headline.displayName}}</span>
             </p>
 
         </div>
@@ -62,7 +63,8 @@
         </div>
 
         <div class="" *ngFor="let customer of customers; let index = index">
-            <div [ngClass]="{'bg-color' : isBackground(index)}" class="customer">
+            <!-- [ngClass]="{'bg-color' : isBackground(index)}" -->
+            <div  class="customer">
                 <p (click)="openCustomerProfile(index)" *ngFor="let field of customerFields">{{customer[field.fieldName]}}</p>
                
             </div>

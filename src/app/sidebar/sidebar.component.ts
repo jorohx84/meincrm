@@ -9,10 +9,11 @@ import { Contact } from '../models/contact.class';
 import { Customer } from '../models/customer.class';
 import { CustomerssidebarComponent } from '../customerssidebar/customerssidebar.component';
 import { SinglecustomersidebarComponent } from '../singlecustomersidebar/singlecustomersidebar.component';
+import { UserslistComponent } from '../userslist/userslist.component';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [CommonModule, FormsModule, CustomerssidebarComponent, SinglecustomersidebarComponent],
+  imports: [CommonModule, FormsModule, CustomerssidebarComponent, SinglecustomersidebarComponent, UserslistComponent],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })

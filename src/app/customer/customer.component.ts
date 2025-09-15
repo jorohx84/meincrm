@@ -118,16 +118,16 @@ export class CustomerComponent {
 
   }
 
-  getDisplayName(fieldName: string) {
-    for (let index = 0; index < this.customerFields.length; index++) {
-      const field = this.customerFields[index];
-      if (field.fieldName === fieldName) {
-        return field.displayName
-      }
-    }
-    return
+  // getDisplayName(fieldName: string) {
+  //   for (let index = 0; index < this.customerFields.length; index++) {
+  //     const field = this.customerFields[index];
+  //     if (field.fieldName === fieldName) {
+  //       return field.displayName
+  //     }
+  //   }
+  //   return
 
-  }
+  // }
 
 
   openCustomerProfile(index: number) {

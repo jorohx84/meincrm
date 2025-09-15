@@ -20,8 +20,12 @@ export class SharedService {
     customer: any;
     companyID: string = '';
     isCard: boolean | null = null;
+     userListOpen: boolean = false;
     private customerSubject = new BehaviorSubject<any>(null);
     public customerSubject$ = this.customerSubject.asObservable();
+
+    private userSubject = new BehaviorSubject<any>(null);
+    public userSubject$ = this.userSubject.asObservable();
     customerTemplate: string = 'dashboard';
 
 
@@ -51,12 +55,17 @@ export class SharedService {
         this.customerSubject.next(customer);
     }
 
-      changeTemplate(cardKey: string) {
-    this.customerTemplate = cardKey;
-    this.dataservice.saveDataToLocalStorage('customerTemplate', cardKey);
-    // this.dataservice.customerID = this.customer.id;
-    // this.dataservice.companyID = this.currentUser.companyID;
+    changeTemplate(cardKey: string) {
+        this.customerTemplate = cardKey;
+        this.dataservice.saveDataToLocalStorage('customerTemplate', cardKey);
+        // this.dataservice.customerID = this.customer.id;
+        // this.dataservice.companyID = this.currentUser.companyID;
 
-  }
+    }
+
+    sendUserFromList(user: any) {
+        this.userSubject.next(user);
+
+    }
 
 }

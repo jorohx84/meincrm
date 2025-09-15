@@ -18,12 +18,17 @@
         <input [(ngModel)]="newCostumer.branch" type="text" placeholder="Branche">
         <input [(ngModel)]="newCostumer.phone" type="text" placeholder="Telefon">
         <input [(ngModel)]="newCostumer.email" type="text" placeholder="E-Mail">
+        <div class="assignedToField" (click)="openUserList('outside')">
+            <p *ngIf="!newCostumer.outsideSales">Ausßendienst</p>
+            <span>{{newCostumer.outsideSales.name}}</span>
+            <img *ngIf="newCostumer.outsideSales" (click)="newCostumer.outsideSales=!newCostumer.outsideSales" src="./icons/close.svg" alt="">
+        </div>
+        <div class="assignedToField" (click)="openUserList('inside')">
+            <p *ngIf="!newCostumer.insideSales">Innendienst</p>
+            <span>{{newCostumer.insideSales.name}}</span>
+            <img *ngIf="newCostumer.insideSales" (click)="newCostumer.insideSales=!newCostumer.insideSales" src="./icons/close.svg" alt="">
+        </div>
 
-        <input (click)="openUserList('outside')" [(ngModel)]="newCostumer.outsideSales.name" type="text"
-            placeholder="Außendienst">
-
-        <input (click)="openUserList('inside')" [(ngModel)]="newCostumer.insideSales.name" type="text"
-            placeholder="Innendienst">
 
         <div class="btnContainer">
             <button class="btn" (click)="addCustomer()"><img src="./icons/add.svg" alt=""></button>
@@ -32,12 +37,14 @@
 
 
     </div>
-    <div class="employeeList" *ngIf="userListOpen">
+    <!-- <div class="employeeList" *ngIf="userListOpen">
         <p>Mitarbeiter auswählen:</p>
         <div *ngFor="let employee of users; let index=index">
 
             <p (click)="chooseEmployee(index)" *ngIf="employee.name!=='Admin'">{{employee.name}}</p>
         </div>
-    </div>
+    </div> -->
+
+    <!-- <app-userslist *ngIf="sharedservice.userListOpen"></app-userslist> -->
 
 </section>

@@ -17,7 +17,7 @@ export class HeaderComponent {
   sharedservice = inject(SharedService);
   timer: any;
   currentTime: string = '';
-
+  customer: any;
 
   constructor() {
     this.currentUser = this.userservice.currentUser;
@@ -32,6 +32,15 @@ export class HeaderComponent {
         this.currentUser = user;
       }
 
+    })
+
+    this.sharedservice.customerSubject$.subscribe((data) => {
+      if (data) {
+        this.customer = data;
+      } else {
+        this.dataservice.getDataFromLocalStorage('customer');
+        this.customer = this.dataservice.data;
+      }
     })
 
   }

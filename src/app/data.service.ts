@@ -1,7 +1,8 @@
 import { Injectable, inject } from "@angular/core";
-import { Firestore, getDocs, doc, updateDoc, onSnapshot } from "@angular/fire/firestore";
+import { Firestore, getDocs, doc, updateDoc, onSnapshot, query, where } from "@angular/fire/firestore";
 import { addDoc, collection, deleteDoc, getDoc } from "firebase/firestore";
 import { BehaviorSubject } from "rxjs";
+import { SharedService } from "./shared.service";
 
 @Injectable({
     providedIn: 'root',
@@ -164,8 +165,8 @@ export class DataService {
 
     }
 
-    async addTask(companyID: string, customerID: string, data: any) {
-        const collectionRef = collection(this.firestore, `companies/${companyID}/customers/${customerID}/tasks`);
+    async addTask(companyID: string, data: any) {
+        const collectionRef = collection(this.firestore, `companies/${companyID}/tasks`);
         await addDoc(collectionRef, data);
 
     }
@@ -185,12 +186,16 @@ export class DataService {
     }
 
     async loadTasks(companyID: string, customerID: string,) {
-        const collectionRef = collection(this.firestore, `companies/${companyID}/customers/${customerID}/tasks`);
-        onSnapshot(collectionRef, (snapshot) => {
+        const collectionRef = collection(this.firestore, `companies/${companyID}/tasks`);
+
+        const dataQuery = query(collectionRef, where('customer.id', '==', customerID));
+        onSnapshot(dataQuery, (snapshot) => {
             const tasks = snapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
             }));
+            console.log(tasks);
+            
             this.tasksSubject.next(tasks);
         })
     }
@@ -221,6 +226,7 @@ export class DataService {
 
         console.log(newCustomer);
         this.newCustomer = newCustomer;
+        
 
 
         console.log('Kunde wurde in der Datenbank gespeichert', customerData);

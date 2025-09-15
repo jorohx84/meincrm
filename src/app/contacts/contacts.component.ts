@@ -24,6 +24,14 @@ export class ContactsComponent {
   isEdit: boolean = false;
   editIndex: number | null = null;
 
+
+  contactfields = [
+    { fieldname: 'name', displayName: 'Name' },
+    { fieldname: 'function', displayName: 'Funktion' },
+    { fieldname: 'phone', displayName: 'Telefon' },
+    { fieldname: 'email', displayName: 'E-Mail' },
+ {},
+  ];
   ngOnInit() {
     this.dataservice.contactSubject$.subscribe((contactsData) => {
       if (contactsData) {

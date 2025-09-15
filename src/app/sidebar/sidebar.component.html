@@ -9,6 +9,7 @@
     <div class="sidebarCompnents">
         <app-customerssidebar *ngIf="sharedservice.component==='customers'"></app-customerssidebar>
         <app-singlecustomersidebar *ngIf="sharedservice.component==='customer'"></app-singlecustomersidebar>
+        <app-userslist *ngIf="sharedservice.userListOpen"></app-userslist>
     </div>
 
 

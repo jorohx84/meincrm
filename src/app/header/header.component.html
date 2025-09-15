@@ -5,7 +5,7 @@
             <img src="./img/mapleIcon-bg.png" alt="">
             <span>maple CRM</span>
         </div> -->
-       <p>{{currentUser?.companyName}}</p>
+       <p *ngIf="sharedservice.component==='customer' && sharedservice.isSlide">{{customer?.name}}</p>
     </div>
 
     <div class="menubar">

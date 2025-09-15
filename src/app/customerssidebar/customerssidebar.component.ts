@@ -5,11 +5,12 @@ import { SharedService } from '../shared.service';
 import { Customer } from '../models/customer.class';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../user.service';
+import { UserslistComponent } from '../userslist/userslist.component';
 
 
 @Component({
   selector: 'app-customerssidebar',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, UserslistComponent],
   templateUrl: './customerssidebar.component.html',
   styleUrl: './customerssidebar.component.scss'
 })
@@ -23,9 +24,8 @@ export class CustomerssidebarComponent {
   users: any[] = [];
   newCostumer = new Customer;
   employee: any;
-  userListOpen: boolean = false;
   employeeKey: string = '';
-
+  assignedUser: any;
 
   async ngOnInit() {
     this.userservice.currentUser$.subscribe(async (user) => {
@@ -44,6 +44,15 @@ export class CustomerssidebarComponent {
       }
     })
 
+    this.sharedservice.userSubject$.subscribe((userObject) => {
+      if (userObject) {
+        this.assignedUser = userObject;
+        console.log(this.assignedUser);
+        this.chooseEmployee();
+
+      }
+    })
+
   }
   async addCustomer() {
     const data = this.getCostumerObject();
@@ -53,7 +62,7 @@ export class CustomerssidebarComponent {
     this.dataservice.saveDataToLocalStorage('customer', this.customer);
     this.sharedservice.sendCustomerData(this.customer);
     this.sharedservice.changeComponents('customer');
-
+    this.sharedservice.changeTemplate('dashboard');
 
     this.newCostumer.name = '';
     this.newCostumer.street = '';
@@ -82,19 +91,22 @@ export class CustomerssidebarComponent {
   }
 
 
-  chooseEmployee(index: number) {
-    this.employee = this.users[index];
+  chooseEmployee() {
+
     if (this.employeeKey === 'outside') {
-      this.newCostumer.outsideSales = this.employee;
+      this.newCostumer.outsideSales = this.assignedUser;
     }
     if (this.employeeKey === 'inside') {
-      this.newCostumer.insideSales = this.employee;
+      this.newCostumer.insideSales = this.assignedUser;
     }
-    this.userListOpen = false;
+    console.log(this.newCostumer.outsideSales);
+    console.log(this.newCostumer.insideSales);
+    this.sharedservice.userListOpen = false;
   }
 
+
   openUserList(key: string) {
-    this.userListOpen = true;
+    this.sharedservice.userListOpen = true;
     this.employeeKey = key;
   }
 }

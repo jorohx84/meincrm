@@ -1,6 +1,10 @@
 <section>
-    <div class="customerHeader" [ngClass]="{'contentLeft': !sharedservice.isSlide}" *ngIf="sharedservice.isSlide">
-        <div class="customerInfoContainer" >
+    <!-- <div class="customerName">
+        <h1 *ngIf="sharedservice.isSlide">{{customer?.name}}</h1>
+    </div> -->
+
+    <!-- <div class="customerHeader" [ngClass]="{'contentLeft': !sharedservice.isSlide}" *ngIf="sharedservice.isSlide">
+        <div class="customerInfoContainer">
             <div class="name">
                 <h1>{{customer?.name}}</h1>
             </div>
@@ -14,14 +18,7 @@
                     </div>
                 </div>
 
-                <!-- <div class="contactData">
-                    <img src="./icons/phone.svg" alt="">
-                    <p>{{customer.phone}}</p>
-                </div>
-                <div class="contactData">
-                    <img src="./icons/email.svg" alt="">
-                    <p>{{customer.email}}</p>
-                </div> -->
+    
                 <div class="contactDataContainer">
                     <div class="contactData">
                         <img src="./icons/phone.svg" alt="">
@@ -43,7 +40,7 @@
                 src="./icons/close.svg" alt="">
 
         </div>
-    </div>
+    </div> -->
 
     <!-- <div class="dataContainer" [ngClass]="{'activeInputs': isEdit}">
 
@@ -114,15 +111,24 @@
 
     <div class="menubar">
         <div class="tabs">
-            <button class="btn" (click)="sharedservice.changeTemplate('dashboard')">Dashbaord</button>
-            <button class="btn" (click)="sharedservice.changeTemplate('contacts')">Kontakte</button>
-            <button class="btn" (click)="sharedservice.changeTemplate('tasks')">Aufgaben</button>
+            <h3 (click)="sharedservice.changeTemplate('dashboard')">Dashbaord</h3>
+            <h3 (click)="sharedservice.changeTemplate('contacts')">Kontakte</h3>
+            <h3 (click)="sharedservice.changeTemplate('tasks')">Aufgaben</h3>
         </div>
-  <div class="depiction" *ngIf="!sharedservice.isSlide">
-            <img (click)="sharedservice.changeDepiction('list')" src="./icons/list.svg" alt="">
-            <img (click)="sharedservice.changeDepiction('cards')" src="./icons/cards.svg" alt="">
-            <img (click)="sharedservice.changeComponents('customers'); sharedservice.changeTemplate('Dashbaord');resetCuntomer()"
-                src="./icons/close.svg" alt="">
+        <div class="depiction">
+            <div class="icons" (click)="sharedservice.changeDepiction('list')">
+                <img src="./icons/list.svg" alt="">
+            </div>
+            <div class="icons" (click)="sharedservice.changeDepiction('cards')">
+                <img src="./icons/cards.svg" alt="">
+            </div>
+            <div class="icons"
+                (click)="sharedservice.changeComponents('customers'); sharedservice.changeTemplate('Dashbaord');resetCuntomer()">
+                <img src="./icons/close.svg" alt="">
+            </div>
+
+
+
 
         </div>
 
@@ -139,7 +145,7 @@
         <!-- Contacts -->
         <app-contacts *ngIf="sharedservice.customerTemplate ==='contacts'"></app-contacts>
         <!-- Tasks -->
-       
+
         <app-customertasks *ngIf="sharedservice.customerTemplate ==='tasks'"></app-customertasks>
     </div>
 

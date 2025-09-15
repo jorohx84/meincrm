@@ -1,6 +1,13 @@
 <section>
     <div *ngIf="!isEdit" class="customerInfo" [ngClass]="{'activeInputs': isEdit}">
-        <p class="name">{{customer.name}}</p>
+        <div class="name">
+            <div class="customerLogo">
+                <img src="./icons/building.svg" alt="">
+            </div>
+
+            <h2>{{customer.name}}</h2>
+        </div>
+
         <p>{{customer.street}}</p>
         <div class="location">
             <p>{{customer.areacode}}</p>
@@ -17,20 +24,27 @@
             </div>
 
         </div>
+
+        <!-- <div class="actionBar">
+            <div class="actionBtn">
+                <img src="./icons/addcontact.svg" alt="">
+            </div>
+        </div> -->
+
         <div *ngIf="sharedservice.customerTemplate==='dashboard'" class="employeeInfos">
             <div class="infoContainer">
                 <h3>Innendienst</h3>
                 <div class="employee">
                     <!-- <img src="./icons/profile.svg" alt=""> -->
                     <div class="contactData">
-                        <h4>{{customer.insideSales?.name}}</h4>
+                        <h4>{{customer.insideSales.name}}</h4>
                         <div class="contactDataContainer">
                             <img src="./icons/phone.svg" alt="">
-                            <a href="tel:{{customer.insideSales?.phone}}">{{customer.insideSales?.phone}}</a>
+                            <a href="tel:{{customer.insideSales.phone}}">{{customer.insideSales.phone}}</a>
                         </div>
                         <div class="contactDataContainer">
                             <img src="./icons/email.svg" alt="">
-                            <a href="mailto:{{customer.insideSales?.email}}">{{customer.insideSales?.email}}</a>
+                            <a href="mailto:{{customer.insideSales.email}}">{{customer.insideSales.email}}</a>
                         </div>
 
                     </div>
@@ -63,9 +77,12 @@
 
     </div>
 
-    <div *ngFor="let vip of vipList; let index =index">
-        <p>{{vip.name}}</p>
+    <div *ngIf="sharedservice.customerTemplate==='contacts' && !isEdit">
+        <div *ngFor="let vip of vipList; let index =index">
+            <p>{{vip.name}}</p>
+        </div>
     </div>
+
 
     <div class="editCustomer" *ngIf="isEdit">
 
@@ -86,17 +103,21 @@
         <!-- <div class="btnContainer">
             <button class="btn" (click)="saveEdit()">Speichern</button>
         </div> -->
-        <div *ngIf="isOpen" class="usersList">
+        <!-- <div *ngIf="isOpen" class="usersList">
             <div *ngFor="let user of users; let index=index" (click)="chooseEmployee(index)">
                 <p>{{user?.name}}</p>
             </div>
+        </div> -->
+        <div *ngIf="isOpen" class="usersList">
+            <app-userslist></app-userslist>
         </div>
+
 
     </div>
 
-
+    <!-- Kontakt erstellen -->
     <div *ngIf="sharedservice.customerTemplate==='contacts' && !isEdit" class="inputfields">
-        <p>Neuer Kontakt</p>
+        <h3>Neuer Kontakt</h3>
         <input type="text" placeholder="Name" [(ngModel)]="contact.name">
         <input type="text" placeholder="Telefon" [(ngModel)]="contact.phone">
         <input type="text" placeholder="E-Mail" [(ngModel)]="contact.email">
@@ -108,18 +129,17 @@
     </div>
 
 
-
+    <!-- Task erstellen -->
 
     <div *ngIf="sharedservice.customerTemplate==='tasks' && !isEdit" class="inputfields">
-        <p>Neue Aufgabe</p>
+        <h3>Neue Aufgabe</h3>
         <input type="text" [(ngModel)]="task.title" placeholder="Titel">
 
         <textarea name="" id="" [(ngModel)]="task.description" placeholder="Beschreibung"></textarea>
-
-
-
-
-        <input type="datetime-local" [(ngModel)]="task.start_date" placeholder="Startzeit">
+        <!-- <div  class="usersList">
+            <p>{{assignedUser?.name}}</p>
+            <app-userslist></app-userslist>
+        </div> -->
         <input type="datetime-local" [(ngModel)]="task.due_date" placeholder="zu Erledigen bis:">
         <!-- drei buttons oder drowpdown für priority -->
         <div class="btnContainer">

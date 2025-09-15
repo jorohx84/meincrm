@@ -14,8 +14,8 @@
                 <div class="contactHeadline">
                     <img src="./icons/profile.svg" alt="">
                     <div class="contactInfo">
-                        <p class="name">{{contact?.name}}</p>
-                        <span class="company">{{contact?.customerName}}</span>
+                        <h3 class="name">{{contact?.name}}</h3>
+                        <!-- <span class="company">{{contact?.customerName}}</span> -->
                         <span class="function">{{contact?.function}}</span>
                     </div>
 
@@ -31,8 +31,10 @@
                     </div>
                 </div>
                 <div class="contactmenu">
-                    <img *ngIf="contact.isVIP===false" (click)="changeToFavorites(index,'add')" src="./icons/star.svg" alt="">
-                    <img *ngIf="contact.isVIP===true" (click)="changeToFavorites(index,'remove')" src="./icons/star_filled.svg" alt="">
+                    <img *ngIf="contact.isVIP===false" (click)="changeToFavorites(index,'add')" src="./icons/star.svg"
+                        alt="">
+                    <img *ngIf="contact.isVIP===true" (click)="changeToFavorites(index,'remove')"
+                        src="./icons/star_filled.svg" alt="">
                     <img (click)="editContact(index)" src="./icons/edit.svg" alt="">
                     <img (click)="deleteContact(index)" src="./icons/trash.svg" alt="">
                 </div>
@@ -60,6 +62,12 @@
 
     <div *ngIf="!sharedservice.isCard" class="contactList">
         <p *ngIf="contacts.length===0">Keine Kontakte gefunden</p>
+        <div class="listrowInner listHeadline">
+            <p class="" *ngFor="let field of contactfields">
+                <span>{{field.displayName}}</span>
+            </p>
+
+        </div>
         <div class="listrow" *ngFor="let contact of contacts; let index=index">
             <div *ngIf="!isEdit || editIndex!==index" class="listrowInner">
                 <img src="./icons/profile.svg" alt="">
