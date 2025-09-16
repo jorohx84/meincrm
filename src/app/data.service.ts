@@ -13,6 +13,7 @@ export class DataService {
     customerID: string = '';
     companyID: string = '';
     newCustomer: any;
+    contact: any;
     private customersSubject = new BehaviorSubject<any>(null)
     public customersSubject$ = this.customersSubject.asObservable();
     private contactSubject = new BehaviorSubject<any>(null);
@@ -160,6 +161,8 @@ export class DataService {
 
     }
     async addContact(companyID: string, customerID: string, data: any) {
+        console.log(companyID, customerID, data);
+
         const collectionRef = collection(this.firestore, `companies/${companyID}/customers/${customerID}/contacts`);
         await addDoc(collectionRef, data);
 
@@ -195,10 +198,27 @@ export class DataService {
                 ...doc.data(),
             }));
             console.log(tasks);
-            
+
             this.tasksSubject.next(tasks);
         })
     }
+
+    // async getMainContact(companyID: string, customerID: string, data: any[]) {
+    //     console.log(data, customerID, companyID);
+    //     const collectionRef = collection(this.firestore, `companies/${companyID}/customers/${customerID}/contacts`);
+    //     const dataQuery = query(collectionRef, where('isVIP', '==', true));
+    //     onSnapshot(dataQuery, (snapshot) => {
+    //         const mainContact = snapshot.docs.map((doc) => ({
+    //             id: doc.id,
+    //             ...doc.data(),
+    //         }));
+    //         console.log(mainContact);
+    //         this.contact = mainContact;
+    //         console.log(this.contact);
+            
+    //   
+    //     })
+    // }
 
 
     async updateContact(companyID: string, customerID: string, contactID: string, data: any) {
@@ -226,7 +246,7 @@ export class DataService {
 
         console.log(newCustomer);
         this.newCustomer = newCustomer;
-        
+
 
 
         console.log('Kunde wurde in der Datenbank gespeichert', customerData);
@@ -257,4 +277,7 @@ export class DataService {
         })
 
     }
+
+
+
 }

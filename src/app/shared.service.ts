@@ -20,7 +20,8 @@ export class SharedService {
     customer: any;
     companyID: string = '';
     isCard: boolean | null = null;
-     userListOpen: boolean = false;
+    userListOpen: boolean = false;
+    isNewCustomer: boolean = false;
     private customerSubject = new BehaviorSubject<any>(null);
     public customerSubject$ = this.customerSubject.asObservable();
 

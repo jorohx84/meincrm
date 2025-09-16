@@ -62,7 +62,7 @@
 
     <div *ngIf="!sharedservice.isCard" class="contactList">
         <p *ngIf="contacts.length===0">Keine Kontakte gefunden</p>
-        <div class="listrowInner listHeadline">
+        <div *ngIf="contacts.length!==0" class="listrowInner listHeadline">
             <p class="" *ngFor="let field of contactfields">
                 <span>{{field.displayName}}</span>
             </p>

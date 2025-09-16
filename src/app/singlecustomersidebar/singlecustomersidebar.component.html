@@ -1,4 +1,10 @@
-<section>
+<section >
+<div class="contactsList">
+
+</div>
+
+
+    <!-- <h1>Kundendaten</h1>
     <div *ngIf="!isEdit" class="customerInfo" [ngClass]="{'activeInputs': isEdit}">
         <div class="name">
             <div class="customerLogo">
@@ -25,26 +31,26 @@
 
         </div>
 
-        <!-- <div class="actionBar">
+        <div class="actionBar">
             <div class="actionBtn">
                 <img src="./icons/addcontact.svg" alt="">
             </div>
-        </div> -->
+        </div>
 
-        <div *ngIf="sharedservice.customerTemplate==='dashboard'" class="employeeInfos">
+        <div class="employeeInfos">
             <div class="infoContainer">
                 <h3>Innendienst</h3>
                 <div class="employee">
-                    <!-- <img src="./icons/profile.svg" alt=""> -->
+                
                     <div class="contactData">
-                        <h4>{{customer.insideSales.name}}</h4>
+                        <h4>{{customer.insideSales?.name}}</h4>
                         <div class="contactDataContainer">
                             <img src="./icons/phone.svg" alt="">
-                            <a href="tel:{{customer.insideSales.phone}}">{{customer.insideSales.phone}}</a>
+                            <a href="tel:{{customer.insideSales?.phone}}">{{customer.insideSales?.phone}}</a>
                         </div>
                         <div class="contactDataContainer">
                             <img src="./icons/email.svg" alt="">
-                            <a href="mailto:{{customer.insideSales.email}}">{{customer.insideSales.email}}</a>
+                            <a href="mailto:{{customer.insideSales?.email}}">{{customer.insideSales?.email}}</a>
                         </div>
 
                     </div>
@@ -54,7 +60,7 @@
             <div class="infoContainer">
                 <h3>Außendienst</h3>
                 <div class="employee">
-                    <!-- <img src="./icons/profile.svg" alt=""> -->
+                    <img src="./icons/profile.svg" alt="">
                     <div class="contactData">
                         <h4>{{customer.outsideSales?.name}}</h4>
                         <div class="contactDataContainer">
@@ -78,7 +84,10 @@
     </div>
 
     <div *ngIf="sharedservice.customerTemplate==='contacts' && !isEdit">
+        <h3>Favoriten</h3>
+          <p *ngIf="vipList?.length===0">Keine Favoriten gespeichert</p>
         <div *ngFor="let vip of vipList; let index =index">
+          
             <p>{{vip.name}}</p>
         </div>
     </div>
@@ -100,14 +109,14 @@
         <div (click)="openUserList('outside')" class="dropdown">
             <p>{{customer.outsideSales?.name || 'Außendienst'}} </p>
         </div>
-        <!-- <div class="btnContainer">
+        <div class="btnContainer">
             <button class="btn" (click)="saveEdit()">Speichern</button>
-        </div> -->
-        <!-- <div *ngIf="isOpen" class="usersList">
+        </div>
+        <div *ngIf="isOpen" class="usersList">
             <div *ngFor="let user of users; let index=index" (click)="chooseEmployee(index)">
                 <p>{{user?.name}}</p>
             </div>
-        </div> -->
+        </div>
         <div *ngIf="isOpen" class="usersList">
             <app-userslist></app-userslist>
         </div>
@@ -115,7 +124,6 @@
 
     </div>
 
-    <!-- Kontakt erstellen -->
     <div *ngIf="sharedservice.customerTemplate==='contacts' && !isEdit" class="inputfields">
         <h3>Neuer Kontakt</h3>
         <input type="text" placeholder="Name" [(ngModel)]="contact.name">
@@ -129,31 +137,31 @@
     </div>
 
 
-    <!-- Task erstellen -->
+  
 
     <div *ngIf="sharedservice.customerTemplate==='tasks' && !isEdit" class="inputfields">
         <h3>Neue Aufgabe</h3>
         <input type="text" [(ngModel)]="task.title" placeholder="Titel">
 
         <textarea name="" id="" [(ngModel)]="task.description" placeholder="Beschreibung"></textarea>
-        <!-- <div  class="usersList">
+        <div  class="usersList">
             <p>{{assignedUser?.name}}</p>
             <app-userslist></app-userslist>
-        </div> -->
+        </div>
         <input type="datetime-local" [(ngModel)]="task.due_date" placeholder="zu Erledigen bis:">
-        <!-- drei buttons oder drowpdown für priority -->
+        drei buttons oder drowpdown für priority
         <div class="btnContainer">
             <button class="btn" (click)="addTask()">Speichern</button>
         </div>
 
     </div>
 
-
+-->
     <div class="sidebarMenu" *ngIf="sharedservice.component!=='customers'">
         <img *ngIf="!isEdit && sharedservice.component==='customer'" (click)="toggleActivateEdit()"
             src="./icons/edit.svg" alt="">
         <img *ngIf="isEdit" (click)="isEdit=false" src="./icons/close.svg" alt="">
         <img *ngIf="isEdit" (click)="saveEdit()" src="./icons/save.svg" alt="">
         <img (click)="deleteCustomer()" *ngIf="sharedservice.component==='customer'" src="./icons/trash.svg" alt="">
-    </div>
+    </div> 
 </section>

@@ -134,12 +134,13 @@ export class CustomerComponent {
     this.sharedservice.changeComponents('customer')
     const customer = this.customers[index];
     this.sharedservice.customer = customer;
+    this.sharedservice.isNewCustomer = false;
     // this.sharedservice.currentUser = this.currentUser;
-    this.sharedservice.changeTemplate('dashboard');
+    this.sharedservice.changeTemplate('details');
     this.dataservice.saveDataToLocalStorage('customer', customer);
     this.sharedservice.sendCustomerData(customer);
   }
 
- 
+
 }
 

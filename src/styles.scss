@@ -146,7 +146,7 @@ form {
     transition: background-color 0.2s ease-in-out;
 
     >img {
-        width: 20px;
+        width: 16px;
     }
 
     &:hover {
@@ -191,7 +191,8 @@ form {
         >img {
             width: 16px;
         }
-        >input{
+
+        >input {
             border: none;
         }
     }
@@ -202,10 +203,11 @@ textarea {
     box-sizing: border-box;
     width: 100%;
     height: 200px;
-
+    max-width: 500px;
     border: solid 1px var(--main);
     border-radius: 5px;
     padding: 8px;
+    font-size: 14px;
 
     &::placeholder {
         font-size: 12px;
@@ -221,6 +223,7 @@ input {
 
     &::placeholder {
         font-size: 12px;
+        color: var(--font);
     }
 }
 
@@ -297,5 +300,7 @@ input:-webkit-autofill {
     --font: rgb(70, 67, 67);
     --high: rgb(14, 139, 229);
     --list: rgb(241, 245, 248);
+    --edit: rgba(140, 199, 247, 0.203);
+    --textfield: rgba(238, 237, 237, 0.783);
 
 }

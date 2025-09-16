@@ -120,7 +120,7 @@ export class UserService {
             onlineStatus = false;
         }
         console.log(user);
-        
+
         if (user) {
             const companyID = user.displayName;
             console.log(companyID);

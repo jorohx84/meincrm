@@ -56,36 +56,42 @@ export class CustomerssidebarComponent {
   }
   async addCustomer() {
     const data = this.getCostumerObject();
+    console.log(data);
+    this.sharedservice.isNewCustomer = true;
     await this.dataservice.addCustomer(this.currentUser.companyID, data);
     this.customer = this.dataservice.newCustomer;
 
     this.dataservice.saveDataToLocalStorage('customer', this.customer);
     this.sharedservice.sendCustomerData(this.customer);
     this.sharedservice.changeComponents('customer');
-    this.sharedservice.changeTemplate('dashboard');
+    this.sharedservice.changeTemplate('details');
 
-    this.newCostumer.name = '';
-    this.newCostumer.street = '';
-    this.newCostumer.city = '';
-    this.newCostumer.phone = '';
-    this.newCostumer.email = '';
-    this.newCostumer.branch = '';
+    // this.newCostumer.name = '';
+    // this.newCostumer.street = '';
+    // this.newCostumer.city = '';
+    // this.newCostumer.phone = '';
+    // this.newCostumer.email = '';
+    // this.newCostumer.branch = '';
   }
 
   getCostumerObject() {
     return {
-      name: this.newCostumer.name,
-      street: this.newCostumer.street,
-      city: this.newCostumer.city,
-      areacode: this.newCostumer.areacode,
-      phone: this.newCostumer.phone,
-      email: this.newCostumer.email,
+      name: '',
+      street: '',
+      city: '',
+      areacode: '',
+      phone: '',
+      email: '',
       status: '',
-      branch: this.newCostumer.branch,
-      createdBy: this.currentUser.name,
-      outsideSales: this.newCostumer.outsideSales,
-      insideSales: this.newCostumer.insideSales,
+      branch: '',
+      createdBy: {
+        name: this.currentUser.name,
+        id: this.currentUser.id,
+      },
+      outsideSales: '',
+      insideSales: '',
       favorites: [],
+      description: '',
     }
 
   }

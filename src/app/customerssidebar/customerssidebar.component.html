@@ -18,7 +18,7 @@
         <input [(ngModel)]="newCostumer.branch" type="text" placeholder="Branche">
         <input [(ngModel)]="newCostumer.phone" type="text" placeholder="Telefon">
         <input [(ngModel)]="newCostumer.email" type="text" placeholder="E-Mail">
-        <div class="assignedToField" (click)="openUserList('outside')">
+        <!-- <div class="assignedToField" (click)="openUserList('outside')">
             <p *ngIf="!newCostumer.outsideSales">Ausßendienst</p>
             <span>{{newCostumer.outsideSales.name}}</span>
             <img *ngIf="newCostumer.outsideSales" (click)="newCostumer.outsideSales=!newCostumer.outsideSales" src="./icons/close.svg" alt="">
@@ -27,7 +27,7 @@
             <p *ngIf="!newCostumer.insideSales">Innendienst</p>
             <span>{{newCostumer.insideSales.name}}</span>
             <img *ngIf="newCostumer.insideSales" (click)="newCostumer.insideSales=!newCostumer.insideSales" src="./icons/close.svg" alt="">
-        </div>
+        </div> -->
 
 
         <div class="btnContainer">

@@ -7,9 +7,12 @@ export class Customer {
     email: string;
     status: string;
     branch: string;
-    outsideSales: any;
-    insideSales: any;
+    outsideSales: string;
+    insideSales: string;
     favorites: any[];
+    description: string;
+    createdBy: any;
+
 
     constructor(customer?: any) {
         this.name = customer?.name || '';
@@ -23,5 +26,7 @@ export class Customer {
         this.outsideSales = customer?.outsideSales || '';
         this.insideSales = customer?.insideSales || '';
         this.favorites = customer?.favorites || [];
+        this.description = customer?.description || '';
+        this.createdBy = customer?.createdBy || {};
     }
 }

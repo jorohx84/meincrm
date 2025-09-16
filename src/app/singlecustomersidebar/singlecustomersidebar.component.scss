@@ -3,7 +3,7 @@ section {
     height: 100%;
     display: flex;
     flex-direction: column;
-
+justify-content: space-between;
     gap: 56px;
 }
 
@@ -173,7 +173,7 @@ section {
     height: 100%;
     display: flex;
     flex-direction: column;
-
+justify-content: flex-end;
     align-items: flex-start;
     gap: 16px;
 
@@ -200,9 +200,9 @@ section {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    position: absolute;
-    right: 24px;
-    bottom: 24px;
+    // position: absolute;
+    // right: 24px;
+    // bottom: 24px;
     gap: 24px;
 
     >img {
