@@ -1,0 +1,20 @@
+<section>
+
+    <div  class="inputfields">
+        <h3>Neuer Kontakt</h3>
+        <input type="text" placeholder="Name" [(ngModel)]="contact.name">
+        <input type="text" placeholder="Telefon" [(ngModel)]="contact.phone">
+        <input type="text" placeholder="E-Mail" [(ngModel)]="contact.email">
+        <input type="text" placeholder="Funktion" [(ngModel)]="contact.function">
+        <div class="mainContactContainer">
+            <div class="checkbox" (click)="isMain=!isMain">
+                <img *ngIf="isMain" src="./icons/save.svg" alt="">
+            </div>
+            <span>Als Hauptkontakt anlegen</span>
+        </div>
+        <div class="btnContainer">
+            <button class="btn" (click)="addContact()">Speichern</button>
+        </div>
+    </div>
+
+</section>

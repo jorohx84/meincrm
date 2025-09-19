@@ -1,10 +1,23 @@
 <section>
-    <div class="contactsList">
+    <div class="actionBtns">
+        <button (click)="openSingleContactTemplate()"><img src="./icons/add.svg" alt=""></button>
+    </div>
+    <div class="mainContact">
+        <h3>Hauptkontakt</h3>
+        <!-- <input type="text" [(ngModel)]="contact.name" placeholder="name">
+        <input type="text" [(ngModel)]="contact.function" placeholder="Funktion">
+        <input type="text" [(ngModel)]="contact.phone" placeholder="Telefon">
+        <input type="text" [(ngModel)]="contact.email" placeholder="E-Mail">
+
+        <button (click)="addContact('main')" class="btn">Speichern</button> -->
+        <p *ngIf="mainContact===null">Keine Hauptkontakt gefunden</p>
+        <p>{{mainContact?.name}} </p>
+        <p>{{mainContact?.function}}</p>
+        <p>{{mainContact?.phone}}</p>
+        <p>{{mainContact?.email}}</p>
 
     </div>
-    <p>{{customer.street}}</p>
-    <p>{{customer.areacode}}</p>
-    <p>{{mainContact?.name}}</p>
+
 
     <!-- <h1>Kundendaten</h1>
     <div *ngIf="!isEdit" class="customerInfo" [ngClass]="{'activeInputs': isEdit}">
@@ -139,7 +152,7 @@
             <span>Als Hauptkontakt anlegen</span>
         </div>
         <div class="btnContainer">
-            <button class="btn" (click)="addContact()">Speichern</button>
+            <button class="btn" (click)="addContact('')">Speichern</button>
         </div>
     </div>
 

@@ -9,9 +9,10 @@ import { CustomertasksComponent } from '../customertasks/customertasks.component
 import { Contact } from '../models/contact.class';
 import { object } from '@angular/fire/database';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
+import { SinglecontactComponent } from '../singlecontact/singlecontact.component';
 @Component({
   selector: 'app-customerprofile',
-  imports: [CommonModule, FormsModule, ContactsComponent, CustomertasksComponent, ConfirmationComponent],
+  imports: [CommonModule, FormsModule, ContactsComponent, CustomertasksComponent, ConfirmationComponent, SinglecontactComponent],
   templateUrl: './customerprofile.component.html',
   styleUrl: './customerprofile.component.scss'
 })
@@ -37,6 +38,8 @@ export class CustomerprofileComponent {
 
   async ngOnInit() {
     if (this.sharedservice.isNewCustomer === true) {
+      console.log(this.sharedservice.isNewCustomer);
+      
       this.toggleEdit(true);
     } else {
       this.toggleEdit(false);
@@ -84,7 +87,7 @@ export class CustomerprofileComponent {
 
     // }
 
-    this.dataservice.contactSubject$.subscribe(async (contactData) => {
+    this.dataservice.contactsSubject$.subscribe(async (contactData) => {
       if (contactData) {
         this.contacts = contactData;
       }

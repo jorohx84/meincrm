@@ -125,6 +125,9 @@
         </div>
         <!-- Contacts -->
         <app-contacts *ngIf="sharedservice.customerTemplate ==='contacts'"></app-contacts>
+
+        <!-- singlecontact -->
+         <app-singlecontact *ngIf="sharedservice.customerTemplate==='singleContact'"></app-singlecontact>
         <!-- Tasks -->
 
         <app-customertasks *ngIf="sharedservice.customerTemplate ==='tasks'"></app-customertasks>

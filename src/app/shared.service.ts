@@ -22,12 +22,16 @@ export class SharedService {
     isCard: boolean | null = null;
     userListOpen: boolean = false;
     isNewCustomer: boolean = false;
+    isNewContact: boolean = false;
     confirmationOpen: boolean = false;
     private customerSubject = new BehaviorSubject<any>(null);
     public customerSubject$ = this.customerSubject.asObservable();
 
     private userSubject = new BehaviorSubject<any>(null);
     public userSubject$ = this.userSubject.asObservable();
+
+      private contactSubject = new BehaviorSubject<any>(null);
+    public contactSubject$ = this.contactSubject.asObservable();
     customerTemplate: string = 'dashboard';
 
 
@@ -39,8 +43,7 @@ export class SharedService {
     constructor() {
         this.dataservice.getDataFromLocalStorage('isCard');
         this.isCard = this.dataservice.data;
-        this.dataservice.getDataFromLocalStorage('editState');
-        this.isNewCustomer = this.dataservice.data;
+
     }
 
     changeComponents(component: string) {
@@ -71,5 +74,7 @@ export class SharedService {
         this.userSubject.next(user);
 
     }
-
+    sendContactData(data: any) {
+        this.contactSubject.next(data);
+    }
 }

@@ -1,7 +1,7 @@
 import { Injectable, inject } from "@angular/core";
 import { Firestore, getDocs, doc, updateDoc, onSnapshot, query, where } from "@angular/fire/firestore";
 import { addDoc, collection, deleteDoc, getDoc } from "firebase/firestore";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, findIndex } from "rxjs";
 import { SharedService } from "./shared.service";
 import { MainComponent } from "./main/main.component";
 
@@ -17,8 +17,8 @@ export class DataService {
     contact: any;
     private customersSubject = new BehaviorSubject<any>(null)
     public customersSubject$ = this.customersSubject.asObservable();
-    private contactSubject = new BehaviorSubject<any>(null);
-    public contactSubject$ = this.contactSubject.asObservable();
+    private contactsSubject = new BehaviorSubject<any>(null);
+    public contactsSubject$ = this.contactsSubject.asObservable();
     private tasksSubject = new BehaviorSubject<any>(null);
     public tasksSubject$ = this.tasksSubject.asObservable();
     private updatedCustomerSubject = new BehaviorSubject<any>(null);
@@ -170,7 +170,7 @@ export class DataService {
                 id: doc.id,
                 ...doc.data(),
             }));
-            this.contactSubject.next(contacts);
+            this.contactsSubject.next(contacts);
 
         })
     }
@@ -276,6 +276,7 @@ export class DataService {
         }
         console.log(newContact);
         this.createdContact = newContact;
+       
     }
 
 
@@ -312,37 +313,37 @@ export class DataService {
 
 
     async findMainContact(companyID: string, customerID: string, contactID: string) {
-        console.log(contactID);
-        console.log(customerID);
-        console.log(companyID);
+        //     console.log(contactID);
+        //     console.log(customerID);
+        //     console.log(companyID);
 
 
-        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}/contacts/${contactID}`);
-        const docSnap = await getDoc(docRef);
+        //     const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}/contacts/${contactID}`);
+        //     const docSnap = await getDoc(docRef);
 
 
-        const searchedContact = {
-            id: docSnap.id,
-            ...docSnap.data(),
-        }
+        //     const searchedContact = {
+        //         id: docSnap.id,
+        //         ...docSnap.data(),
+        //     }
 
-        console.log(searchedContact);
-        this.newMainContact = searchedContact;
-
-        // const dataQuery = query(collectionRef, where('id', '==', ID));
-        // onSnapshot(dataQuery, (snapshot) => {
-        //     const mainContact = snapshot.docs.map((doc) => ({
-        //         id: doc.id,
-        //         ...doc.data(),
-        //     }));
-        //     this.newMainContact = mainContact;
-        //     console.log(this.newMainContact);
-
-        // });
+        //     console.log(searchedContact);
+        //     this.newMainContact = searchedContact;
 
 
     }
 
+
+    loadMainContact(companyID: string, customerID: string, contacts: any[]) {
+        const contactIndex = contacts.findIndex(contact => contact.isMainContact === true);
+        const currentContact = contacts[contactIndex];
+        if (currentContact) {
+            this.newMainContact = currentContact;
+        } else {
+            this.newMainContact = {};
+        }
+
+    }
 
 
     async deleteCustomer(companyID: string, customerID: string) {
@@ -354,7 +355,7 @@ export class DataService {
 
     async deleteContact(companyID: string, customer: any, contact: any) {
         console.log(contact.id);
-        
+
         const docRef = doc(this.firestore, `companies/${companyID}/customers/${customer.id}/contacts/${contact.id}`);
         console.log(companyID);
         console.log(customer);

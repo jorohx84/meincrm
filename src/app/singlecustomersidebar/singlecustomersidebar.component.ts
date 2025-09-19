@@ -26,12 +26,14 @@ export class SinglecustomersidebarComponent {
   isOpen: boolean = false;
   contact = new Contact;
   users: any[] = [];
+  contacts: any[] = [];
   usersKey: string = '';
   vipList: any[] = [];
   task = new Task;
   assignedUser: any;
   isMain: boolean = false;
-  mainContact: any;
+  mainContact: any | null = null;
+
   async ngOnInit() {
     this.userservice.currentUser$.subscribe(async (user) => {
       if (user) {
@@ -58,64 +60,100 @@ export class SinglecustomersidebarComponent {
         this.customer = this.dataservice.data;
         // this.vipList = this.customer.favorites;
       }
-      if (this.currentUser && this.customer.mainContactID !== '') {
-        console.log(this.customer.mainContactID);
+      // if (this.currentUser && this.customer.mainContactID !== '') {
+      //   console.log(this.customer.mainContactID);
 
-        await this.dataservice.findMainContact(this.currentUser.companyID, this.customer.id, this.customer.mainContactID);
+      //   await this.dataservice.findMainContact(this.currentUser.companyID, this.customer.id, this.customer.mainContactID);
+      //   this.mainContact = this.dataservice.newMainContact;
+      // } else {
+      //   this.mainContact = {};
+      // }
+
+    });
+
+    await this.dataservice.loadContacts(this.currentUser.companyID, this.customer.id);
+
+
+
+    // await this.dataservice.loadMainContact(this.currentUser.companyID, this.customer.id);
+
+    // this.dataservice.updatedCustomerSubject$.subscribe(async (updatedCustomer) => {
+    //   if (updatedCustomer) {
+    //     this.customer = updatedCustomer;
+    //     if (this.currentUser && this.customer.mainContactID !== '') {
+    //       console.log(this.customer.mainContactID);
+    //       await this.dataservice.findMainContact(this.currentUser.companyID, this.customer.id, this.customer.mainContactID);
+    //       this.mainContact = this.dataservice.newMainContact;
+    //     } else {
+    //       this.mainContact = {};
+    //     }
+    //   }
+    // });
+
+    // this.sharedservice.userSubject$.subscribe((userObject) => {
+    //   if (userObject) {
+    //     this.assignedUser = userObject;
+    //     this.chooseEmployee();
+    //   }
+    // })
+
+    this.dataservice.contactsSubject$.subscribe(async (contactsList) => {
+      if (contactsList) {
+        this.contacts = contactsList;
+        console.log(this.contacts);
+        this.dataservice.loadMainContact(this.currentUser.companyID, this.customer.id, this.contacts);
         this.mainContact = this.dataservice.newMainContact;
-      } else {
-        this.mainContact = {};
-      }
+        console.log(this.mainContact);
 
-    });
-
-    this.dataservice.updatedCustomerSubject$.subscribe(async (updatedCustomer) => {
-      if (updatedCustomer) {
-        this.customer = updatedCustomer;
-        if (this.currentUser && this.customer.mainContactID !== '') {
-          console.log(this.customer.mainContactID);
-          await this.dataservice.findMainContact(this.currentUser.companyID, this.customer.id, this.customer.mainContactID);
-          this.mainContact = this.dataservice.newMainContact;
-        } else {
-          this.mainContact = {};
-        }
       }
     });
-
-    this.sharedservice.userSubject$.subscribe((userObject) => {
-      if (userObject) {
-        this.assignedUser = userObject;
-        this.chooseEmployee();
-      }
-    })
 
   }
 
 
 
-  async addContact() {
+  async addContact(key: string) {
+    if (this.isMain) {
+      await this.changeMainContact();
+    }
+
     const data = this.getContactData();
     await this.dataservice.addContact(this.currentUser.companyID, this.customer.id, data);
     this.contact = this.dataservice.createdContact;
-    console.log(this.contact);
-
-    if (this.isMain) {
-      this.dataservice.addMainContactToCustomer(this.currentUser.companyID, this.customer.id, this.contact.id)
-
-    }
+    this.isMain = false;
 
   }
 
+  async changeMainContact() {
+    if (this.contacts.length !== 0) {
+      const lastMainContact = this.contacts.find(contactData => contactData.isMainContact === true);
+      lastMainContact.isMainContact = false;
+      await this.dataservice.updateContact(this.currentUser.companyID, this.customer, lastMainContact.id, lastMainContact)
+    }
+  }
+
+  openSingleContactTemplate() {
+
+
+    const data = this.getContactData();
+    this.sharedservice.isNewContact = true;
+    this.dataservice.saveDataToLocalStorage('isNewContact', this.sharedservice.isNewContact);
+    this.sharedservice.changeTemplate('singleContact');
+    this.sharedservice.sendContactData(data);
+    this.dataservice.saveDataToLocalStorage('contact', data);
+
+  }
 
   getContactData() {
     return {
-      name: this.contact.name,
-      phone: this.contact.phone,
-      email: this.contact.email,
-      function: this.contact.function,
+      name: '',
+      phone: '',
+      email: '',
+      function: '',
       customerName: this.customer.name,
       customerID: this.customer.id,
       isVIP: false,
+      isMainContact: false,
     }
   }
 

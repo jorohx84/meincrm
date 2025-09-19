@@ -33,7 +33,7 @@ export class ContactsComponent {
     {},
   ];
   ngOnInit() {
-    this.dataservice.contactSubject$.subscribe((contactsData) => {
+    this.dataservice.contactsSubject$.subscribe((contactsData) => {
       if (contactsData) {
         this.contacts = contactsData
         console.log(contactsData);

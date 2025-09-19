@@ -3,8 +3,19 @@ section {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+
     gap: 56px;
+}
+
+
+.actionBtns{
+    button{
+        background-color: var(--main);
+        padding: 16px;
+        >img{
+            width: 30px;
+        }
+    }
 }
 
 .customerInfo {
