@@ -3,6 +3,7 @@ import { Firestore, getDocs, doc, updateDoc, onSnapshot, query, where } from "@a
 import { addDoc, collection, deleteDoc, getDoc } from "firebase/firestore";
 import { BehaviorSubject } from "rxjs";
 import { SharedService } from "./shared.service";
+import { MainComponent } from "./main/main.component";
 
 @Injectable({
     providedIn: 'root',
@@ -20,7 +21,13 @@ export class DataService {
     public contactSubject$ = this.contactSubject.asObservable();
     private tasksSubject = new BehaviorSubject<any>(null);
     public tasksSubject$ = this.tasksSubject.asObservable();
+    private updatedCustomerSubject = new BehaviorSubject<any>(null);
+    public updatedCustomerSubject$ = this.updatedCustomerSubject.asObservable();
+
+    createdContact: any;
+    newMainContact: any;
     customers: any[] = [
+
 
         { name: "Müller GmbH", street: "Hauptstraße 12", city: "Berlin", areacode: "10115", phone: "030 1234567", email: "kontakt@mueller-gmbh.de", status: "", branch: "Bau" },
         { name: "Schneider & Co", street: "Marktplatz 3", city: "München", areacode: "80331", phone: "089 9876543", email: "info@schneiderco.de", status: "", branch: "Handel" },
@@ -155,26 +162,6 @@ export class DataService {
 
     }
 
-    async updateCustomer(companyID: string, customerID: string, data: any) {
-        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}`);
-        await updateDoc(docRef, data);
-
-    }
-    async addContact(companyID: string, customerID: string, data: any) {
-        console.log(companyID, customerID, data);
-
-        const collectionRef = collection(this.firestore, `companies/${companyID}/customers/${customerID}/contacts`);
-        await addDoc(collectionRef, data);
-
-    }
-
-    async addTask(companyID: string, data: any) {
-        const collectionRef = collection(this.firestore, `companies/${companyID}/tasks`);
-        await addDoc(collectionRef, data);
-
-    }
-
-
 
     async loadContacts(companyID: string, customerID: string,) {
         const collectionRef = collection(this.firestore, `companies/${companyID}/customers/${customerID}/contacts`);
@@ -187,6 +174,7 @@ export class DataService {
 
         })
     }
+
 
     async loadTasks(companyID: string, customerID: string,) {
         const collectionRef = collection(this.firestore, `companies/${companyID}/tasks`);
@@ -203,6 +191,24 @@ export class DataService {
         })
     }
 
+    async updateCustomer(companyID: string, customerID: string, data: any) {
+        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}`);
+        await updateDoc(docRef, data);
+
+    }
+
+
+    async addTask(companyID: string, data: any) {
+        const collectionRef = collection(this.firestore, `companies/${companyID}/tasks`);
+        await addDoc(collectionRef, data);
+
+    }
+
+
+
+
+
+
     // async getMainContact(companyID: string, customerID: string, data: any[]) {
     //     console.log(data, customerID, companyID);
     //     const collectionRef = collection(this.firestore, `companies/${companyID}/customers/${customerID}/contacts`);
@@ -215,15 +221,20 @@ export class DataService {
     //         console.log(mainContact);
     //         this.contact = mainContact;
     //         console.log(this.contact);
-            
+
     //   
     //     })
     // }
 
 
-    async updateContact(companyID: string, customerID: string, contactID: string, data: any) {
-        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}/contacts/${contactID}`);
+    async updateContact(companyID: string, customer: any, contactID: string, data: any) {
+        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customer.id}/contacts/${contactID}`);
         await updateDoc(docRef, data);
+        // if (customer.mainContact.id === contactID) {
+        //     console.log(data);
+
+        //     await this.addMainContactToCustomer(companyID, customer.id, data);
+        // }
     }
 
     async updateVipStatus(companyID: string, customerID: string, contactID: string, status: boolean) {
@@ -253,20 +264,115 @@ export class DataService {
 
     }
 
+    async addContact(companyID: string, customerID: string, data: any) {
+        console.log(companyID, customerID, data);
+
+        const collectionRef = collection(this.firestore, `companies/${companyID}/customers/${customerID}/contacts`);
+        const newContactRef = await addDoc(collectionRef, data);
+        const newDoc = await getDoc(newContactRef)
+        const newContact = {
+            id: newDoc.id,
+            ...newDoc.data(),
+        }
+        console.log(newContact);
+        this.createdContact = newContact;
+    }
+
+
+    async addMainContact(companyID: string, customerID: string, data: any) {
+        console.log(companyID, customerID, data);
+
+        const collectionRef = collection(this.firestore, `companies/${companyID}/customers/${customerID}/contacts`);
+        const newMainContactRef = await addDoc(collectionRef, data);
+        const newDoc = await getDoc(newMainContactRef);
+        const newMainContact = {
+            id: newDoc.id,
+            ...newDoc.data()
+        }
+
+        this.newMainContact = newMainContact;
+        console.log('HauptKontakt wurde in der Datenbank gespeichert', newDoc);
+
+
+    }
+
+
+    async addMainContactToCustomer(companyID: string, customerID: string, data: string,) {
+        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}`);
+        await updateDoc(docRef, {
+            mainContactID: data,
+        })
+        const updatedDoc = await getDoc(docRef)
+        const updatedCustomer = {
+            id: updatedDoc.id,
+            ...updatedDoc.data(),
+        }
+        this.updatedCustomerSubject.next(updatedCustomer);
+    }
+
+
+    async findMainContact(companyID: string, customerID: string, contactID: string) {
+        console.log(contactID);
+        console.log(customerID);
+        console.log(companyID);
+
+
+        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}/contacts/${contactID}`);
+        const docSnap = await getDoc(docRef);
+
+
+        const searchedContact = {
+            id: docSnap.id,
+            ...docSnap.data(),
+        }
+
+        console.log(searchedContact);
+        this.newMainContact = searchedContact;
+
+        // const dataQuery = query(collectionRef, where('id', '==', ID));
+        // onSnapshot(dataQuery, (snapshot) => {
+        //     const mainContact = snapshot.docs.map((doc) => ({
+        //         id: doc.id,
+        //         ...doc.data(),
+        //     }));
+        //     this.newMainContact = mainContact;
+        //     console.log(this.newMainContact);
+
+        // });
+
+
+    }
+
+
+
     async deleteCustomer(companyID: string, customerID: string) {
         const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}`);
+        console.log(docRef);
+
         await deleteDoc(docRef);
     }
 
-    async deleteContact(companyID: string, customerID: string, contact: any) {
-        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}/contacts/${contact.id}`);
-        console.log(companyID);
+    async deleteContact(companyID: string, customer: any, contact: any) {
         console.log(contact.id);
-        console.log(customerID);
+        
+        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customer.id}/contacts/${contact.id}`);
+        console.log(companyID);
+        console.log(customer);
 
+        console.log(contact.id);
+        console.log(customer.mainContactID);
 
+        if (contact.id === customer.mainContactID) {
+            console.log('löschen');
+
+            const emptyContactData = ''
+            await this.addMainContactToCustomer(companyID, customer.id, emptyContactData)
+        }
 
         await deleteDoc(docRef);
+
+
+
     }
 
 
@@ -278,6 +384,11 @@ export class DataService {
 
     }
 
-
+    async updateNotes(companyID: string, customerID: string, data: any,) {
+        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}`);
+        await updateDoc(docRef, {
+            notes: data,
+        });
+    }
 
 }

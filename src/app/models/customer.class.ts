@@ -12,7 +12,8 @@ export class Customer {
     favorites: any[];
     description: string;
     createdBy: any;
-
+    mainContactID: string;
+    notes: string;
 
     constructor(customer?: any) {
         this.name = customer?.name || '';
@@ -28,5 +29,7 @@ export class Customer {
         this.favorites = customer?.favorites || [];
         this.description = customer?.description || '';
         this.createdBy = customer?.createdBy || {};
+        this.mainContactID = customer?.mainContactID || {};
+        this.notes = customer?.notes || '';
     }
 }

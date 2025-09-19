@@ -44,27 +44,31 @@ export class CustomerssidebarComponent {
       }
     })
 
-    this.sharedservice.userSubject$.subscribe((userObject) => {
-      if (userObject) {
-        this.assignedUser = userObject;
-        console.log(this.assignedUser);
-        this.chooseEmployee();
+    // this.sharedservice.userSubject$.subscribe((userObject) => {
+    //   if (userObject) {
+    //     this.assignedUser = userObject;
+    //     console.log(this.assignedUser);
+    //     this.chooseEmployee();
 
-      }
-    })
+    //   }
+    // })
 
   }
-  async addCustomer() {
-    const data = this.getCostumerObject();
-    console.log(data);
-    this.sharedservice.isNewCustomer = true;
-    await this.dataservice.addCustomer(this.currentUser.companyID, data);
-    this.customer = this.dataservice.newCustomer;
+  async openCustomerTemplate() {
+    console.log('add');
 
-    this.dataservice.saveDataToLocalStorage('customer', this.customer);
-    this.sharedservice.sendCustomerData(this.customer);
+    const data = this.getCostumerObject();
+
+    this.sharedservice.isNewCustomer = true;
     this.sharedservice.changeComponents('customer');
     this.sharedservice.changeTemplate('details');
+    this.dataservice.saveDataToLocalStorage('isNewCustomer', this.sharedservice.isNewCustomer);
+    // await this.dataservice.addCustomer(this.currentUser.companyID, data);
+    // this.customer = this.dataservice.newCustomer;
+
+    this.dataservice.saveDataToLocalStorage('customer', data);
+    this.sharedservice.sendCustomerData(data);
+
 
     // this.newCostumer.name = '';
     // this.newCostumer.street = '';
@@ -72,6 +76,7 @@ export class CustomerssidebarComponent {
     // this.newCostumer.phone = '';
     // this.newCostumer.email = '';
     // this.newCostumer.branch = '';
+
   }
 
   getCostumerObject() {
@@ -88,6 +93,7 @@ export class CustomerssidebarComponent {
         name: this.currentUser.name,
         id: this.currentUser.id,
       },
+      mainContactID: '',
       outsideSales: '',
       insideSales: '',
       favorites: [],

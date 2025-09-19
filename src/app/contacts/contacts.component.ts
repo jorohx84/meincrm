@@ -30,12 +30,14 @@ export class ContactsComponent {
     { fieldname: 'function', displayName: 'Funktion' },
     { fieldname: 'phone', displayName: 'Telefon' },
     { fieldname: 'email', displayName: 'E-Mail' },
- {},
+    {},
   ];
   ngOnInit() {
     this.dataservice.contactSubject$.subscribe((contactsData) => {
       if (contactsData) {
         this.contacts = contactsData
+        console.log(contactsData);
+        
         this.sortList();
       }
 
@@ -51,6 +53,11 @@ export class ContactsComponent {
       console.log(this.customer);
 
     })
+    this.dataservice.updatedCustomerSubject$.subscribe((updatedCustomer) => {
+      if (updatedCustomer) {
+        this.customer = updatedCustomer;
+      }
+    });
 
 
     // if (this.sharedservice.currentUser) {
@@ -101,14 +108,15 @@ export class ContactsComponent {
 
   async deleteContact(index: number) {
     const contactToDelete = this.contacts[index];
-    console.log(contactToDelete.id);
-    await this.dataservice.deleteContact(this.currentUser.companyID, this.customer.id, contactToDelete);
+    console.log(contactToDelete);
+ 
+    await this.dataservice.deleteContact(this.currentUser.companyID, this.customer, contactToDelete);
   }
 
   async saveEdit() {
     this.isEdit = false;
 
-    this.dataservice.updateContact(this.currentUser.companyID, this.customer.id, this.editedContact.id, this.editedContact)
+    this.dataservice.updateContact(this.currentUser.companyID, this.customer, this.editedContact.id, this.editedContact)
 
   }
 

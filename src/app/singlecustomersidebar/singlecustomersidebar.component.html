@@ -1,8 +1,10 @@
-<section >
-<div class="contactsList">
+<section>
+    <div class="contactsList">
 
-</div>
-
+    </div>
+    <p>{{customer.street}}</p>
+    <p>{{customer.areacode}}</p>
+    <p>{{mainContact?.name}}</p>
 
     <!-- <h1>Kundendaten</h1>
     <div *ngIf="!isEdit" class="customerInfo" [ngClass]="{'activeInputs': isEdit}">
@@ -123,45 +125,50 @@
 
 
     </div>
-
+-->
     <div *ngIf="sharedservice.customerTemplate==='contacts' && !isEdit" class="inputfields">
         <h3>Neuer Kontakt</h3>
         <input type="text" placeholder="Name" [(ngModel)]="contact.name">
         <input type="text" placeholder="Telefon" [(ngModel)]="contact.phone">
         <input type="text" placeholder="E-Mail" [(ngModel)]="contact.email">
         <input type="text" placeholder="Funktion" [(ngModel)]="contact.function">
-
+        <div class="mainContactContainer">
+            <div class="checkbox" (click)="isMain=!isMain">
+                <img *ngIf="isMain" src="./icons/save.svg" alt="">
+            </div>
+            <span>Als Hauptkontakt anlegen</span>
+        </div>
         <div class="btnContainer">
             <button class="btn" (click)="addContact()">Speichern</button>
         </div>
     </div>
 
 
-  
+
 
     <div *ngIf="sharedservice.customerTemplate==='tasks' && !isEdit" class="inputfields">
         <h3>Neue Aufgabe</h3>
         <input type="text" [(ngModel)]="task.title" placeholder="Titel">
 
         <textarea name="" id="" [(ngModel)]="task.description" placeholder="Beschreibung"></textarea>
-        <div  class="usersList">
+        <!-- <div  class="usersList">
             <p>{{assignedUser?.name}}</p>
             <app-userslist></app-userslist>
-        </div>
+        </div> -->
         <input type="datetime-local" [(ngModel)]="task.due_date" placeholder="zu Erledigen bis:">
-        drei buttons oder drowpdown für priority
+
         <div class="btnContainer">
             <button class="btn" (click)="addTask()">Speichern</button>
         </div>
 
     </div>
 
--->
-    <div class="sidebarMenu" *ngIf="sharedservice.component!=='customers'">
+
+    <!-- <div class="sidebarMenu" *ngIf="sharedservice.component!=='customers'">
         <img *ngIf="!isEdit && sharedservice.component==='customer'" (click)="toggleActivateEdit()"
             src="./icons/edit.svg" alt="">
         <img *ngIf="isEdit" (click)="isEdit=false" src="./icons/close.svg" alt="">
         <img *ngIf="isEdit" (click)="saveEdit()" src="./icons/save.svg" alt="">
         <img (click)="deleteCustomer()" *ngIf="sharedservice.component==='customer'" src="./icons/trash.svg" alt="">
-    </div> 
+    </div>  -->
 </section>

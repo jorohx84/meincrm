@@ -8,6 +8,7 @@ import { Contact } from '../models/contact.class';
 import { Task } from '../models/task.class';
 import { takeLast } from 'rxjs';
 import { UserslistComponent } from '../userslist/userslist.component';
+import { update } from 'firebase/database';
 
 @Component({
   selector: 'app-singlecustomersidebar',
@@ -29,11 +30,16 @@ export class SinglecustomersidebarComponent {
   vipList: any[] = [];
   task = new Task;
   assignedUser: any;
+  isMain: boolean = false;
+  mainContact: any;
   async ngOnInit() {
     this.userservice.currentUser$.subscribe(async (user) => {
       if (user) {
         this.currentUser = user;
 
+      } else {
+        this.dataservice.getDataFromLocalStorage('user');
+        this.currentUser = this.dataservice.data;
       }
 
     });
@@ -43,16 +49,38 @@ export class SinglecustomersidebarComponent {
         this.users = userData;
       }
     })
-    this.sharedservice.customerSubject$.subscribe((customerObject) => {
+    this.sharedservice.customerSubject$.subscribe(async (customerObject) => {
       if (customerObject) {
         this.customer = customerObject
-        this.vipList = customerObject.favorites;
+        // this.vipList = customerObject.favorites;
       } else {
         this.dataservice.getDataFromLocalStorage('customer');
         this.customer = this.dataservice.data;
-        this.vipList = this.customer.favorites;
+        // this.vipList = this.customer.favorites;
       }
-    })
+      if (this.currentUser && this.customer.mainContactID !== '') {
+        console.log(this.customer.mainContactID);
+
+        await this.dataservice.findMainContact(this.currentUser.companyID, this.customer.id, this.customer.mainContactID);
+        this.mainContact = this.dataservice.newMainContact;
+      } else {
+        this.mainContact = {};
+      }
+
+    });
+
+    this.dataservice.updatedCustomerSubject$.subscribe(async (updatedCustomer) => {
+      if (updatedCustomer) {
+        this.customer = updatedCustomer;
+        if (this.currentUser && this.customer.mainContactID !== '') {
+          console.log(this.customer.mainContactID);
+          await this.dataservice.findMainContact(this.currentUser.companyID, this.customer.id, this.customer.mainContactID);
+          this.mainContact = this.dataservice.newMainContact;
+        } else {
+          this.mainContact = {};
+        }
+      }
+    });
 
     this.sharedservice.userSubject$.subscribe((userObject) => {
       if (userObject) {
@@ -60,10 +88,21 @@ export class SinglecustomersidebarComponent {
         this.chooseEmployee();
       }
     })
+
   }
+
+
+
   async addContact() {
     const data = this.getContactData();
     await this.dataservice.addContact(this.currentUser.companyID, this.customer.id, data);
+    this.contact = this.dataservice.createdContact;
+    console.log(this.contact);
+
+    if (this.isMain) {
+      this.dataservice.addMainContactToCustomer(this.currentUser.companyID, this.customer.id, this.contact.id)
+
+    }
 
   }
 
@@ -112,7 +151,7 @@ export class SinglecustomersidebarComponent {
   }
 
   chooseEmployee() {
-  
+
     if (this.usersKey === 'outside') {
       this.customer.outsideSales = this.assignedUser;
     }

@@ -144,6 +144,7 @@ form {
     padding: 8px;
     border-radius: 100px;
     transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
 
     >img {
         width: 16px;
@@ -202,7 +203,7 @@ textarea {
     all: unset;
     box-sizing: border-box;
     width: 100%;
-    height: 200px;
+    height: 100px;
     max-width: 500px;
     border: solid 1px var(--main);
     border-radius: 5px;
@@ -282,6 +283,13 @@ input:-webkit-autofill {
     background-color: white;
 }
 
+.confirmContainer{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 :root {
 
     --border-color: rgba(21, 141, 226, 0.492);
@@ -301,6 +309,6 @@ input:-webkit-autofill {
     --high: rgb(14, 139, 229);
     --list: rgb(241, 245, 248);
     --edit: rgba(140, 199, 247, 0.203);
-    --textfield: rgba(238, 237, 237, 0.783);
+    --textfield: rgba(238, 237, 237, 0.331);
 
 }

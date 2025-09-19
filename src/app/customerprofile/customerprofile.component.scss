@@ -25,6 +25,7 @@ section {
     display: flex;
     align-items: center;
     gap: 16px;
+
     >img {
         width: 15px;
     }
@@ -52,7 +53,8 @@ section {
     }
 
 }
-.editBtn{
+
+.editBtn {
     display: flex;
     justify-content: flex-end;
 
@@ -68,9 +70,8 @@ section {
 
 
 }
-.branchInput{
-   
-}
+
+.branchInput {}
 
 
 .costumerDetails {
@@ -92,7 +93,7 @@ input {
     color: var(--font);
 }
 
-textarea{
+textarea {
     border: none;
     background-color: var(--textfield);
 }
@@ -127,18 +128,24 @@ textarea{
 .cityData {
     display: flex;
     gap: 4px;
-    >p{
-        font-size: 14px;
+
+    >p {
+        font-size: 12px;
         color: var(--font);
     }
 }
-.fontSize{
->p{
-    font-size: 12px;
-    margin-right: 12px;
-}
+
+.fontSize {
+    >p {
+        font-size: 14px;
+
+    }
 }
 
+.invalidFields {
+    border: solid;
+    border-color: red !important;
+}
 
 .contactDataContainer {
     min-width: fit-content;
@@ -165,18 +172,60 @@ textarea{
 }
 
 
-.description{
+.description {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
 
-.mainContactContainer{
+.mainContactContainer {
     display: flex;
     flex-direction: column;
-   gap: 4px;
+    gap: 4px;
+
+    .addField {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
 }
+
+.menubar {
+    width: 100%;
+    min-height: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-top: 12px;
+    padding-block: 8px;
+    border-bottom: solid 2px var(--main);
+
+    .tabs {
+        display: flex;
+        align-items: center;
+        gap: 56px;
+
+        >button {
+            color: var(--dark);
+            cursor: pointer;
+            font-size: 16px;
+
+            &:hover {
+                color: var(--main);
+            }
+
+            &:disabled {
+                color: gray;
+                cursor: not-allowed;
+                pointer-events: none;
+                opacity: 0.6;
+            }
+        }
+    }
+}
+
 
 
 
@@ -340,31 +389,8 @@ textarea{
     font-weight: 700;
 }
 
-.menubar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-    padding-block: 12px;
-    border-bottom: solid 2px var(--main);
 
 
-}
-
-.tabs {
-    display: flex;
-    align-items: center;
-    gap: 56px;
-
-    >h3 {
-        color: var(--dark);
-        cursor: pointer;
-
-        &:hover {
-            color: var(--main);
-        }
-    }
-}
 
 .depiction {
     display: flex;

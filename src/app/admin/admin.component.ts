@@ -9,7 +9,7 @@ import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 import { Company } from '../models/company.class';
 import { UserService } from '../user.service';
 import { AuthService } from '../auth.service';
-import { useReducer } from 'react';
+
 import { HttpClient } from '@angular/common/http';
 
 @Component({
