@@ -112,24 +112,31 @@ export class SinglecustomersidebarComponent {
 
 
 
-  async addContact(key: string) {
-    if (this.isMain) {
-      await this.changeMainContact();
+  // async addContact(key: string) {
+  //   if (this.isMain) {
+  //     await this.changeMainContact();
+  //   }
+
+  //   const data = this.getContactData();
+  //   await this.dataservice.addContact(this.currentUser.companyID, this.customer.id, data);
+  //   this.contact = this.dataservice.createdContact;
+  //   this.isMain = false;
+
+  // }
+
+  // async changeMainContact() {
+  //   if (this.contacts.length !== 0) {
+  //     const lastMainContact = this.contacts.find(contactData => contactData.isMainContact === true);
+  //     lastMainContact.isMainContact = false;
+  //     await this.dataservice.updateContact(this.currentUser.companyID, this.customer, lastMainContact.id, lastMainContact)
+  //   }
+  // }
+
+  isContactEmpty(): boolean {
+    if (!this.mainContact) {
+      return false
     }
-
-    const data = this.getContactData();
-    await this.dataservice.addContact(this.currentUser.companyID, this.customer.id, data);
-    this.contact = this.dataservice.createdContact;
-    this.isMain = false;
-
-  }
-
-  async changeMainContact() {
-    if (this.contacts.length !== 0) {
-      const lastMainContact = this.contacts.find(contactData => contactData.isMainContact === true);
-      lastMainContact.isMainContact = false;
-      await this.dataservice.updateContact(this.currentUser.companyID, this.customer, lastMainContact.id, lastMainContact)
-    }
+    return Object.values(this.mainContact).every(value => value === '');
   }
 
   openSingleContactTemplate() {

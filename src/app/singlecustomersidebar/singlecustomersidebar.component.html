@@ -1,6 +1,6 @@
 <section>
     <div class="actionBtns">
-        <button (click)="openSingleContactTemplate()"><img src="./icons/add.svg" alt=""></button>
+        <button *ngIf="sharedservice.customerTemplate!=='singleContact'" (click)="openSingleContactTemplate()"><img src="./icons/add.svg" alt=""></button>
     </div>
     <div class="mainContact">
         <h3>Hauptkontakt</h3>
@@ -10,11 +10,14 @@
         <input type="text" [(ngModel)]="contact.email" placeholder="E-Mail">
 
         <button (click)="addContact('main')" class="btn">Speichern</button> -->
-        <p *ngIf="mainContact===null">Keine Hauptkontakt gefunden</p>
-        <p>{{mainContact?.name}} </p>
-        <p>{{mainContact?.function}}</p>
-        <p>{{mainContact?.phone}}</p>
-        <p>{{mainContact?.email}}</p>
+        <p *ngIf="isContactEmpty()">Hauptkontakt hinzufügen</p>
+        <div *ngIf="!isContactEmpty()">
+            <p>{{mainContact?.name}} </p>
+            <p>{{mainContact?.function}}</p>
+            <p>{{mainContact?.phone}}</p>
+            <p>{{mainContact?.email}}</p>
+        </div>
+
 
     </div>
 
@@ -139,7 +142,7 @@
 
     </div>
 -->
-    <div *ngIf="sharedservice.customerTemplate==='contacts' && !isEdit" class="inputfields">
+    <!-- <div *ngIf="sharedservice.customerTemplate==='contacts' && !isEdit" class="inputfields">
         <h3>Neuer Kontakt</h3>
         <input type="text" placeholder="Name" [(ngModel)]="contact.name">
         <input type="text" placeholder="Telefon" [(ngModel)]="contact.phone">
@@ -154,7 +157,7 @@
         <div class="btnContainer">
             <button class="btn" (click)="addContact('')">Speichern</button>
         </div>
-    </div>
+    </div> -->
 
 
 

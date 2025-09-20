@@ -1,5 +1,35 @@
+section {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.mainContactContent {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-top: solid;
+    padding-top: 24px;
+}
+
+.closeBtn{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    >button{
+        >img{
+            width: 16px;
+        }
+    }
+}
+
 .mainContactContainer {
     width: 100%;
+
     display: flex;
     gap: 16px;
     align-items: center;
@@ -18,4 +48,35 @@
             width: 14px;
         }
     }
+}
+
+.editBtn {
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+input {
+    min-width: fit-content;
+    max-width: fit-content;
+    height: 20px;
+    border: none;
+    padding-left: 0;
+    transition: background-color 0.5s ease-in-out;
+    color: var(--font);
+}
+
+.inputActivated {
+    height: 30px;
+    font-size: 14px !important;
+    padding-left: 12px;
+    background-color: var(--edit);
+    color: var(--font) !important;
+}
+
+.textFieldActivated {
+    font-size: 14px !important;
+    padding-left: 12px;
+    background-color: var(--edit);
+    color: var(--font) !important;
 }

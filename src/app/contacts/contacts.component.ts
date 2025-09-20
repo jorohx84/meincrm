@@ -37,7 +37,7 @@ export class ContactsComponent {
       if (contactsData) {
         this.contacts = contactsData
         console.log(contactsData);
-        
+
         this.sortList();
       }
 
@@ -109,14 +109,14 @@ export class ContactsComponent {
   async deleteContact(index: number) {
     const contactToDelete = this.contacts[index];
     console.log(contactToDelete);
- 
+
     await this.dataservice.deleteContact(this.currentUser.companyID, this.customer, contactToDelete);
   }
 
   async saveEdit() {
     this.isEdit = false;
 
-    this.dataservice.updateContact(this.currentUser.companyID, this.customer, this.editedContact.id, this.editedContact)
+    this.dataservice.updateContact(this.currentUser.companyID, this.customer, this.editedContact)
 
   }
 
@@ -147,7 +147,14 @@ export class ContactsComponent {
   }
 
 
-
+  openContact(index: number) {
+    console.log(index);
+    const currentContact = this.contacts[index];
+    console.log(currentContact);
+    this.sharedservice.sendContactData(currentContact);
+    this.dataservice.saveDataToLocalStorage('contact', currentContact);
+    this.sharedservice.changeTemplate('singleContact')
+  }
 
 }
 

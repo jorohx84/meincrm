@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Contact } from '../models/contact.class';
 import { UserService } from '../user.service';
@@ -16,12 +16,26 @@ export class SinglecontactComponent {
   userservice = inject(UserService);
   dataservice = inject(DataService);
   sharedservice = inject(SharedService);
-  contact = new Contact;
+  contact: any;
   currentUser: any;
   customer: any;
   contacts: any[] = [];
   isMain: boolean = false;
+  isEdit: boolean = false;
+  lastContactState: any;
+
+  constructor() {
+
+  }
   async ngOnInit() {
+    console.log(this.sharedservice.isNewContact);
+
+    if (this.sharedservice.isNewContact === true) {
+      this.toggleEdit(true);
+    } else {
+      this.toggleEdit(false);
+    }
+
     this.userservice.currentUser$.subscribe(async (user) => {
       if (user) {
         this.currentUser = user;
@@ -69,6 +83,27 @@ export class SinglecontactComponent {
 
   }
 
+
+  toggleEdit(actKey: boolean) {
+    this.isEdit = actKey;
+    this.dataservice.saveDataToLocalStorage('isEdit', actKey);
+    if (!this.sharedservice.isNewCustomer) {
+      this.lastContactState = structuredClone(this.contact);
+    }
+
+
+
+  }
+
+  saveContactData() {
+    if (this.sharedservice.isNewContact) {
+      this.addContact();
+    } else {
+      this.saveEdit()
+    }
+  }
+
+
   async addContact() {
     if (this.isMain) {
       await this.changeMainContact();
@@ -82,20 +117,82 @@ export class SinglecontactComponent {
     await this.dataservice.addContact(this.currentUser.companyID, this.customer.id, this.contact);
     this.contact = this.dataservice.createdContact;
     this.dataservice.saveDataToLocalStorage('contact', this.contact);
+    this.sharedservice.isNewContact = false;
+    this.dataservice.saveDataToLocalStorage('isNewContact', this.sharedservice.isNewContact)
     this.isMain = false;
+    this.toggleEdit(false)
 
   }
 
   async changeMainContact() {
+    console.log('change');
+
     if (this.contacts.length !== 0) {
       const lastMainContact = this.contacts.find(contactData => contactData.isMainContact === true);
       if (lastMainContact) {
         lastMainContact.isMainContact = false;
-        await this.dataservice.updateContact(this.currentUser.companyID, this.customer, lastMainContact.id, lastMainContact)
+        await this.dataservice.updateContact(this.currentUser.companyID, this.customer, lastMainContact)
       }
 
     }
   }
 
 
+  async toggleMainContact() {
+    this.isMain = !this.isMain
+    if (!this.sharedservice.isNewContact) {
+      this.changeMainContact();
+      this.contact.isMainContact = !this.contact.isMainContact;
+      await this.dataservice.updateContact(this.currentUser.companyID, this.customer, this.contact);
+      this.dataservice.saveDataToLocalStorage('contact', this.contact);
+
+    }
+  }
+
+  async saveEdit() {
+    console.log('save');
+    console.log(this.customer.id);
+
+    // await this.dataservice.addContact(this.currentUser.companyID, this.customer.id, contactData);
+    // this.dataservice.saveDataToLocalStorage('customer', this.customer);
+    await this.dataservice.updateContact(this.currentUser.companyID, this.customer, this.contact);
+
+    console.log(this.contact);
+    this.dataservice.saveDataToLocalStorage('contact', this.contact);
+    // this.sharedservice.isNewCustomer = false;
+    // this.dataservice.saveDataToLocalStorage('isNewCustomer', this.sharedservice.isNewCustomer);
+    this.toggleEdit(false);
+    console.log('Änderungen wurden gesepichert', this.contact);
+
+
+  }
+
+  async closeEditMode() {
+    console.log('close');
+    if (this.sharedservice.isNewContact) {
+      this.contact = null;
+      this.sharedservice.isNewContact = false;
+      this.dataservice.saveDataToLocalStorage('isNewCustomer', this.sharedservice.isNewContact);
+      // this.sharedservice.changeComponents('customers');
+      this.sharedservice.changeTemplate('details');
+    } else {
+      this.customer = structuredClone(this.lastContactState);
+    }
+    this.isEdit = false;
+    this.dataservice.saveDataToLocalStorage('isEdit', this.isEdit);
+
+  }
+
+
+   deleteContact() {
+    
+  
+  }
+
+  closeSingleContact() {
+    this.contact = null;
+    this.dataservice.saveDataToLocalStorage('contact', this.contact);
+    this.sharedservice.changeTemplate('contacts');
+
+  }
 }

@@ -9,7 +9,7 @@
 
     <div *ngIf="sharedservice.isCard" class="contactCards">
         <p *ngIf="contacts.length===0">Keine Kontakte gefunden</p>
-        <div *ngFor="let contact of contacts; let index=index" class="contactsCard">
+        <div *ngFor="let contact of contacts; let index=index" class="contactsCard" (click)="openContact(index)">
             <div *ngIf="!isEdit || editIndex!==index" class="contactsCardInner">
                 <div class="contactHeadline">
                     <img src="./icons/profile.svg" alt="">
@@ -20,7 +20,7 @@
                     </div>
 
                 </div>
-                <div class="contactDataContainer">
+                <div  class="contactDataContainer">
                     <div class="contactData">
                         <img *ngIf="sharedservice.isCard" src="./icons/phone.svg" alt="">
                         <a [href]="'tel:' + contact?.phone">{{contact?.phone}}</a>
@@ -68,7 +68,7 @@
             </p>
 
         </div>
-        <div class="listrow" *ngFor="let contact of contacts; let index=index">
+        <div class="listrow" *ngFor="let contact of contacts; let index=index" (click)="openContact(index)" >
             <div *ngIf="!isEdit || editIndex!==index" class="listrowInner">
                 <img src="./icons/profile.svg" alt="">
                 <p>{{contact?.name}}</p>

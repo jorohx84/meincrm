@@ -227,9 +227,12 @@ export class DataService {
     // }
 
 
-    async updateContact(companyID: string, customer: any, contactID: string, data: any) {
-        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customer.id}/contacts/${contactID}`);
-        await updateDoc(docRef, data);
+    async updateContact(companyID: string, customer: any, contact: any) {
+        console.log(contact);
+console.log(customer);
+
+        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customer.id}/contacts/${contact.id}`);
+        await updateDoc(docRef, contact);
         // if (customer.mainContact.id === contactID) {
         //     console.log(data);
 
@@ -276,7 +279,7 @@ export class DataService {
         }
         console.log(newContact);
         this.createdContact = newContact;
-       
+
     }
 
 

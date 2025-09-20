@@ -1,4 +1,4 @@
-import { Injectable, inject } from "@angular/core";
+import { Injectable, inject, signal } from "@angular/core";
 import { Router } from "@angular/router";
 import { DataService } from "./data.service";
 import { BehaviorSubject, Observable } from "rxjs";
@@ -30,7 +30,7 @@ export class SharedService {
     private userSubject = new BehaviorSubject<any>(null);
     public userSubject$ = this.userSubject.asObservable();
 
-      private contactSubject = new BehaviorSubject<any>(null);
+    private contactSubject = new BehaviorSubject<any>(null);
     public contactSubject$ = this.contactSubject.asObservable();
     customerTemplate: string = 'dashboard';
 
@@ -43,7 +43,10 @@ export class SharedService {
     constructor() {
         this.dataservice.getDataFromLocalStorage('isCard');
         this.isCard = this.dataservice.data;
-
+        this.dataservice.getDataFromLocalStorage('isNewContact',);
+        this.isNewContact = this.dataservice.data;
+          this.dataservice.getDataFromLocalStorage('isNewCustomer',);
+        this.isNewCustomer = this.dataservice.data;
     }
 
     changeComponents(component: string) {

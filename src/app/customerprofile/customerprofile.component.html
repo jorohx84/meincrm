@@ -10,7 +10,7 @@
 
 
 
-        <div *ngIf="!sharedservice.isNewCustomer && !isEdit" class="icons"
+        <div *ngIf="(!sharedservice.isNewCustomer && !isEdit) && (sharedservice.customerTemplate!=='singleContact')" class="icons"
             (click)="sharedservice.changeComponents('customers'); sharedservice.changeTemplate('details');resetCuntomer()">
             <img src="./icons/close.svg" alt="">
         </div>
@@ -21,7 +21,7 @@
 
 
 
-    <div class="menubar">
+    <div class="menubar" *ngIf="sharedservice.customerTemplate!=='singleContact'">
         <div class="tabs">
 
             <button [disabled]="sharedservice.isNewCustomer"
@@ -155,7 +155,7 @@
         <!-- <div *ngIf="isEdit && sharedservice.isNewCustomer" class="icons">
             <img (click)="quitAddCustomer()" src="./icons/close.svg" alt="">
         </div> -->
-        <div class="icons" (click)="deleteCustomer()">
+        <div *ngIf="!isEdit" class="icons" (click)="deleteCustomer()">
             <img src="./icons/trash.svg" alt="">
         </div>
 
