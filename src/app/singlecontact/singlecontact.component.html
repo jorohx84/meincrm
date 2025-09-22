@@ -2,18 +2,39 @@
 
     <div class="mainContactContent">
         <div class="closeBtn">
-            <button class="icons" (click)="closeSingleContact()"><img src="./icons/close.svg" alt=""></button>
+            <h3 *ngIf="sharedservice.isNewContact">Neuer Kontakt</h3>
+            <h3 *ngIf="!sharedservice.isNewContact">Kontaktdaten</h3>
+            <button *ngIf="!sharedservice.isNewContact && !isEdit" class="icons" (click)="closeSingleContact()"><img
+                    src="./icons/close.svg" alt=""></button>
         </div>
-        <h3 *ngIf="sharedservice.isNewContact">Neuer Kontakt</h3>
-        <h3 *ngIf="!sharedservice.isNewContact">Kontaktdaten</h3>
-        <input type="text" placeholder="Name" [ngClass]="{'inputActivated': isEdit}" [(ngModel)]="contact.name"
-            [disabled]="!isEdit">
-        <input type="text" placeholder="Telefon" [ngClass]="{'inputActivated': isEdit}" [(ngModel)]="contact.phone"
-            [disabled]="!isEdit">
-        <input type="text" placeholder="E-Mail" [ngClass]="{'inputActivated': isEdit}" [(ngModel)]="contact.email"
-            [disabled]="!isEdit">
+        <div class="headlineContainer">
+            <div class="profileImage">
+                <img src="./icons/profile.svg " alt="">
+
+            </div>
+            <input class="name" type="text" placeholder="Name" [ngClass]="{'inputActivated': isEdit}" [(ngModel)]="contact.name"
+                [disabled]="!isEdit">
+        </div>
         <input type="text" placeholder="Funktion" [ngClass]="{'inputActivated': isEdit}" [(ngModel)]="contact.function"
             [disabled]="!isEdit">
+        <div class="contactDataContainer">
+            <div class="contactData">
+                <img src="./icons/phone.svg" alt="">
+                <input type="text" placeholder="Telefon" [ngClass]="{'inputActivated': isEdit}"
+                    [(ngModel)]="contact.phone" [disabled]="!isEdit">
+            </div>
+            <div class="contactData">
+                <img src="../icons/email.svg" alt="">
+                <input type="text" placeholder="E-Mail" [ngClass]="{'inputActivated': isEdit}"
+                    [(ngModel)]="contact.email" [disabled]="!isEdit">
+            </div>
+
+        </div>
+
+
+
+
+
         <div class="mainContactContainer">
             <div class="checkbox" (click)="toggleMainContact()">
                 <img *ngIf="(isMain && sharedservice.isNewContact) || contact.isMainContact===true"

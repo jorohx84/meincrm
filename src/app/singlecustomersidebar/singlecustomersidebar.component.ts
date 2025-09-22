@@ -12,7 +12,7 @@ import { update } from 'firebase/database';
 
 @Component({
   selector: 'app-singlecustomersidebar',
-  imports: [CommonModule, FormsModule, UserslistComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './singlecustomersidebar.component.html',
   styleUrl: './singlecustomersidebar.component.scss'
 })

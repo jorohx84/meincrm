@@ -30,7 +30,7 @@ export class ContactsComponent {
     { fieldname: 'function', displayName: 'Funktion' },
     { fieldname: 'phone', displayName: 'Telefon' },
     { fieldname: 'email', displayName: 'E-Mail' },
-    {},
+  
   ];
   ngOnInit() {
     this.dataservice.contactsSubject$.subscribe((contactsData) => {

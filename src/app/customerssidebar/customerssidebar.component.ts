@@ -10,7 +10,7 @@ import { UserslistComponent } from '../userslist/userslist.component';
 
 @Component({
   selector: 'app-customerssidebar',
-  imports: [CommonModule, FormsModule, UserslistComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './customerssidebar.component.html',
   styleUrl: './customerssidebar.component.scss'
 })

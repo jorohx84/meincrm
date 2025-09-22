@@ -16,14 +16,56 @@ section {
     padding-top: 24px;
 }
 
-.closeBtn{
+.closeBtn {
     width: 100%;
     display: flex;
-    justify-content: flex-end;
-    >button{
-        >img{
+    justify-content: space-between;
+    align-items: center;
+
+    >button {
+        >img {
             width: 16px;
         }
+    }
+}
+
+.headlineContainer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profileImage {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    background-color: var(--back);
+
+    >img {
+        width: 50px;
+    }
+}
+
+.name{
+    font-size: 24px;
+}
+
+.contactDataContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.contactData {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    >img {
+        width: 14px;
     }
 }
 

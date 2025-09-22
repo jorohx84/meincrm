@@ -30,14 +30,14 @@
                         <a [href]="'mailto:' + contact?.email">{{contact?.email}}</a>
                     </div>
                 </div>
-                <div class="contactmenu">
+                <!-- <div class="contactmenu">
                     <img *ngIf="contact.isVIP===false" (click)="changeToFavorites(index,'add')" src="./icons/star.svg"
                         alt="">
                     <img *ngIf="contact.isVIP===true" (click)="changeToFavorites(index,'remove')"
                         src="./icons/star_filled.svg" alt="">
                     <img (click)="editContact(index)" src="./icons/edit.svg" alt="">
                     <img (click)="deleteContact(index)" src="./icons/trash.svg" alt="">
-                </div>
+                </div> -->
 
 
 
@@ -45,7 +45,7 @@
 
             </div>
 
-            <div class="editContainer" *ngIf="isEdit && editIndex===index">
+            <!-- <div class="editContainer" *ngIf="isEdit && editIndex===index">
 
                 <input type="text" [(ngModel)]="editedContact.name" placeholder="Name">
                 <input type="text" [(ngModel)]="editedContact.function" placeholder="Funktion">
@@ -55,7 +55,7 @@
                     <img (click)="isEdit=false" src="./icons/close.svg" alt="">
                     <img (click)="saveEdit()" src="./icons/save.svg" alt="">
                 </div>
-            </div>
+            </div> -->
         </div>
 
     </div>
@@ -75,12 +75,12 @@
                 <p>{{contact?.function}}</p>
                 <p>{{contact?.phone}}</p>
                 <p>{{contact?.email}}</p>
-                <div class="contactmenu">
+                <!-- <div class="contactmenu">
                     <img (click)="editContact(index)" src="./icons/edit.svg" alt="">
-                </div>
+                </div> -->
 
             </div>
-            <div class="editContainer row" *ngIf="isEdit && editIndex===index">
+            <!-- <div class="editContainer row" *ngIf="isEdit && editIndex===index">
 
                 <input type="text" [(ngModel)]="editedContact.name" placeholder="Name">
                 <input type="text" [(ngModel)]="editedContact.function" placeholder="Funktion">
@@ -90,7 +90,7 @@
                     <img (click)="isEdit=false" src="./icons/close.svg" alt="">
                     <img (click)="saveEdit()" src="./icons/save.svg" alt="">
                 </div>
-            </div>
+            </div> -->
 
         </div>
         <div>
