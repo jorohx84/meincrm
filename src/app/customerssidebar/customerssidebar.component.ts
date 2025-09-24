@@ -55,14 +55,14 @@ export class CustomerssidebarComponent {
 
   }
   async openCustomerTemplate() {
-    console.log('add');
-
     const data = this.getCostumerObject();
-
     this.sharedservice.isNewCustomer = true;
-    this.sharedservice.changeComponents('customer');
-    this.sharedservice.changeTemplate('details');
+    this.sharedservice.sendEditState(this.sharedservice.isNewCustomer,'customer');
     this.dataservice.saveDataToLocalStorage('isNewCustomer', this.sharedservice.isNewCustomer);
+    this.sharedservice.changeComponents('singlecustomer');
+    this.sharedservice.changeTemplate('details');
+
+
     // await this.dataservice.addCustomer(this.currentUser.companyID, data);
     // this.customer = this.dataservice.newCustomer;
 

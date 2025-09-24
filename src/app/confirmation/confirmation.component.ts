@@ -13,27 +13,35 @@ import { update } from 'firebase/database';
 })
 export class ConfirmationComponent {
   dataservice = inject(DataService);
-  sharedservcice = inject(SharedService);
+  sharedservice = inject(SharedService);
   userservice = inject(UserService);
   customer: any;
   user: any;
+  contact: any;
   ngOnInit() {
     this.userservice.currentUser$.subscribe((userData) => {
       if (userData) {
         this.user = userData;
       }
     })
-    this.sharedservcice.customerSubject$.subscribe((customerData) => {
+    this.sharedservice.customerSubject$.subscribe((customerData) => {
       if (customerData) {
         this.customer = customerData;
         console.log(this.customer);
 
       }
     });
-    this.dataservice.updatedCustomerSubject$.subscribe((updatedCustomer)=>{
+    this.dataservice.updatedCustomerSubject$.subscribe((updatedCustomer) => {
       if (updatedCustomer) {
-        this.customer=updatedCustomer;
+        this.customer = updatedCustomer;
       }
+
+      this.sharedservice.contactSubject$.subscribe((contactData) => {
+        if (contactData) {
+          this.contact = contactData;
+          console.log(this.contact);
+        }
+      });
     });
     // this.dataservice.contactSubject$.subscribe((contactData)=>{
     //   if (contactData) {
@@ -50,12 +58,19 @@ export class ConfirmationComponent {
     console.log(this.user);
 
     await this.dataservice.deleteCustomer(this.user.companyID, this.customer.id);
-    this.sharedservcice.confirmationOpen = false;
-    this.sharedservcice.changeComponents('customers');
+    this.sharedservice.confirmationOpen = false;
+    this.sharedservice.changeComponents('customers');
+  }
+  async deleteContact() {
+    console.log(this.user, this.customer, this.contact );
+    
+    await this.dataservice.deleteContact(this.user.companyID, this.customer, this.contact);
+    this.sharedservice.changeTemplate('contacts');
+     this.sharedservice.confirmationOpen = false;
   }
 
   quitDelete() {
-    this.sharedservcice.confirmationOpen = false;
+    this.sharedservice.confirmationOpen = false;
   }
 
 

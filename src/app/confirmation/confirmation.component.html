@@ -1,13 +1,20 @@
 <section>
-    <div class="text">
+    <div class="text" *ngIf="sharedservice.toDelete==='customer'">
         <p>Wollen Sie den Kunden</p>
-        <h2>{{customer.name}}</h2>
+        <h2>{{customer?.name}}</h2>
+        <p>wirklich löschen?</p>
+    </div>
+
+    <div class="text" *ngIf="sharedservice.toDelete==='contact'">
+        <p>Wollen Sie den Kontakt</p>
+        <h2>{{contact?.name}}</h2>
         <p>wirklich löschen?</p>
     </div>
 
     <div class="btnContainer">
         <button (click)="quitDelete()" class="btn">Abbrechen</button>
-        <button (click)="deleteCustomerData()" class="btn">Löschen</button>
+        <button *ngIf="sharedservice.toDelete==='customer'" (click)="deleteCustomerData()" class="btn">Kunde löschen</button>
+        <button *ngIf="sharedservice.toDelete==='contact'" (click)="deleteContact()" class="btn">Kontakt löschen</button>
     </div>
 
 </section>

@@ -8,6 +8,7 @@ export class Contact {
     customerID: string;
     isVIP: boolean;
     isMainContact: boolean;
+    notes: string;
 
     constructor(contact?: any) {
         this.id = contact ? contact.id : '';
@@ -19,5 +20,7 @@ export class Contact {
         this.customerID = contact ? contact.customerID : '';
         this.isVIP = contact = contact ? contact.isVIP : false;
         this.isMainContact = contact ? contact.isMainContact : false;
+        this.notes = contact ? contact.notes : '';
     }
+
 }

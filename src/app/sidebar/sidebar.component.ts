@@ -10,10 +10,11 @@ import { Customer } from '../models/customer.class';
 import { CustomerssidebarComponent } from '../customerssidebar/customerssidebar.component';
 import { SinglecustomersidebarComponent } from '../singlecustomersidebar/singlecustomersidebar.component';
 import { UserslistComponent } from '../userslist/userslist.component';
+import { SinglecontactsidebarComponent } from '../singlecontactsidebar/singlecontactsidebar.component';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [CommonModule, FormsModule, CustomerssidebarComponent, SinglecustomersidebarComponent, UserslistComponent],
+  imports: [CommonModule, FormsModule, CustomerssidebarComponent, SinglecustomersidebarComponent, UserslistComponent, SinglecontactsidebarComponent],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })

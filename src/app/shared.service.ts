@@ -24,6 +24,9 @@ export class SharedService {
     isNewCustomer: boolean = false;
     isNewContact: boolean = false;
     confirmationOpen: boolean = false;
+    isEdit: boolean = false;
+    toDelete: string = '';
+    templateKey: string = '';
     private customerSubject = new BehaviorSubject<any>(null);
     public customerSubject$ = this.customerSubject.asObservable();
 
@@ -32,7 +35,11 @@ export class SharedService {
 
     private contactSubject = new BehaviorSubject<any>(null);
     public contactSubject$ = this.contactSubject.asObservable();
-    customerTemplate: string = 'dashboard';
+    private editContactSubject = new BehaviorSubject<any>(null);
+    public editContactSubject$ = this.editContactSubject.asObservable();
+    private editCustomerSubject = new BehaviorSubject<any>(null);
+    public editCustomerSubject$ = this.editCustomerSubject.asObservable();
+    customerTemplate: string = '';
 
 
 
@@ -43,9 +50,12 @@ export class SharedService {
     constructor() {
         this.dataservice.getDataFromLocalStorage('isCard');
         this.isCard = this.dataservice.data;
+        // this.dataservice.getDataFromLocalStorage('isEdit');
+        // this.isEdit = this.dataservice.data;
+        this.isEdit = this.dataservice.data;
         this.dataservice.getDataFromLocalStorage('isNewContact',);
         this.isNewContact = this.dataservice.data;
-          this.dataservice.getDataFromLocalStorage('isNewCustomer',);
+        this.dataservice.getDataFromLocalStorage('isNewCustomer',);
         this.isNewCustomer = this.dataservice.data;
     }
 
@@ -61,7 +71,6 @@ export class SharedService {
 
 
     sendCustomerData(customer: any) {
-        console.log(customer);
         this.customerSubject.next(customer);
     }
 
@@ -79,5 +88,17 @@ export class SharedService {
     }
     sendContactData(data: any) {
         this.contactSubject.next(data);
+    }
+
+
+    sendEditState(state: boolean, key: string) {
+        if (key === 'contact') {
+            this.editContactSubject.next(state);
+        }
+        if (key === 'customer') {
+            this.editCustomerSubject.next(state);
+        }
+
+
     }
 }

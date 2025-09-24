@@ -10,6 +10,7 @@ import { Contact } from '../models/contact.class';
 import { object } from '@angular/fire/database';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
 import { SinglecontactComponent } from '../singlecontact/singlecontact.component';
+import { SinglecustomerComponent } from '../singlecustomer/singlecustomer.component';
 @Component({
   selector: 'app-customerprofile',
   imports: [CommonModule, FormsModule, ContactsComponent, CustomertasksComponent, ConfirmationComponent, SinglecontactComponent],

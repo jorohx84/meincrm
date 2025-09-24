@@ -30,14 +30,12 @@ export class ContactsComponent {
     { fieldname: 'function', displayName: 'Funktion' },
     { fieldname: 'phone', displayName: 'Telefon' },
     { fieldname: 'email', displayName: 'E-Mail' },
-  
+
   ];
   ngOnInit() {
     this.dataservice.contactsSubject$.subscribe((contactsData) => {
       if (contactsData) {
         this.contacts = contactsData
-        console.log(contactsData);
-
         this.sortList();
       }
 
@@ -50,7 +48,6 @@ export class ContactsComponent {
         this.dataservice.getDataFromLocalStorage('customer');
         this.customer = this.dataservice.data;
       }
-      console.log(this.customer);
 
     })
     this.dataservice.updatedCustomerSubject$.subscribe((updatedCustomer) => {
@@ -90,7 +87,7 @@ export class ContactsComponent {
 
   //   }
 
-  //   console.log(data);
+
   //   await this.dataservice.addContact(this.currentUser.companyID, this.customer.id, data);
   //   this.contact.name = '';
   //   this.contact.phone = '';
@@ -108,8 +105,6 @@ export class ContactsComponent {
 
   async deleteContact(index: number) {
     const contactToDelete = this.contacts[index];
-    console.log(contactToDelete);
-
     await this.dataservice.deleteContact(this.currentUser.companyID, this.customer, contactToDelete);
   }
 
@@ -148,9 +143,10 @@ export class ContactsComponent {
 
 
   openContact(index: number) {
-    console.log(index);
     const currentContact = this.contacts[index];
-    console.log(currentContact);
+    this.sharedservice.isNewContact = false;
+    this.dataservice.saveDataToLocalStorage('isNewContact', this.sharedservice.isNewContact);
+    this.sharedservice.sendEditState(this.sharedservice.isNewContact, 'contact');
     this.sharedservice.sendContactData(currentContact);
     this.dataservice.saveDataToLocalStorage('contact', currentContact);
     this.sharedservice.changeTemplate('singleContact')

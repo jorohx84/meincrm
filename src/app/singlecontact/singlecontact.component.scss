@@ -3,7 +3,7 @@ section {
     height: 100%;
     display: flex;
     flex-direction: column;
-
+    gap: 16px;
 }
 
 .mainContactContent {
@@ -11,16 +11,18 @@ section {
     height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    border-top: solid;
-    padding-top: 24px;
+    gap: 32px;
+  
+   
 }
 
 .closeBtn {
     width: 100%;
+    height: 48px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
+ 
 
     >button {
         >img {
@@ -29,96 +31,44 @@ section {
     }
 }
 
-.headlineContainer {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
 
-.profileImage {
-    width: 70px;
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 100px;
-    background-color: var(--back);
-
-    >img {
-        width: 50px;
-    }
-}
-
-.name{
-    font-size: 24px;
-}
-
-.contactDataContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.contactData {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    >img {
-        width: 14px;
-    }
-}
-
-.mainContactContainer {
+.menubar {
     width: 100%;
-
+    min-height: 56px;
     display: flex;
-    gap: 16px;
+    justify-content: space-between;
     align-items: center;
+    gap: 16px;
+    margin-top: 12px;
+    padding-block: 8px;
+    border-bottom: solid 2px var(--main);
 
-    .checkbox {
-        border: solid 1px var(--dark);
-        border-radius: 3px;
-        width: 20px;
-        height: 20px;
+    .tabs {
         display: flex;
-        justify-content: center;
         align-items: center;
-        cursor: pointer;
+        gap: 56px;
 
-        >img {
-            width: 14px;
+        >button {
+            color: var(--dark);
+            cursor: pointer;
+            font-size: 16px;
+
+            &:hover {
+                color: var(--main);
+            }
+
+            &:disabled {
+                color: gray;
+                cursor: not-allowed;
+                pointer-events: none;
+                opacity: 0.6;
+            }
         }
     }
 }
 
-.editBtn {
+.depiction {
     display: flex;
-    justify-content: flex-end;
-
-}
-
-input {
-    min-width: fit-content;
-    max-width: fit-content;
-    height: 20px;
-    border: none;
-    padding-left: 0;
-    transition: background-color 0.5s ease-in-out;
-    color: var(--font);
-}
-
-.inputActivated {
-    height: 30px;
-    font-size: 14px !important;
-    padding-left: 12px;
-    background-color: var(--edit);
-    color: var(--font) !important;
-}
-
-.textFieldActivated {
-    font-size: 14px !important;
-    padding-left: 12px;
-    background-color: var(--edit);
-    color: var(--font) !important;
+    align-items: center;
+    gap: 32px;
 }

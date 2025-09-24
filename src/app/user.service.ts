@@ -100,10 +100,6 @@ export class UserService {
     async setUserLoginTime(user: any) {
         const loginTime = new Date().toISOString();
         const companyID = user.displayName
-        console.log(companyID);
-        console.log(user.uid);
-
-
         const userDocRef = doc(this.firestore, `companies/${companyID}/users/${user.uid}`)
         await updateDoc(userDocRef, {
             logindate: loginTime,
@@ -119,22 +115,14 @@ export class UserService {
         if (status === 'logout') {
             onlineStatus = false;
         }
-        console.log(user);
-
         if (user) {
             const companyID = user.displayName;
-            console.log(companyID);
-
             await this.updateOnlineStatus(user.uid, onlineStatus, companyID);
         }
 
     }
 
     async updateOnlineStatus(id: string, onlineStatus: boolean, companyID: string) {
-        console.log(id);
-        console.log(companyID);
-
-
         const userDocRef = doc(this.firestore, `companies/${companyID}/users/${id}`);
         await updateDoc(userDocRef, {
             online: onlineStatus,

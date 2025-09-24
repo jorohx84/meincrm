@@ -1,15 +1,135 @@
 <section>
-    <div class="actionBtns">
-        <button *ngIf="sharedservice.customerTemplate!=='singleContact'" (click)="openSingleContactTemplate()"><img src="./icons/add.svg" alt=""></button>
-    </div>
-    <div class="mainContact">
-        <h3>Hauptkontakt</h3>
-        <!-- <input type="text" [(ngModel)]="contact.name" placeholder="name">
-        <input type="text" [(ngModel)]="contact.function" placeholder="Funktion">
-        <input type="text" [(ngModel)]="contact.phone" placeholder="Telefon">
-        <input type="text" [(ngModel)]="contact.email" placeholder="E-Mail">
+    <div class="name">
+        <div class="customerLogo">
+            <img src="./icons/building.svg" alt="">
+        </div>
 
-        <button (click)="addContact('main')" class="btn">Speichern</button> -->
+        <input class="nameInput required" name="Name" [ngClass]="{'inputActivated': isEdit}" type="text"
+            [(ngModel)]="customer.name" placeholder="Firmenname" [disabled]="!isEdit">
+
+
+
+      
+    </div>
+    <input class="branchInput required" name="Branche" [ngClass]="{'inputActivated': isEdit}" type="text"
+        [(ngModel)]="customer.branch" placeholder="Branche" [disabled]="!isEdit">
+
+
+    <div class="templateContainer">
+        <!-- Dashboard -->
+        <div class="costumerDetails">
+            <div class="adress">
+                <h3>Adresse</h3>
+                <input class="required" name="Straße" [ngClass]="{'inputActivated': isEdit}"
+                    [(ngModel)]="customer.street" type="text" placeholder="Straße" [disabled]="!isEdit">
+                <div *ngIf="isEdit" class="cityData">
+                    <input class="required" name="Postleitzahl" [ngClass]="{'inputActivated': isEdit}"
+                        [(ngModel)]="customer.areacode" type="text" placeholder="Postleitzahl" [disabled]="!isEdit">
+                    <input class="required" name="Stadt" [ngClass]="{'inputActivated': isEdit}"
+                        [(ngModel)]="customer.city" type="text" placeholder="Stadt" [disabled]="!isEdit">
+                </div>
+                <div *ngIf="!isEdit" [ngClass]="{'fontSize':customer.areacode || customer.city}" class="cityData">
+                    <p>{{customer?.areacode || 'Postleitzahl'}}</p>
+                    <p>{{customer?.city || 'Stadt'}}</p>
+                </div>
+
+            </div>
+
+
+
+            <div class="contactDataContainer">
+                <h3>Kontaktdaten</h3>
+                <div class="contactData">
+                    <img src="./icons/phone.svg" alt="">
+                    <input [ngClass]="{'inputActivated': isEdit}" [(ngModel)]="customer.phone" type="text"
+                        placeholder="Telefon" [disabled]="!isEdit">
+                </div>
+                <div class="contactData">
+                    <img src="./icons/email.svg" alt="">
+                    <input [ngClass]="{'inputActivated': isEdit}" [(ngModel)]="customer.email" type="text"
+                        placeholder="E-Mail" [disabled]="!isEdit">
+                </div>
+
+            </div>
+
+
+            <div class="contactDataContainer" *ngIf="mainContact">
+                <h3>Ansprechpartner</h3>
+                <p *ngIf="isContactEmpty()">Ansprechpartner hinzufügen</p>
+                <div class="contactDataContainer" *ngIf="!isContactEmpty()">
+                    <p>{{mainContact.name}}</p>
+                    <div class="contactData">
+                        <img src="./icons/phone.svg" alt="">
+                        <p>{{mainContact.phone}}</p>
+                    </div>
+                    <div class="contactData">
+                        <img src="./icons/email.svg" alt="">
+                        <p>{{mainContact.email }}</p>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="description">
+                <h3>Beschreibung</h3>
+
+                <textarea [ngClass]="{'textFieldActivated': isEdit}" name="" [(ngModel)]="customer.description" id=""
+                    placeholder="Beschreibe kurz was die Firma macht..." [disabled]="!isEdit"></textarea>
+            </div>
+            <div class="description">
+                <h3>Notizen</h3>
+
+                <textarea (change)="saveNotes()" name="" [(ngModel)]="customer.notes" id=""
+                    placeholder="Notizen"></textarea>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="editBtn">
+
+        <div (click)="setCustomerEdit(true)" *ngIf="!isEdit" class="icons">
+            <img src="./icons/edit.svg" alt="">
+        </div>
+        <button (click)="saveCustomerData()" *ngIf="isEdit" class="icons">
+            <img src="./icons/save.svg" alt="">
+        </button>
+        <div (click)="closeEditMode()" *ngIf="isEdit" class="icons">
+            <img src="./icons/close.svg" alt="">
+        </div>
+        <!-- <div *ngIf="isEdit && sharedservice.isNewCustomer" class="icons">
+            <img (click)="quitAddCustomer()" src="./icons/close.svg" alt="">
+        </div> -->
+        <div *ngIf="!isEdit" class="icons" (click)="deleteCustomer()">
+            <img src="./icons/trash.svg" alt="">
+        </div>
+
+    </div>
+
+
+
+    <div class="confirmContainer" *ngIf="sharedservice.confirmationOpen">
+        <app-confirmation></app-confirmation>
+    </div>
+
+    <p>{{customer.mainContactID}}</p>
+
+
+
+    <!-- <app-singlecustomer></app-singlecustomer> -->
+
+    <!-- <div class="mainContact">
+        <h3>Hauptkontakt</h3>
         <p *ngIf="isContactEmpty()">Hauptkontakt hinzufügen</p>
         <div *ngIf="!isContactEmpty()">
             <p>{{mainContact?.name}} </p>
@@ -19,11 +139,9 @@
         </div>
 
 
-    </div>
+    </div> -->
 
-
-    <!-- <h1>Kundendaten</h1>
-    <div *ngIf="!isEdit" class="customerInfo" [ngClass]="{'activeInputs': isEdit}">
+    <!-- <div *ngIf="!isEdit" class="customerInfo" [ngClass]="{'activeInputs': isEdit}">
         <div class="name">
             <div class="customerLogo">
                 <img src="./icons/building.svg" alt="">
@@ -47,15 +165,15 @@
                 <p>{{customer.email}}</p>
             </div>
 
-        </div>
+        </div> -->
 
-        <div class="actionBar">
+    <!-- <div class="actionBar">
             <div class="actionBtn">
                 <img src="./icons/addcontact.svg" alt="">
             </div>
-        </div>
+        </div> -->
 
-        <div class="employeeInfos">
+    <!-- <div class="employeeInfos">
             <div class="infoContainer">
                 <h3>Innendienst</h3>
                 <div class="employee">
@@ -96,21 +214,21 @@
                 </div>
 
             </div>
-        </div>
+        </div> -->
 
 
-    </div>
+    <!-- </div> -->
 
-    <div *ngIf="sharedservice.customerTemplate==='contacts' && !isEdit">
+    <!-- <div *ngIf="sharedservice.customerTemplate==='contacts' && !isEdit">
         <h3>Favoriten</h3>
           <p *ngIf="vipList?.length===0">Keine Favoriten gespeichert</p>
         <div *ngFor="let vip of vipList; let index =index">
           
             <p>{{vip.name}}</p>
         </div>
-    </div>
+    </div> -->
 
-
+    <!-- 
     <div class="editCustomer" *ngIf="isEdit">
 
         <h3>Kundendaten bearbeiten:</h3>
@@ -140,8 +258,8 @@
         </div>
 
 
-    </div>
--->
+    </div> -->
+
     <!-- <div *ngIf="sharedservice.customerTemplate==='contacts' && !isEdit" class="inputfields">
         <h3>Neuer Kontakt</h3>
         <input type="text" placeholder="Name" [(ngModel)]="contact.name">
@@ -162,22 +280,22 @@
 
 
 
-    <div *ngIf="sharedservice.customerTemplate==='tasks' && !isEdit" class="inputfields">
+    <!-- <div *ngIf="sharedservice.customerTemplate==='tasks' && !isEdit" class="inputfields">
         <h3>Neue Aufgabe</h3>
         <input type="text" [(ngModel)]="task.title" placeholder="Titel">
 
         <textarea name="" id="" [(ngModel)]="task.description" placeholder="Beschreibung"></textarea>
-        <!-- <div  class="usersList">
+        <div  class="usersList">
             <p>{{assignedUser?.name}}</p>
             <app-userslist></app-userslist>
-        </div> -->
+        </div>
         <input type="datetime-local" [(ngModel)]="task.due_date" placeholder="zu Erledigen bis:">
 
         <div class="btnContainer">
             <button class="btn" (click)="addTask()">Speichern</button>
         </div>
 
-    </div>
+    </div> -->
 
 
     <!-- <div class="sidebarMenu" *ngIf="sharedservice.component!=='customers'">

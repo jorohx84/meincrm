@@ -1,14 +1,18 @@
 <section>
     <div class="companyInfo">
+
+      
         <h1 *ngIf="sharedservice.component==='customers' || sharedservice.component==='customer'">Kunden</h1>
-        <!-- <span>{{currentUser?.companyName}}</span> -->
+
         <h1 *ngIf="sharedservice.component==='tasks'">Aufgaben</h1>
 
     </div>
 
     <div class="sidebarCompnents">
         <app-customerssidebar *ngIf="sharedservice.component==='customers'"></app-customerssidebar>
-        <app-singlecustomersidebar *ngIf="sharedservice.component==='customer'"></app-singlecustomersidebar>
+        <app-singlecustomersidebar
+            *ngIf="sharedservice.component==='singlecustomer' && sharedservice.customerTemplate!=='singleContact'"></app-singlecustomersidebar>
+        <app-singlecontactsidebar *ngIf="sharedservice.customerTemplate==='singleContact'"></app-singlecontactsidebar>
         <app-userslist *ngIf="sharedservice.userListOpen"></app-userslist>
     </div>
 

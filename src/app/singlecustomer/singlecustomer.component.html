@@ -1,0 +1,62 @@
+<section>
+
+
+
+    <div class="topMenu">
+
+        <div class="actionBtns">
+            <button (click)="openSingleContactTemplate()"><img src="./icons/add.svg" alt=""></button>
+
+        </div>
+
+        <!-- <div *ngIf="(!sharedservice.isNewCustomer)" class="icons"
+            (click)="sharedservice.changeComponents('customers'); sharedservice.changeTemplate('details');resetCustomer()">
+            <img src="./icons/close.svg" alt="">
+        </div> -->
+                <div *ngIf="(!sharedservice.isNewCustomer)" class="icons"
+            (click)="closeCustomerTemplates()">
+            <img src="./icons/close.svg" alt="">
+        </div>
+
+    </div>
+
+    <div class="menubar" *ngIf="sharedservice.customerTemplate!=='singleContact'">
+        <div class="tabs">
+
+            <button [disabled]="sharedservice.isNewCustomer"
+                (click)="sharedservice.changeTemplate('details')">Überblick</button>
+            <button [disabled]="sharedservice.isNewCustomer"
+                (click)="sharedservice.changeTemplate('contacts')">Kontakte</button>
+            <button [disabled]="sharedservice.isNewCustomer"
+                (click)="sharedservice.changeTemplate('tasks')">Aufgaben</button>
+        </div>
+        <div class="depiction" *ngIf="sharedservice.customerTemplate!=='details'">
+            <div class="icons" (click)="sharedservice.changeDepiction('list')">
+                <img src="./icons/list.svg" alt="">
+            </div>
+            <div class="icons" (click)="sharedservice.changeDepiction('cards')">
+                <img src="./icons/cards.svg" alt="">
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <div class="templateContainer">
+        <!-- Contacts -->
+        <app-contacts *ngIf="sharedservice.customerTemplate ==='contacts'"></app-contacts>
+
+        <app-singlecontact *ngIf="sharedservice.customerTemplate==='singleContact'"></app-singlecontact>
+        <!-- Tasks -->
+
+        <app-customertasks *ngIf="sharedservice.customerTemplate ==='tasks'"></app-customertasks>
+    </div>
+
+    <div class="confirmContainer" *ngIf="sharedservice.confirmationOpen">
+        <app-confirmation></app-confirmation>
+    </div>
+
+    <p>{{customer.mainContactID}}</p>
+</section>

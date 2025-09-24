@@ -131,10 +131,12 @@ export class CustomerComponent {
 
 
   openCustomerProfile(index: number) {
-    this.sharedservice.changeComponents('customer')
+    this.sharedservice.changeComponents('singlecustomer')
     const customer = this.customers[index];
     this.sharedservice.customer = customer;
     this.sharedservice.isNewCustomer = false;
+    this.sharedservice.sendEditState(this.sharedservice.isNewCustomer,'customer');
+    this.dataservice.saveDataToLocalStorage('isNewCustomer', this.sharedservice.isNewCustomer);
     // this.sharedservice.currentUser = this.currentUser;
     this.sharedservice.changeTemplate('details');
     this.dataservice.saveDataToLocalStorage('customer', customer);

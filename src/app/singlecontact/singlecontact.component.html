@@ -1,71 +1,27 @@
 <section>
-
-    <div class="mainContactContent">
-        <div class="closeBtn">
-            <h3 *ngIf="sharedservice.isNewContact">Neuer Kontakt</h3>
-            <h3 *ngIf="!sharedservice.isNewContact">Kontaktdaten</h3>
-            <button *ngIf="!sharedservice.isNewContact && !isEdit" class="icons" (click)="closeSingleContact()"><img
+        <!-- <div class="closeBtn" >
+            <button *ngIf="!sharedservice.isNewContact" class="icons" (click)="closeSingleContact()"><img
                     src="./icons/close.svg" alt=""></button>
-        </div>
-        <div class="headlineContainer">
-            <div class="profileImage">
-                <img src="./icons/profile.svg " alt="">
-
-            </div>
-            <input class="name" type="text" placeholder="Name" [ngClass]="{'inputActivated': isEdit}" [(ngModel)]="contact.name"
-                [disabled]="!isEdit">
-        </div>
-        <input type="text" placeholder="Funktion" [ngClass]="{'inputActivated': isEdit}" [(ngModel)]="contact.function"
-            [disabled]="!isEdit">
-        <div class="contactDataContainer">
-            <div class="contactData">
-                <img src="./icons/phone.svg" alt="">
-                <input type="text" placeholder="Telefon" [ngClass]="{'inputActivated': isEdit}"
-                    [(ngModel)]="contact.phone" [disabled]="!isEdit">
-            </div>
-            <div class="contactData">
-                <img src="../icons/email.svg" alt="">
-                <input type="text" placeholder="E-Mail" [ngClass]="{'inputActivated': isEdit}"
-                    [(ngModel)]="contact.email" [disabled]="!isEdit">
-            </div>
-
-        </div>
-
-
-
-
-
-        <div class="mainContactContainer">
-            <div class="checkbox" (click)="toggleMainContact()">
-                <img *ngIf="(isMain && sharedservice.isNewContact) || contact.isMainContact===true"
-                    src="./icons/save.svg" alt="">
-            </div>
-            <span>Hauptkontakt</span>
-        </div>
-        <!-- <div class="btnContainer">
-            <button class="btn" (click)="addContact()">Speichern</button>
         </div> -->
-    </div>
+    <div class="mainContactContent">
 
+    <div class="menubar">
+        <div class="tabs">
 
-
-    <div class="editBtn" *ngIf="sharedservice.customerTemplate==='singleContact'">
-
-        <div (click)="toggleEdit(true)" *ngIf="!isEdit" class="icons">
-            <img src="./icons/edit.svg" alt="">
+            <button [disabled]="sharedservice.isNewCustomer">Aktivitäten</button>
+          
         </div>
-        <button (click)="saveContactData()" *ngIf="isEdit" class="icons">
-            <img src="./icons/save.svg" alt="">
-        </button>
-        <div (click)="closeEditMode()" *ngIf="isEdit" class="icons">
-            <img src="./icons/close.svg" alt="">
-        </div>
-        <!-- <div *ngIf="isEdit && sharedservice.isNewCustomer" class="icons">
-            <img (click)="quitAddCustomer()" src="./icons/close.svg" alt="">
-        </div> -->
-        <div *ngIf="!isEdit" class="icons" (click)="deleteContact()">
-            <img src="./icons/trash.svg" alt="">
+        <p>{{contact?.name}}</p>
+        <div class="depiction" *ngIf="sharedservice.customerTemplate!=='details'">
+            <div class="icons" (click)="sharedservice.changeDepiction('list')">
+                <img src="./icons/list.svg" alt="">
+            </div>
+            <div class="icons" (click)="sharedservice.changeDepiction('cards')">
+                <img src="./icons/cards.svg" alt="">
+            </div>
         </div>
 
     </div>
+
+    </div> 
 </section>

@@ -110,13 +110,13 @@ export class DataService {
         if (storedData) {
             try {
                 this.data = JSON.parse(storedData);
-                console.log('Daten aus localStorage wiederhergestellt (als JSON):', this.data);
+                // console.log('Daten aus localStorage wiederhergestellt (als JSON):', this.data);
             } catch (e) {
                 this.data = storedData;
-                console.log('Daten aus localStorage wiederhergestellt (als String):', this.data);
+                // console.log('Daten aus localStorage wiederhergestellt (als String):', this.data);
             }
         } else {
-            console.log('Keine Daten im localStorage gefunden');
+            // console.log('Keine Daten im localStorage gefunden');
         }
     }
 
@@ -185,8 +185,6 @@ export class DataService {
                 id: doc.id,
                 ...doc.data(),
             }));
-            console.log(tasks);
-
             this.tasksSubject.next(tasks);
         })
     }
@@ -229,7 +227,7 @@ export class DataService {
 
     async updateContact(companyID: string, customer: any, contact: any) {
         console.log(contact);
-console.log(customer);
+        console.log(customer);
 
         const docRef = doc(this.firestore, `companies/${companyID}/customers/${customer.id}/contacts/${contact.id}`);
         await updateDoc(docRef, contact);
@@ -283,36 +281,36 @@ console.log(customer);
     }
 
 
-    async addMainContact(companyID: string, customerID: string, data: any) {
-        console.log(companyID, customerID, data);
+    // async addMainContact(companyID: string, customerID: string, data: any) {
+    //     console.log(companyID, customerID, data);
 
-        const collectionRef = collection(this.firestore, `companies/${companyID}/customers/${customerID}/contacts`);
-        const newMainContactRef = await addDoc(collectionRef, data);
-        const newDoc = await getDoc(newMainContactRef);
-        const newMainContact = {
-            id: newDoc.id,
-            ...newDoc.data()
-        }
+    //     const collectionRef = collection(this.firestore, `companies/${companyID}/customers/${customerID}/contacts`);
+    //     const newMainContactRef = await addDoc(collectionRef, data);
+    //     const newDoc = await getDoc(newMainContactRef);
+    //     const newMainContact = {
+    //         id: newDoc.id,
+    //         ...newDoc.data()
+    //     }
 
-        this.newMainContact = newMainContact;
-        console.log('HauptKontakt wurde in der Datenbank gespeichert', newDoc);
-
-
-    }
+    //     this.newMainContact = newMainContact;
+    //     console.log('HauptKontakt wurde in der Datenbank gespeichert', newDoc);
 
 
-    async addMainContactToCustomer(companyID: string, customerID: string, data: string,) {
-        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}`);
-        await updateDoc(docRef, {
-            mainContactID: data,
-        })
-        const updatedDoc = await getDoc(docRef)
-        const updatedCustomer = {
-            id: updatedDoc.id,
-            ...updatedDoc.data(),
-        }
-        this.updatedCustomerSubject.next(updatedCustomer);
-    }
+    // }
+
+
+    // async addMainContactToCustomer(companyID: string, customerID: string, data: string,) {
+    //     const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}`);
+    //     await updateDoc(docRef, {
+    //         mainContactID: data,
+    //     })
+    //     const updatedDoc = await getDoc(docRef)
+    //     const updatedCustomer = {
+    //         id: updatedDoc.id,
+    //         ...updatedDoc.data(),
+    //     }
+    //     this.updatedCustomerSubject.next(updatedCustomer);
+    // }
 
 
     async findMainContact(companyID: string, customerID: string, contactID: string) {
@@ -348,6 +346,13 @@ console.log(customer);
 
     }
 
+    async updateMainContact(companyID: string, customer: any, contact: any, state: boolean) {
+        const docRef = doc(this.firestore, `companies/${companyID}/customers/${customer.id}/contacts/${contact.id}`);
+        await updateDoc(docRef, {
+            isMainContact: state,
+        })
+    }
+
 
     async deleteCustomer(companyID: string, customerID: string) {
         const docRef = doc(this.firestore, `companies/${companyID}/customers/${customerID}`);
@@ -366,12 +371,12 @@ console.log(customer);
         console.log(contact.id);
         console.log(customer.mainContactID);
 
-        if (contact.id === customer.mainContactID) {
-            console.log('löschen');
+        // if (contact.id === customer.mainContactID) {
+        //     console.log('löschen');
 
-            const emptyContactData = ''
-            await this.addMainContactToCustomer(companyID, customer.id, emptyContactData)
-        }
+        //     const emptyContactData = ''
+        //     await this.addMainContactToCustomer(companyID, customer.id, emptyContactData)
+        // }
 
         await deleteDoc(docRef);
 
